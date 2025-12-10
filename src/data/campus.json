@@ -1,0 +1,579 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Rectorat - Université d'Abomey-Calavi",
+        "category": "Administratif",
+        "type": "Gouvernance",
+        "description": "Siège administratif de l'UAC : bureaux du recteur et services centraux.",
+        "images": [ "https://upload.wikimedia.org/wikipedia/commons/e/ec/Rectorat_UAC.jpg", "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Administration", "Rectorat", "Gouvernance"],
+        "openingHours": "08:00 - 17:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.35200, 6.44100 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Faculté des Sciences et Techniques (FAST)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Départements : mathématiques, physique, chimie, sciences de la vie. Laboratoires et amphithéâtres.",
+        "images": [ "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1000&auto=format&fit=crop", "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Sciences", "Laboratoires", "Recherche", "FAST"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34250, 6.42400 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Faculté des Sciences de la Santé (FSS)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Enseignement en médecine, pharmacie, odontostomatologie. Unités cliniques.",
+        "images": [ "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop", "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Santé", "Médecine", "FSS"],
+        "openingHours": "08:00 - 17:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.40691, 6.35675 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Faculté des Sciences Economiques et de Gestion (FASEG)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Enseignement en économie, gestion, finance et contrôle de gestion.",
+        "images": [ "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Économie", "Gestion", "FASEG"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34600, 6.43800 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "Faculté des Lettres, Langues, Arts et Communication (FLLAC)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Départements en lettres, langues, arts et communication.",
+        "images": [ "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Lettres", "Langues", "Arts", "FLLAC"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34400, 6.43700 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "name": "Faculté de Droit et Sciences Politiques (FADESP)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Formation en droit et science politique, services juridiques étudiants.",
+        "images": [ "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Droit", "Sciences politiques", "FADESP"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34500, 6.43650 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "name": "École Polytechnique d'Abomey-Calavi (EPAC)",
+        "category": "Facultés, écoles et instituts",
+        "type": "École d'ingénieurs",
+        "description": "Formation d'ingénieurs ; laboratoires (électronique, mécanique), ateliers.",
+        "images": [ "https://images.unsplash.com/photo-1581093458891-2f6a7ac0797f?q=80&w=1000&auto=format&fit=crop", "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Ingénierie", "Laboratoires", "EPAC"],
+        "openingHours": "07:30 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.33900, 6.43300 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "name": "Institut de Formation et de Recherche en Informatique (IFRI)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Institut",
+        "description": "Formations en informatique : DUT, licences et partenariats académiques.",
+        "images": [ "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Informatique", "Formation", "IFRI"],
+        "openingHours": "08:00 - 19:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34120, 6.43420 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "name": "Faculté des Sciences Agronomiques (FSA)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Faculté",
+        "description": "Agronomie, zootechnie, hydraulique, laboratoires de biologie végétale.",
+        "images": [ "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Agronomie", "Recherche", "FSA"],
+        "openingHours": "07:30 - 17:30"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.33000, 6.43000 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "name": "Bibliothèque Universitaire Centrale (BUAC)",
+        "category": "Enseignements et académique",
+        "type": "Bibliothèque",
+        "description": "Bibliothèque centrale et services documentaires (catalogue Koha, BUAC).",
+        "images": [ "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Bibliothèque", "Documentation", "BUAC"],
+        "openingHours": "08:00 - 19:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34450, 6.43900 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 15,
+        "name": "Cité universitaire / Résidences étudiantes",
+        "category": "Logements & Résidences",
+        "type": "Dortoirs",
+        "description": "Blocs de logements pour étudiants (chambres, buanderie, espaces communs).",
+        "images": [ "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Logement", "Étudiants", "Cité U"],
+        "openingHours": "24/7"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.35000, 6.42850 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 16,
+        "name": "Stade universitaire / Complexe sportif",
+        "category": "Sport",
+        "type": "Stade",
+        "description": "Stade, terrains multisports et installations pour activité physique.",
+        "images": [ "https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Sport", "Stade", "Football", "Athlétisme"],
+        "openingHours": "06:00 - 22:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34900, 6.43100 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 17,
+        "name": "Amphithéâtre central / Grand Amphi",
+        "category": "Enseignements et académique",
+        "type": "Amphithéâtre",
+        "description": "Grand amphithéâtre pour conférences, colloques et grands cours magistraux.",
+        "images": [ "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Amphi", "Événement", "Cours"],
+        "openingHours": "07:30 - 22:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34700, 6.43500 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 18,
+        "name": "Centre Informatique / ENT",
+        "category": "Enseignements et académique",
+        "type": "Salles informatiques",
+        "description": "Salles informatiques, ENT, serveur universitaire et accès internet.",
+        "images": [ "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Informatique", "ENT", "Internet"],
+        "openingHours": "08:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34300, 6.43600 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 20,
+        "name": "Laboratoire central de chimie / Physique",
+        "category": "Enseignements et académique",
+        "type": "Laboratoire",
+        "description": "Laboratoire pour analyses chimiques et physiques.",
+        "images": [ "https://images.unsplash.com/photo-1581091870622-3c32b6d1b8a6?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Laboratoire", "Sciences", "Chimie"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34200, 6.42600 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 25,
+        "name": "Restaurant Universitaire (RU)",
+        "category": "Vie étudiante",
+        "type": "Restauration",
+        "description": "Cantine centrale pour étudiants et personnels.",
+        "images": [ "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Restauration", "Cantine", "Manger"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34920, 6.42980 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 27,
+        "name": "Parking principal / Entrée sud",
+        "category": "Mobilité",
+        "type": "Parkings",
+        "description": "Parking visiteurs et accès principal sud du campus.",
+        "images": [ "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Parking", "Entrée", "Voiture"],
+        "openingHours": "05:00 - 23:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.35300, 6.44000 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 28,
+        "name": "Poste de Sécurité (Entrée)",
+        "category": "Santé & sécurité",
+        "type": "Sécurité",
+        "description": "Poste de contrôle d'accès et sécurité du campus.",
+        "images": [ "https://images.unsplash.com/photo-1543109744-3b6c6a8f7b5a?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Sécurité", "Gardiennage"],
+        "openingHours": "24/7"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.35050, 6.43650 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 29,
+        "name": "Centre d'Incubation / Innovation UAC",
+        "category": "Infrastructures diverses",
+        "type": "Centre",
+        "description": "Espace d'appui aux projets étudiants et startups.",
+        "images": [ "https://images.unsplash.com/photo-1531379410506-9b5f9d7c6f6f?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Innovation", "Startup", "Entrepreneuriat"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34500, 6.43950 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 30,
+        "name": "Maison des étudiants",
+        "category": "Vie étudiante",
+        "type": "Détente",
+        "description": "Lieu de rencontre des associations étudiantes.",
+        "images": [ "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Associations", "Club", "Détente"],
+        "openingHours": "08:00 - 22:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34780, 6.42890 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 35,
+        "name": "Amphithéâtre Idriss Déby ITNO",
+        "category": "Enseignements et académique",
+        "type": "Amphithéâtre",
+        "description": "Grand amphithéâtre moderne pour les cérémonies et cours magistraux.",
+        "images": [ "https://upload.wikimedia.org/wikipedia/commons/7/7d/Amphi_Idriss_Deby_Itno.jpg", "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Amphi", "Idriss Deby", "Cours"],
+        "openingHours": "07:00 - 21:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.33857, 6.43474 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 36,
+        "name": "Zone Master",
+        "category": "Facultés, écoles et instituts",
+        "type": "Bâtiments d'enseignement",
+        "description": "Zone regroupant les salles de cours pour les programmes de Master et laboratoires de recherche.",
+        "images": [ "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Master", "Cours", "Recherche"],
+        "openingHours": "07:30 - 19:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34014, 6.42157 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 37,
+        "name": "Jardin Botanique UAC",
+        "category": "Vie étudiante",
+        "type": "Espaces verts",
+        "description": "Espace vert et zone d'étude botanique, lieu de détente pour les étudiants.",
+        "images": [ "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Jardin", "Nature", "Détente"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34000, 6.42750 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 38,
+        "name": "Infirmerie Universitaire / Centre de santé",
+        "category": "Santé & sécurité",
+        "type": "Infirmerie",
+        "description": "Soins de premiers secours et consultations médicales pour étudiants.",
+        "images": [ "https://images.unsplash.com/photo-1538108149393-fbbd8189718c?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Santé", "Médecin", "Urgence"],
+        "openingHours": "24/7"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34800, 6.42900 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 39,
+        "name": "Radio Universitaire",
+        "category": "Communication & média",
+        "type": "Radio",
+        "description": "Station de radio du campus diffusant informations et programmes étudiants.",
+        "images": [ "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Média", "Radio", "Information"],
+        "openingHours": "08:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34550, 6.43800 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 40,
+        "name": "École Nationale d'Économie Appliquée et de Management (ENEAM)",
+        "category": "Facultés, écoles et instituts",
+        "type": "École",
+        "description": "École de référence pour les formations en économie appliquée et management (Site Gbégamey).",
+        "images": [ "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Économie", "Management", "ENEAM"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.41700, 6.36800 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 41,
+        "name": "École Nationale des Sciences et Techniques de l'Information (ENSTIC)",
+        "category": "Facultés, écoles et instituts",
+        "type": "École",
+        "description": "Formation aux métiers du journalisme, de la communication et de l'information.",
+        "images": [ "https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Journalisme", "Communication", "ENSTIC"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34250, 6.43500 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 42,
+        "name": "Amphithéâtre Etisalat",
+        "category": "Enseignements et académique",
+        "type": "Amphithéâtre",
+        "description": "Amphithéâtre moderne de 1200 places, un immeuble R+2 sur le campus.",
+        "images": [ "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Amphi", "Etisalat", "Cours"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34521, 6.41871 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 43,
+        "name": "Amphithéâtre Houdegbe",
+        "category": "Enseignements et académique",
+        "type": "Amphithéâtre",
+        "description": "Amphithéâtre situé dans la zone nord du campus.",
+        "images": [ "https://images.unsplash.com/photo-1544928147-79a2e7c38568?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Amphi", "Houdegbe", "Cours"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34559, 6.41895 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 44,
+        "name": "Institut de Mathématiques et de Sciences Physiques (IMSP) — Dangbo",
+        "category": "Facultés, écoles et instituts",
+        "type": "Institut",
+        "description": "Centre régional en mathématiques appliquées et sciences physiques (centre de recherche).",
+        "images": [ "https://uac.bj/wp-content/uploads/imsp.jpg" ],
+        "tags": ["Mathématiques", "Physique", "Recherche"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34380, 6.43280 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 45,
+        "name": "Institut Universitaire de Technologie (IUT)",
+        "category": "Facultés, écoles et instituts",
+        "type": "Institut",
+        "description": "Formations technologiques courtes (DUT, licences pro) en diverses spécialités techniques.",
+        "images": [ "https://uac.bj/wp-content/uploads/iut.jpg" ],
+        "tags": ["Technique", "Formation"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.33650, 6.43150 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 46,
+        "name": "Centre Hospitalier Universitaire (CHU - affilié FSS)",
+        "category": "Santé & sécurité",
+        "type": "Hôpital universitaire",
+        "description": "Unités cliniques et structures hospitalières pour la formation médicale et stages.",
+        "images": [ "https://uac.bj/wp-content/uploads/fss.jpg" ],
+        "tags": ["Santé", "Hôpital", "Formation"],
+        "openingHours": "24/7"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34750, 6.42650 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 47,
+        "name": "Centre de Recherche en Sciences Agricoles (CRSA)",
+        "category": "Enseignements et académique",
+        "type": "Centre de recherche",
+        "description": "Unités et laboratoires dédiés à la recherche agronomique et expérimentations sur place.",
+        "images": [ "https://uac.bj/wp-content/uploads/recherche-agro.jpg" ],
+        "tags": ["Recherche", "Agronomie"],
+        "openingHours": "08:00 - 17:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.33150, 6.42900 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 48,
+        "name": "Centre de Langues / Maison des Langues",
+        "category": "Enseignements et académique",
+        "type": "Centre",
+        "description": "Cours de langues étrangères, certifications, ressources pédagogiques.",
+        "images": [ "https://images.unsplash.com/photo-1520975698514-7d05f3fa1b9a?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Langues", "Formation"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34550, 6.43350 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 49,
+        "name": "Centre Culturel Universitaire / Maison de la Culture",
+        "category": "Vie étudiante",
+        "type": "Culture",
+        "description": "Salle d'exposition, théâtre universitaire, activités culturelles étudiantes.",
+        "images": [ "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Culture", "Événement"],
+        "openingHours": "09:00 - 22:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34680, 6.43200 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 50,
+        "name": "Mosquée universitaire",
+        "category": "Vie étudiante",
+        "type": "Lieu de culte",
+        "description": "Salle de prière pour les étudiants musulmans du campus.",
+        "images": [ "https://images.unsplash.com/photo-1505803753647-5f0f1d2b9d8e?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Religieux", "Mosquée"],
+        "openingHours": "05:00 - 22:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34850, 6.43050 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 51,
+        "name": "Chapelle / Centre œcuménique",
+        "category": "Vie étudiante",
+        "type": "Lieu de culte",
+        "description": "Espace de culte et rencontres interconfessionnelles pour étudiants.",
+        "images": [ "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Religieux", "Chapelle"],
+        "openingHours": "07:00 - 20:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34720, 6.43120 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 52,
+        "name": "Bureau Postal (Point de service)",
+        "category": "Administratif",
+        "type": "Service",
+        "description": "Point postal et boîtes aux lettres pour la communauté universitaire.",
+        "images": [ "https://images.unsplash.com/photo-1507608869272-5e5a1072f2a0?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Service", "Postal"],
+        "openingHours": "08:00 - 16:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.35100, 6.43850 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 53,
+        "name": "Antenne / Campus annexe — Cotonou",
+        "category": "Facultés, écoles et instituts",
+        "type": "Campus annexe",
+        "description": "Antenne et sites délocalisés de l'UAC dans la région de Cotonou et Porto-Novo.",
+        "images": [ "https://uac.bj/wp-content/uploads/campus-branch.jpg" ],
+        "tags": ["Campus", "Antennes"],
+        "openingHours": "Variable"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.42000, 6.36500 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 54,
+        "name": "Centre d'Études Doctorales",
+        "category": "Enseignements et académique",
+        "type": "Centre",
+        "description": "Coordination des doctorats, formations doctorales et encadrement de recherche.",
+        "images": [ "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Doctorat", "Recherche"],
+        "openingHours": "08:00 - 17:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34620, 6.44050 ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 55,
+        "name": "Centre d'Analyse et de Services",
+        "category": "Enseignements et académique",
+        "type": "Laboratoire",
+        "description": "Plateformes analytiques partagées (spectrométrie, séquençage, etc.).",
+        "images": [ "https://images.unsplash.com/photo-1581091215367-8b0b3a6b3aeb?q=80&w=1000&auto=format&fit=crop" ],
+        "tags": ["Plateforme", "Analyse"],
+        "openingHours": "08:00 - 18:00"
+      },
+      "geometry": { "type": "Point", "coordinates": [ 2.34150, 6.42850 ] }
+    }
+  ]
+}
