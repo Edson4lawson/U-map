@@ -11,13 +11,7 @@ use Illuminate\Support\Facades\Route;
 // ── Admin Routes ──────────────────────────────────────────────
 Route::post('/admin/login', [AdminController::class, 'login']);
 
-Route::prefix('admin')->middleware(function ($request, $next) {
-    $token = $request->bearerToken();
-    if (!$token || !cache()->get('admin_token_' . $token)) {
-        return response()->json(['message' => 'Non autorisé.'], 401);
-    }
-    return $next($request);
-})->group(function () {
+Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group(function () {
     Route::get('/verify', [AdminController::class, 'verify']);
     Route::get('/stats', [AdminController::class, 'stats']);
     Route::get('/users', [AdminController::class, 'users']);
