@@ -226,7 +226,38 @@ const startRoute = (destLat, destLng) => {
     
     let isFirstPoint = true
 
-    // Suivi de l'itinéraire en temps réel
+    // 🚀 OBTENIR IMMÉDIATEMENT LA POSITION (Réactivité instantanée au clic)
+    navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords
+        
+        if (userMarker.value) map.value.removeLayer(userMarker.value)
+        
+        userMarker.value = L.circleMarker([latitude, longitude], {
+            radius: 8,
+            fillColor: '#EF4444',
+            fillOpacity: 1,
+            color: '#FFFFFF',
+            weight: 2
+        }).addTo(map.value)
+
+        drawRoute(latitude, longitude, destLat, destLng)
+        
+        // Centrer immédiatement la carte
+        const bounds = L.latLngBounds([
+            [latitude, longitude],
+            [destLat, destLng]
+        ])
+        map.value.fitBounds(bounds, { padding: [50, 50] })
+        isFirstPoint = false
+    }, (err) => {
+        console.warn("Erreur GPS instantanée :", err)
+    }, {
+        enableHighAccuracy: true,
+        timeout: 4000,
+        maximumAge: 0
+    })
+
+    // 🚶 SUIVI CONTINU ET DYNAMIQUE EN TEMPS RÉEL (Au fur et à mesure des pas)
     routeWatchId = navigator.geolocation.watchPosition((pos) => {
         const { latitude, longitude } = pos.coords
         
@@ -243,7 +274,6 @@ const startRoute = (destLat, destLng) => {
         if (isFirstPoint) {
             drawRoute(latitude, longitude, destLat, destLng)
             
-            // Centrer la carte pour inclure le départ et l'arrivée
             const bounds = L.latLngBounds([
                 [latitude, longitude],
                 [destLat, destLng]
@@ -251,16 +281,16 @@ const startRoute = (destLat, destLng) => {
             map.value.fitBounds(bounds, { padding: [50, 50] })
             isFirstPoint = false
         } else {
-            // Mettre à jour dynamiquement la position de départ
+            // Mettre à jour dynamiquement la position de départ de la route existante
             updateRouteStart(latitude, longitude)
         }
 
     }, (err) => {
-        console.warn("Erreur GPS lors du suivi de l'itinéraire :", err)
+        console.warn("Erreur GPS lors du suivi continu :", err)
     }, { 
         enableHighAccuracy: true, 
         timeout: 5000,
-        maximumAge: 0
+        maximumAge: 0 // Ne jamais utiliser de position en cache pour la navigation active
     })
 }
 
