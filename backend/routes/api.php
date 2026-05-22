@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-// Route pour l'IA (Proxy Gemini officiel)
+// Route pour l'IA hybride (Gemma 2 via Groq ou Gemini officiel)
 Route::post('/ai/ask', function (Request $request) {
     $question = $request->input('question');
     
@@ -40,12 +40,12 @@ Route::post('/ai/ask', function (Request $request) {
         return response()->json(['error' => 'Question is required'], 400);
     }
     
-    $apiKey = env('GEMINI_API_KEY');
+    $groqKey = env('GROQ_API_KEY');
+    $geminiKey = env('GEMINI_API_KEY');
     
-    if (!$apiKey) {
-        // Fallback informatif si la clé n'est pas encore configurée
+    if (!$groqKey && !$geminiKey) {
         return response()->json([
-            'answer' => "🤖 L'assistant U-Map est prêt ! Pour activer l'IA complète, configurez votre clé GEMINI_API_KEY dans le fichier .env du backend. (Vous avez demandé : \"$question\")"
+            'answer' => "🤖 L'assistant U-Map hybride est prêt ! Pour l'activer en production, configurez GROQ_API_KEY (pour Gemma 2) ou GEMINI_API_KEY (pour Gemini) dans votre .env du backend."
         ]);
     }
     
@@ -56,7 +56,7 @@ Route::post('/ai/ask', function (Request $request) {
             $jsonContent = json_decode(\Illuminate\Support\Facades\File::get(database_path('data/campus.json')), true);
             $features = $jsonContent['features'] ?? [];
             $placesList = [];
-            foreach (array_slice($features, 0, 50) as $f) { // Limite pour éviter de surcharger le prompt
+            foreach (array_slice($features, 0, 50) as $f) {
                 $props = $f['properties'] ?? [];
                 $coords = $f['geometry']['coordinates'] ?? [];
                 if (!empty($props['name'])) {
@@ -71,32 +71,62 @@ Route::post('/ai/ask', function (Request $request) {
             "Sois toujours accueillant, précis et réponds de manière concise (maximum 3-4 phrases par réponse si possible) en français.\n\n" .
             "Voici les lieux officiels du campus de l'UAC enregistrés dans la base de données U-Map pour t'aider :\n" . $placesJson;
             
-        $response = \Illuminate\Support\Facades\Http::post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apiKey}", [
-            'contents' => [
-                [
-                    'role' => 'user',
-                    'parts' => [
-                        ['text' => $systemInstruction . "\n\nQuestion de l'étudiant/visiteur : " . $question]
-                    ]
-                ]
-            ],
-            'generationConfig' => [
-                'temperature' => 0.7,
-                'maxOutputTokens' => 500,
-            ]
-        ]);
-        
-        if ($response->successful()) {
-            $data = $response->json();
-            $answer = $data['candidates'][0]['content']['parts'][0]['text'] ?? "Désolé, je n'ai pas pu traiter cette question.";
-            return response()->json([
-                'answer' => trim($answer)
-            ]);
-        } else {
-            return response()->json([
-                'answer' => "Désolé, l'assistant rencontre des difficultés de connexion à l'API Gemini (Code " . $response->status() . ")."
-            ]);
+        // OPTION 1 : Gemma 2 via Groq (Prioritaire si la clé est fournie)
+        if ($groqKey) {
+            $response = \Illuminate\Support\Facades\Http::withToken($groqKey)
+                ->post("https://api.groq.com/openai/v1/chat/completions", [
+                    'model' => 'gemma2-9b-it', // Le modèle Gemma 2 9B officiel de Google
+                    'messages' => [
+                        ['role' => 'system', 'content' => $systemInstruction],
+                        ['role' => 'user', 'content' => $question]
+                    ],
+                    'temperature' => 0.7,
+                    'max_tokens' => 500
+                ]);
+                
+            if ($response->successful()) {
+                $data = $response->json();
+                $answer = $data['choices'][0]['message']['content'] ?? "Désolé, je n'ai pas pu générer de réponse avec Gemma 2.";
+                return response()->json([
+                    'answer' => trim($answer)
+                ]);
+            } else {
+                return response()->json([
+                    'answer' => "Désolé, Gemma 2 rencontre des difficultés de connexion (Code " . $response->status() . ")."
+                ]);
+            }
         }
+        
+        // OPTION 2 : Gemini officiel (Fallback)
+        if ($geminiKey) {
+            $response = \Illuminate\Support\Facades\Http::post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$geminiKey}", [
+                'contents' => [
+                    [
+                        'role' => 'user',
+                        'parts' => [
+                            ['text' => $systemInstruction . "\n\nQuestion de l'étudiant/visiteur : " . $question]
+                        ]
+                    ]
+                ],
+                'generationConfig' => [
+                    'temperature' => 0.7,
+                    'maxOutputTokens' => 500,
+                ]
+            ]);
+            
+            if ($response->successful()) {
+                $data = $response->json();
+                $answer = $data['candidates'][0]['content']['parts'][0]['text'] ?? "Désolé, je n'ai pas pu générer de réponse avec Gemini.";
+                return response()->json([
+                    'answer' => trim($answer)
+                ]);
+            } else {
+                return response()->json([
+                    'answer' => "Désolé, Gemini rencontre des difficultés de connexion (Code " . $response->status() . ")."
+                ]);
+            }
+        }
+        
     } catch (\Exception $e) {
         return response()->json([
             'answer' => "Oups, impossible de joindre l'intelligence artificielle pour le moment. Erreur : " . $e->getMessage()
