@@ -68,6 +68,7 @@ const route = useRoute()
 const visitedStore = useVisitedStore()
 const { map, isSatellite, init, toggleLayer, addMarker, focusOn, clear, userMarker, drawRoute, updateRouteStart } = useMapManager()
 let routeWatchId = null
+let userWatchId = null
 
 // State pour l'ajout de lieux
 const showModal = ref(false)
@@ -124,12 +125,13 @@ const locateUser = () => {
     telemetryService.trackEvent('user_locate_attempt')
     if (!navigator.geolocation) return
     
-    // Pour une position EXACTE, on force la haute précision ici
-    navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords
-        
+    // Annuler l'ancien watch général s'il existe
+    if (userWatchId) {
+        navigator.geolocation.clearWatch(userWatchId)
+    }
+    
+    const updateUserMarker = (latitude, longitude) => {
         if (userMarker.value) map.value.removeLayer(userMarker.value)
-        
         userMarker.value = L.circleMarker([latitude, longitude], {
             radius: 8,
             fillColor: '#EF4444',
@@ -137,14 +139,31 @@ const locateUser = () => {
             color: '#FFFFFF',
             weight: 2
         }).addTo(map.value)
+    }
 
+    // 🚀 OBTENIR IMMÉDIATEMENT LA POSITION (Au clic)
+    navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords
+        updateUserMarker(latitude, longitude)
         map.value.setView([latitude, longitude], 17)
     }, (err) => {
         alert("Erreur GPS : Impossible d'obtenir une position précise. Vérifiez vos réglages.")
     }, {
         enableHighAccuracy: true, 
         timeout: 10000,
-        maximumAge: 0 // On veut la position actuelle réelle
+        maximumAge: 0 
+    })
+
+    // 🚶 SUIVI CONTINU GÉNÉRAL (Met à jour le point bleu/rouge en direct quand l'utilisateur marche)
+    userWatchId = navigator.geolocation.watchPosition((position) => {
+        const { latitude, longitude } = position.coords
+        updateUserMarker(latitude, longitude)
+    }, (err) => {
+        console.warn("Erreur de suivi GPS général :", err)
+    }, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
     })
 }
 
@@ -314,6 +333,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (routeWatchId) {
       navigator.geolocation.clearWatch(routeWatchId)
+  }
+  if (userWatchId) {
+      navigator.geolocation.clearWatch(userWatchId)
   }
   clear()
   delete window.goToDetail
