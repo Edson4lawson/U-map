@@ -4,8 +4,29 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// ── Admin Routes ──────────────────────────────────────────────
+Route::post('/admin/login', [AdminController::class, 'login']);
+
+Route::prefix('admin')->middleware(function ($request, $next) {
+    $token = $request->bearerToken();
+    if (!$token || !cache()->get('admin_token_' . $token)) {
+        return response()->json(['message' => 'Non autorisé.'], 401);
+    }
+    return $next($request);
+})->group(function () {
+    Route::get('/verify', [AdminController::class, 'verify']);
+    Route::get('/stats', [AdminController::class, 'stats']);
+    Route::get('/users', [AdminController::class, 'users']);
+    Route::delete('/users/{id}', [AdminController::class, 'deleteUser']);
+    Route::get('/places', [AdminController::class, 'places']);
+    Route::put('/places/{id}/approve', [AdminController::class, 'approvePlace']);
+    Route::delete('/places/{id}', [AdminController::class, 'deletePlace']);
+    Route::get('/messages', [AdminController::class, 'messages']);
+});
 
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);

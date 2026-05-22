@@ -31,6 +31,18 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: () => import('../pages/Chat.vue')
+  },
+  {
+    path: '/admin/login',
+    name: 'AdminLogin',
+    component: () => import('../pages/AdminLogin.vue'),
+    meta: { requiresGuestAdmin: true }
+  },
+  {
+    path: '/admin/dashboard',
+    name: 'AdminDashboard',
+    component: () => import('../pages/AdminDashboard.vue'),
+    meta: { requiresAdmin: true }
   }
 ]
 
@@ -43,6 +55,18 @@ const router = createRouter({
     } else {
       return { top: 0 }
     }
+  }
+})
+
+import { adminService } from '../services/adminService'
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAdmin && !adminService.isAuthenticated()) {
+    next('/admin/login')
+  } else if (to.meta.requiresGuestAdmin && adminService.isAuthenticated()) {
+    next('/admin/dashboard')
+  } else {
+    next()
   }
 })
 
