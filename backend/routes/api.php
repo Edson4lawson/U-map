@@ -15,7 +15,11 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
     Route::get('/verify', [AdminController::class, 'verify']);
     Route::get('/stats', [AdminController::class, 'stats']);
     Route::get('/users', [AdminController::class, 'users']);
+    Route::put('/users/{id}/restrict', [AdminController::class, 'toggleRestrictUser']);
     Route::delete('/users/{id}', [AdminController::class, 'deleteUser']);
+    
+    Route::get('/reports', [AdminController::class, 'reports']);
+    Route::put('/reports/{id}/resolve', [AdminController::class, 'resolveReport']);
     Route::get('/places', [AdminController::class, 'places']);
     Route::put('/places/{id}/approve', [AdminController::class, 'approvePlace']);
     Route::delete('/places/{id}', [AdminController::class, 'deletePlace']);
@@ -42,6 +46,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages/{receiverId}', [MessageController::class, 'getMessages']);
     Route::post('/messages', [MessageController::class, 'sendMessage']);
     Route::post('/places', [PlaceController::class, 'store']);
+    Route::post('/users/{id}/report', function (Request $request, $id) {
+        $request->validate(['reason' => 'required|string|max:1000']);
+        \App\Models\Report::create([
+            'reporter_id' => auth()->id(),
+            'reported_user_id' => $id,
+            'reason' => $request->reason,
+            'status' => 'pending'
+        ]);
+        return response()->json(['message' => 'Signalement envoyé.']);
+    });
     Route::get('/students', function() {
         return \App\Models\User::where('id', '!=', auth()->id())->get();
     });

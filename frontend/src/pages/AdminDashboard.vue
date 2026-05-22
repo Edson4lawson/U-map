@@ -33,6 +33,13 @@
           <Icon icon="ph:chats" class="w-5 h-5" :class="currentTab === 'messages' ? 'text-blue-600 dark:text-blue-400' : ''" />
           Messages
         </button>
+        <button @click="currentTab = 'reports'" :class="['w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200', currentTab === 'reports' ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 font-semibold' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50']">
+          <div class="flex items-center gap-3">
+            <Icon icon="ph:flag-bold" class="w-5 h-5" :class="currentTab === 'reports' ? 'text-red-600 dark:text-red-400' : ''" />
+            Signalements
+          </div>
+          <span v-if="pendingReportsList.length > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ pendingReportsList.length }}</span>
+        </button>
       </div>
 
       <div class="p-4 border-t border-gray-200 dark:border-slate-700">
@@ -210,12 +217,18 @@
                       <td class="py-4 px-6">
                         <div class="flex items-center gap-3">
                           <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=EBF4FF&color=3B82F6'" class="w-8 h-8 rounded-full">
-                          <span class="font-medium dark:text-white">{{ user.name }}</span>
+                          <div class="flex flex-col">
+                            <span class="font-medium dark:text-white" :class="{'line-through text-gray-400': user.is_restricted}">{{ user.name }}</span>
+                            <span v-if="user.is_restricted" class="text-[10px] bg-red-100 text-red-600 px-1.5 rounded w-max mt-0.5">RESTREINT</span>
+                          </div>
                         </div>
                       </td>
                       <td class="py-4 px-6 text-sm text-gray-600 dark:text-gray-300">{{ user.email }}</td>
                       <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400">{{ new Date(user.created_at).toLocaleDateString() }}</td>
-                      <td class="py-4 px-6 text-right">
+                      <td class="py-4 px-6 text-right flex justify-end gap-2">
+                        <button @click="toggleRestrictUser(user.id)" class="p-2 rounded-lg transition-colors" :class="user.is_restricted ? 'text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10' : 'text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-500/10'" :title="user.is_restricted ? 'Débloquer' : 'Restreindre'">
+                          <Icon :icon="user.is_restricted ? 'ph:lock-open' : 'ph:lock-key'" class="w-5 h-5" />
+                        </button>
                         <button @click="deleteUser(user.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors" title="Supprimer">
                           <Icon icon="ph:trash" class="w-5 h-5" />
                         </button>
@@ -332,6 +345,51 @@
             </div>
           </template>
 
+          <!-- TAB: REPORTS -->
+          <template v-if="currentTab === 'reports'">
+            <div class="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-3xl shadow-sm overflow-hidden">
+              <div class="p-6 border-b border-gray-100 dark:border-slate-700">
+                <h3 class="font-bold text-lg dark:text-white flex items-center gap-2">
+                  <Icon icon="ph:flag-bold" class="text-red-500" />
+                  Signalements Utilisateurs
+                </h3>
+                <p class="text-sm text-gray-500">Examinez les signalements et appliquez des restrictions.</p>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50/50 dark:bg-slate-800/50">
+                      <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
+                      <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Plaignant</th>
+                      <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Signalé</th>
+                      <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Raison</th>
+                      <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
+                    <tr v-for="report in reports" :key="report.id" :class="[report.status === 'resolved' ? 'opacity-60 bg-gray-50 dark:bg-slate-800/30' : 'hover:bg-red-50/30 dark:hover:bg-red-500/5 transition-colors']">
+                      <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">{{ new Date(report.created_at).toLocaleDateString() }}</td>
+                      <td class="py-4 px-6 font-medium dark:text-white text-sm">{{ report.reporter?.name || 'Inconnu' }}</td>
+                      <td class="py-4 px-6 font-medium text-red-600 dark:text-red-400 text-sm">{{ report.reported_user?.name || 'Inconnu' }}</td>
+                      <td class="py-4 px-6 text-sm text-gray-600 dark:text-gray-300">{{ report.reason }}</td>
+                      <td class="py-4 px-6 text-right flex justify-end gap-2">
+                        <button v-if="report.status === 'pending'" @click="resolveReport(report.id)" class="p-2 text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-lg transition-colors" title="Marquer comme résolu">
+                          <Icon icon="ph:check-circle-bold" class="w-5 h-5" />
+                        </button>
+                        <button @click="toggleRestrictUser(report.reported_user_id)" class="p-2 text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 rounded-lg transition-colors" title="Gérer restriction">
+                          <Icon icon="ph:lock-key-bold" class="w-5 h-5" />
+                        </button>
+                      </td>
+                    </tr>
+                    <tr v-if="reports.length === 0">
+                      <td colspan="5" class="py-8 text-center text-gray-500">Aucun signalement en cours.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </template>
+
         </div>
       </div>
     </main>
@@ -353,16 +411,19 @@ const stats = ref(null)
 const users = ref([])
 const places = ref([])
 const messages = ref([])
+const reports = ref([])
 
 const tabTitles = {
   dashboard: "Vue d'ensemble",
   users: "Gestion des Utilisateurs",
   places: "Base de données des Lieux",
-  messages: "Activité Messagerie"
+  messages: "Activité Messagerie",
+  reports: "Modération & Signalements"
 }
 
 const pendingPlacesList = computed(() => places.value.filter(p => p.status === 'pending'))
 const approvedPlacesList = computed(() => places.value.filter(p => p.status === 'approved'))
+const pendingReportsList = computed(() => reports.value.filter(r => r.status === 'pending'))
 
 onMounted(async () => {
   if (!adminService.isAuthenticated()) {
@@ -387,16 +448,18 @@ onMounted(async () => {
 const loadData = async () => {
   loading.value = true
   try {
-    const [s, u, p, m] = await Promise.all([
+    const [s, u, p, m, r] = await Promise.all([
       adminService.getStats(),
       adminService.getUsers(),
       adminService.getPlaces(),
-      adminService.getMessages()
+      adminService.getMessages(),
+      adminService.getReports()
     ])
     stats.value = s
     users.value = u
     places.value = p
     messages.value = m
+    reports.value = r
   } catch (e) {
     console.error(e)
     alert("Erreur lors du chargement des données.")
@@ -413,6 +476,27 @@ const deleteUser = async (id) => {
       stats.value.totalUsers--
     } catch (e) { alert(e.message) }
   }
+}
+
+const toggleRestrictUser = async (id) => {
+  if (confirm("Voulez-vous modifier le statut de restriction de cet utilisateur ?")) {
+    try {
+      const res = await adminService.toggleRestrictUser(id)
+      const user = users.value.find(u => u.id === id)
+      if (user) {
+        user.is_restricted = res.is_restricted
+      }
+      alert(res.message)
+    } catch(e) { alert(e.message) }
+  }
+}
+
+const resolveReport = async (id) => {
+  try {
+    await adminService.resolveReport(id)
+    const r = reports.value.find(rep => rep.id === id)
+    if (r) r.status = 'resolved'
+  } catch(e) { alert(e.message) }
 }
 
 const approvePlace = async (id) => {

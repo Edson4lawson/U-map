@@ -25,15 +25,16 @@
     </main>
 
     <!-- Floating Actions -->
-    <FloatingButtons />
+    <FloatingButtons v-if="!isAdminRoute" />
 
     <!-- Bottom Navigation -->
-    <Navbar />
+    <Navbar v-if="!isAdminRoute" />
   </div>
 </template>
 
 <script setup>
-import { ref, onErrorCaptured, onMounted } from 'vue'
+import { ref, onErrorCaptured, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import VideoBackground from './components/VideoBackground.vue'
 import Navbar from './components/Navbar.vue'
 import FloatingButtons from './components/FloatingButtons.vue'
@@ -41,6 +42,10 @@ import { useProximity } from './composables/useProximity'
 import { useNotificationStore } from './stores/notifications'
 import { messageService } from './services/messageService'
 import { authService } from './services/authService'
+
+const route = useRoute()
+const isAdminRoute = computed(() => route.path.startsWith('/admin'))
+
 
 const error = ref(null)
 const { startWatching } = useProximity()

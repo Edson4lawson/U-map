@@ -69,6 +69,30 @@ class AdminService {
         return res.json();
     }
 
+    async toggleRestrictUser(id) {
+        const res = await fetch(`${API_URL}/admin/users/${id}/restrict`, {
+            method: 'PUT',
+            headers: this.headers()
+        });
+        if (!res.ok) throw new Error('Erreur lors de la modification de restriction.');
+        return res.json();
+    }
+
+    async getReports() {
+        const res = await fetch(`${API_URL}/admin/reports`, { headers: this.headers() });
+        if (!res.ok) throw new Error('Impossible de charger les signalements.');
+        return res.json();
+    }
+
+    async resolveReport(id) {
+        const res = await fetch(`${API_URL}/admin/reports/${id}/resolve`, {
+            method: 'PUT',
+            headers: this.headers()
+        });
+        if (!res.ok) throw new Error('Erreur lors de la résolution du signalement.');
+        return res.json();
+    }
+
     async getPlaces() {
         const res = await fetch(`${API_URL}/admin/places`, { headers: this.headers() });
         if (!res.ok) throw new Error('Impossible de charger les lieux.');

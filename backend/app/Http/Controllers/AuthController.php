@@ -44,6 +44,12 @@ class AuthController extends Controller
             ]);
         }
 
+        if ($user->is_restricted) {
+            throw ValidationException::withMessages([
+                'email' => ['Votre compte a été restreint suite à des signalements.'],
+            ]);
+        }
+
         return response()->json([
             'user' => $user,
             'token' => $user->createToken('auth_token')->plainTextToken,

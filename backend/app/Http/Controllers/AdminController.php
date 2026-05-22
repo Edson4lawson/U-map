@@ -92,13 +92,27 @@ class AdminController extends Controller
     }
 
     /**
-     * Liste tous les utilisateurs.
+     * Liste tous les utilisateurs avec leur statut de restriction.
      */
     public function users()
     {
         return response()->json(
-            User::orderByDesc('created_at')->get(['id', 'name', 'email', 'created_at'])
+            User::orderByDesc('created_at')->get(['id', 'name', 'email', 'is_restricted', 'created_at'])
         );
+    }
+
+    /**
+     * Restreindre / Dérestreindre un utilisateur.
+     */
+    public function toggleRestrictUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_restricted = !$user->is_restricted;
+        $user->save();
+        return response()->json([
+            'message' => $user->is_restricted ? 'Utilisateur restreint avec succès.' : 'Restrictions levées pour cet utilisateur.',
+            'is_restricted' => $user->is_restricted
+        ]);
     }
 
     /**
@@ -109,6 +123,28 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['message' => 'Utilisateur supprimé.']);
+    }
+
+    /**
+     * Liste des signalements (reports).
+     */
+    public function reports()
+    {
+        $reports = \App\Models\Report::with(['reporter:id,name', 'reportedUser:id,name'])
+            ->orderByDesc('created_at')
+            ->get();
+        return response()->json($reports);
+    }
+
+    /**
+     * Marquer un signalement comme résolu.
+     */
+    public function resolveReport($id)
+    {
+        $report = \App\Models\Report::findOrFail($id);
+        $report->status = 'resolved';
+        $report->save();
+        return response()->json(['message' => 'Signalement résolu.']);
     }
 
     /**
