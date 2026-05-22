@@ -71,11 +71,11 @@ Route::post('/ai/ask', function (Request $request) {
             "Sois toujours accueillant, précis et réponds de manière concise (maximum 3-4 phrases par réponse si possible) en français.\n\n" .
             "Voici les lieux officiels du campus de l'UAC enregistrés dans la base de données U-Map pour t'aider :\n" . $placesJson;
             
-        // OPTION 1 : Gemma 2 via Groq (Prioritaire si la clé est fournie)
+        // OPTION 1 : Llama 3.3 via Groq (Prioritaire si la clé est fournie)
         if ($groqKey) {
             $response = \Illuminate\Support\Facades\Http::withToken($groqKey)
                 ->post("https://api.groq.com/openai/v1/chat/completions", [
-                    'model' => 'gemma2-9b-it', // Le modèle Gemma 2 9B officiel de Google
+                    'model' => 'llama-3.3-70b-versatile', // Le modèle Llama 3.3 70B ultra-performant et ultra-rapide sur Groq
                     'messages' => [
                         ['role' => 'system', 'content' => $systemInstruction],
                         ['role' => 'user', 'content' => $question]
@@ -86,13 +86,13 @@ Route::post('/ai/ask', function (Request $request) {
                 
             if ($response->successful()) {
                 $data = $response->json();
-                $answer = $data['choices'][0]['message']['content'] ?? "Désolé, je n'ai pas pu générer de réponse avec Gemma 2.";
+                $answer = $data['choices'][0]['message']['content'] ?? "Désolé, je n'ai pas pu générer de réponse.";
                 return response()->json([
                     'answer' => trim($answer)
                 ]);
             } else {
                 return response()->json([
-                    'answer' => "Désolé, Gemma 2 rencontre des difficultés de connexion (Code " . $response->status() . ")."
+                    'answer' => "Désolé, l'assistant rencontre des difficultés de connexion à Groq (Code " . $response->status() . ")."
                 ]);
             }
         }
