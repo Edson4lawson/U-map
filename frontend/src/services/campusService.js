@@ -19,7 +19,9 @@ class CampusService {
             try {
                 const response = await fetch(`${API_URL}/places`);
                 const data = await response.json();
-                return data.features;
+                if (data && data.features && data.features.length > 0) {
+                    return data.features;
+                }
             } catch (e) {
                 console.warn("API Error, falling back to local data");
             }

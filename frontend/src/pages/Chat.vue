@@ -9,8 +9,8 @@
     <div class="flex-1 flex flex-col h-full relative z-10 overflow-hidden">
       
       <!-- AUTHENTICATION VIEW (If not logged in) -->
-      <div v-if="!isLoggedIn" class="flex-1 flex flex-col items-center justify-center p-6 overflow-y-auto">
-        <div class="w-full max-w-md bg-white/5 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+      <div v-if="!isLoggedIn" class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="w-full max-w-md bg-white/5 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
           <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
           
           <div class="text-center mb-8">
@@ -65,23 +65,23 @@
         <div v-if="!activeChat" class="flex-1 flex flex-col h-full overflow-hidden">
           
           <!-- Modern Top Bar -->
-          <header class="pt-6 pb-4 px-6 border-b border-white/10 backdrop-blur-md bg-slate-950/80 flex items-center justify-between">
+          <header class="pt-5 pb-4 px-4 sm:px-6 border-b border-white/10 backdrop-blur-md bg-slate-950/80 flex items-center justify-between">
             <div>
-              <h1 class="text-3xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Messagerie</h1>
-              <p class="text-xs text-slate-400 mt-0.5">Discussions éphémères de 7 jours</p>
+              <h1 class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Messagerie</h1>
+              <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">Discussions éphémères de 7 jours</p>
             </div>
             <div class="flex items-center gap-2">
-              <button @click="showNewChatModal = true" class="w-10 h-10 rounded-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 flex items-center justify-center transition-all border border-blue-500/20" title="Nouvelle discussion">
-                <Icon icon="ph:pencil-simple-line-bold" class="w-5 h-5" />
+              <button @click="showNewChatModal = true" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 flex items-center justify-center transition-all border border-blue-500/20" title="Nouvelle discussion">
+                <Icon icon="ph:pencil-simple-line-bold" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
-              <button @click="logout" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Se déconnecter">
-                <Icon icon="ph:sign-out-bold" class="w-5 h-5" />
+              <button @click="logout" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Se déconnecter">
+                <Icon icon="ph:sign-out-bold" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
             </div>
           </header>
 
           <!-- List Content -->
-          <div class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+          <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 space-y-6">
             
             <!-- Dynamic AI Assistant Card -->
             <div @click="selectAIChat" class="p-5 bg-gradient-to-br from-indigo-900/40 via-purple-900/30 to-blue-900/20 backdrop-blur-xl border border-indigo-500/20 rounded-2xl cursor-pointer hover:scale-[1.02] active:scale-98 transition-all flex items-center gap-4 relative overflow-hidden group shadow-lg shadow-indigo-500/5">
@@ -138,25 +138,25 @@
         <div v-else class="flex-1 flex flex-col h-full bg-slate-950 overflow-hidden relative">
           
           <!-- Premium Chat Header -->
-          <header class="py-4 px-6 border-b border-white/10 bg-slate-900/60 backdrop-blur-2xl flex items-center justify-between z-20">
-            <div class="flex items-center gap-3 min-w-0">
-              <button @click="closeChat" class="w-10 h-10 rounded-full hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Retour">
+          <header class="py-3 px-3 sm:px-6 border-b border-white/10 bg-slate-900/60 backdrop-blur-2xl flex items-center justify-between z-20">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+              <button @click="closeChat" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Retour">
                 <Icon icon="ph:arrow-left-bold" class="w-5 h-5" />
               </button>
               
-              <div class="flex items-center gap-3 min-w-0">
+              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                 <div class="relative">
-                  <div v-if="activeChat.isAI" class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                    <Icon icon="ph:sparkle-fill" class="text-white w-5 h-5" />
+                  <div v-if="activeChat.isAI" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                    <Icon icon="ph:sparkle-fill" class="text-white w-4.5 h-4.5 sm:w-5 sm:h-5" />
                   </div>
-                  <img v-else :src="activeChat.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activeChat.name) + '&background=0284c7&color=fff'" class="w-10 h-10 rounded-full border-2 border-white/10 object-cover">
+                  <img v-else :src="activeChat.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activeChat.name) + '&background=0284c7&color=fff'" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white/10 object-cover">
                   <span v-if="!activeChat.isAI" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
                 </div>
                 <div class="min-w-0">
-                  <h2 class="text-white font-bold truncate tracking-tight text-base">{{ activeChat.name }}</h2>
-                  <p class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    {{ activeChat.isAI ? 'Assistant intelligent U-Map' : 'En ligne' }}
+                  <h2 class="text-white font-bold truncate tracking-tight text-sm sm:text-base">{{ activeChat.name }}</h2>
+                  <p class="text-[9px] sm:text-[10px] text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
+                    <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    {{ activeChat.isAI ? 'Assistant intelligent' : 'En ligne' }}
                   </p>
                 </div>
               </div>
@@ -164,25 +164,25 @@
 
             <!-- Actions Header -->
             <div class="flex items-center gap-1.5">
-              <button v-if="!activeChat.isAI" @click="showReportModal = true" class="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500/20 text-red-400 flex items-center justify-center transition-all border border-red-500/20" title="Signaler cet utilisateur">
-                <Icon icon="ph:flag-bold" class="w-5 h-5" />
+              <button v-if="!activeChat.isAI" @click="showReportModal = true" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 hover:bg-red-500/20 text-red-400 flex items-center justify-center transition-all border border-red-500/20" title="Signaler cet utilisateur">
+                <Icon icon="ph:flag-bold" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
             </div>
           </header>
 
           <!-- Chat Messages Body -->
-          <div class="flex-1 overflow-y-auto px-6 py-6 space-y-4 bg-slate-950" id="chat-messages">
+          <div class="flex-1 overflow-y-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 bg-slate-950" id="chat-messages">
             
             <!-- Ephemeral Notification Notice -->
             <div v-if="!activeChat.isAI" class="max-w-md mx-auto p-4 bg-blue-500/5 border border-blue-500/20 rounded-2xl text-center mb-6">
-              <Icon icon="ph:clock-countdown-bold" class="w-6 h-6 text-blue-400 mx-auto mb-1.5 animate-pulse" />
-              <h4 class="text-xs font-bold text-blue-300 uppercase tracking-wider">Sécurité Éphémère Activée</h4>
-              <p class="text-[11px] text-slate-400 mt-1">Tous vos messages sur U-Map s'auto-détruisent après 7 jours pour préserver la vie privée sur le campus.</p>
+              <Icon icon="ph:clock-countdown-bold" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 mx-auto mb-1.5 animate-pulse" />
+              <h4 class="text-[10px] sm:text-xs font-bold text-blue-300 uppercase tracking-wider">Sécurité Éphémère Activée</h4>
+              <p class="text-[10px] sm:text-[11px] text-slate-400 mt-1">Tous vos messages sur U-Map s'auto-détruisent après 7 jours pour préserver la vie privée sur le campus.</p>
             </div>
 
             <!-- Messages Loop -->
             <div v-for="(msg, index) in chatMessages" :key="index" :class="[isMyMessage(msg) ? 'flex justify-end' : 'flex justify-start']" class="w-full">
-              <div class="max-w-[75%] flex flex-col" :class="[isMyMessage(msg) ? 'items-end' : 'items-start']">
+              <div class="max-w-[85%] sm:max-w-[75%] flex flex-col" :class="[isMyMessage(msg) ? 'items-end' : 'items-start']">
                 
                 <!-- Bubble Wrapper -->
                 <div :class="[
@@ -213,19 +213,19 @@
           </div>
 
           <!-- Premium Input Bar -->
-          <footer class="p-4 border-t border-white/10 bg-slate-900/40 backdrop-blur-2xl z-20">
-            <div class="max-w-4xl mx-auto flex items-center gap-3">
-              <div class="flex-1 bg-white/5 border border-white/10 rounded-2xl flex items-center px-4 focus-within:ring-2 focus-within:ring-blue-500/50 focus-within:border-blue-500 transition-all">
-                <input v-model="messageInput" @keyup.enter="handleSendMessage" type="text" :placeholder="activeChat.isAI ? 'Demander quelque chose à l\'IA...' : 'Écrire un message éphémère...'" class="w-full bg-transparent border-none py-3.5 text-white placeholder-slate-500 outline-none text-sm">
+          <footer class="p-3 sm:p-4 border-t border-white/10 bg-slate-900/40 backdrop-blur-2xl z-20">
+            <div class="max-w-4xl mx-auto flex items-center gap-2 sm:gap-3">
+              <div class="flex-1 bg-white/5 border border-white/10 rounded-2xl flex items-center px-3 sm:px-4 focus-within:ring-2 focus-within:ring-blue-500/50 focus-within:border-blue-500 transition-all">
+                <input v-model="messageInput" @keyup.enter="handleSendMessage" type="text" :placeholder="activeChat.isAI ? 'Demander quelque chose à l\'IA...' : 'Écrire un message...'" class="w-full bg-transparent border-none py-2.5 sm:py-3.5 text-white placeholder-slate-500 outline-none text-xs sm:text-sm">
                 
                 <!-- Quick Send Icon triggers -->
                 <button v-if="activeChat.isAI" @click="messageInput = 'Où se trouve la BU ?'" class="p-1 hover:text-indigo-400 text-slate-500 transition-colors" title="Idée rapide">
-                  <Icon icon="ph:lightbulb" class="w-5 h-5" />
+                  <Icon icon="ph:lightbulb" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
                 </button>
               </div>
               
-              <button @click="handleSendMessage" class="w-12 h-12 bg-gradient-to-tr from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all">
-                <Icon icon="ph:paper-plane-right-fill" class="w-5 h-5" />
+              <button @click="handleSendMessage" class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all flex-shrink-0">
+                <Icon icon="ph:paper-plane-right-fill" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
             </div>
           </footer>

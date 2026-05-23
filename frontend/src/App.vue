@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col h-full overflow-hidden text-gray-900 dark:text-gray-100 font-sans">
-    <VideoBackground />
+  <div class="flex flex-col h-full overflow-hidden text-gray-900 dark:text-gray-100 font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <VideoBackground v-if="isHomeRoute" />
     
     <!-- ERROR BOUNDARY -->
     <div v-if="error" class="fixed inset-0 z-[100] bg-red-900/90 backdrop-blur text-white p-8 flex flex-col items-center justify-center pointer-events-auto">
@@ -47,6 +47,7 @@ const route = useRoute()
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 const isChatActive = computed(() => route.path === '/chat' && !!route.query.chat)
 const hideNavigation = computed(() => isAdminRoute.value || isChatActive.value)
+const isHomeRoute = computed(() => route.path === '/')
 
 
 
