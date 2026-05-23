@@ -16,7 +16,7 @@
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-1 overflow-y-auto w-full pb-24 relative z-0 scroll-smooth">
+    <main class="flex-1 overflow-y-auto w-full relative z-0 scroll-smooth" :class="{'pb-24': !hideNavigation}">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
@@ -25,10 +25,10 @@
     </main>
 
     <!-- Floating Actions -->
-    <FloatingButtons v-if="!isAdminRoute" />
+    <FloatingButtons v-if="!hideNavigation" />
 
     <!-- Bottom Navigation -->
-    <Navbar v-if="!isAdminRoute" />
+    <Navbar v-if="!hideNavigation" />
   </div>
 </template>
 
@@ -45,6 +45,9 @@ import { authService } from './services/authService'
 
 const route = useRoute()
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
+const isChatActive = computed(() => route.path === '/chat' && !!route.query.chat)
+const hideNavigation = computed(() => isAdminRoute.value || isChatActive.value)
+
 
 
 const error = ref(null)
