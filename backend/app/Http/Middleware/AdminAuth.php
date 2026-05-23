@@ -16,7 +16,7 @@ class AdminAuth
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->bearerToken();
-        if (!$token || !cache()->get('admin_token_' . $token)) {
+        if (!$token || !\Illuminate\Support\Facades\Cache::get('admin_token_' . $token)) {
             return response()->json(['message' => 'Non autorisé.'], 401);
         }
         

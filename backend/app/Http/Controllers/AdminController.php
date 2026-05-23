@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         // Générer un token admin simple
         $token = bin2hex(random_bytes(32));
-        cache()->put('admin_token_' . $token, true, now()->addHours(12));
+        \Illuminate\Support\Facades\Cache::put('admin_token_' . $token, true, now()->addHours(12));
 
         return response()->json([
             'token' => $token,
@@ -42,7 +42,7 @@ class AdminController extends Controller
     public function verify(Request $request)
     {
         $token = $request->bearerToken();
-        if (!$token || !cache()->get('admin_token_' . $token)) {
+        if (!$token || !\Illuminate\Support\Facades\Cache::get('admin_token_' . $token)) {
             return response()->json(['valid' => false], 401);
         }
         return response()->json(['valid' => true]);
@@ -104,7 +104,7 @@ class AdminController extends Controller
     /**
      * Restreindre / Dérestreindre un utilisateur.
      */
-    public function toggleRestrictUser($id)
+    public function toggleRestrictUser(int $id)
     {
         $user = User::findOrFail($id);
         $user->is_restricted = !$user->is_restricted;
@@ -118,7 +118,7 @@ class AdminController extends Controller
     /**
      * Supprimer un utilisateur.
      */
-    public function deleteUser($id)
+    public function deleteUser(int $id)
     {
         $user = User::findOrFail($id);
         $user->delete();
@@ -139,7 +139,7 @@ class AdminController extends Controller
     /**
      * Marquer un signalement comme résolu.
      */
-    public function resolveReport($id)
+    public function resolveReport(int $id)
     {
         $report = \App\Models\Report::findOrFail($id);
         $report->status = 'resolved';
@@ -160,7 +160,7 @@ class AdminController extends Controller
     /**
      * Approuver un lieu en attente.
      */
-    public function approvePlace($id)
+    public function approvePlace(int $id)
     {
         $place = Place::findOrFail($id);
         $place->status = 'approved';
@@ -171,7 +171,7 @@ class AdminController extends Controller
     /**
      * Rejeter / Supprimer un lieu.
      */
-    public function deletePlace($id)
+    public function deletePlace(int $id)
     {
         $place = Place::findOrFail($id);
         $place->delete();
