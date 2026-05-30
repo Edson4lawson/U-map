@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination } from 'swiper/modules'
@@ -98,10 +98,15 @@ const router = useRouter()
 const visitedStore = useVisitedStore()
 const modules = [Pagination]
 
-const place = computed(() => {
-  const feature = campusService.getPlaceById(route.params.id)
-  return feature ? feature.properties : null
+const place = ref(null)
+
+onMounted(async () => {
+  const feature = await campusService.getPlaceById(route.params.id)
+  if (feature) {
+    place.value = feature.properties
+  }
 })
+
 const isVisited = computed(() => place.value && visitedStore.isVisited(place.value.id))
 
 const toggleVisit = () => {

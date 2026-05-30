@@ -17,5 +17,5 @@
 </template>
 
 <script setup>
-import videoSrc from '../assets/Home-vi.mov'
+import videoSrc from '../assets/Home-vi.mp4'
 </script>

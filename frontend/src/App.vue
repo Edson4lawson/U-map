@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full overflow-hidden text-gray-900 dark:text-gray-100 font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+  <div class="flex flex-col h-full overflow-hidden text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300" :class="isHomeRoute ? '' : 'bg-slate-50 dark:bg-slate-950'">
     <VideoBackground v-if="isHomeRoute" />
     
     <!-- ERROR BOUNDARY -->
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onErrorCaptured, onMounted, computed } from 'vue'
+import { ref, onErrorCaptured, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import VideoBackground from './components/VideoBackground.vue'
 import Navbar from './components/Navbar.vue'
@@ -54,6 +54,7 @@ const isHomeRoute = computed(() => route.path === '/')
 const error = ref(null)
 const { startWatching } = useProximity()
 const notificationStore = useNotificationStore()
+let messagePollingInterval = null
 
 const reloadApp = () => {
   window.location.reload()
@@ -80,7 +81,7 @@ onMounted(() => {
 
 
   // Polling des messages non lus toutes les 30 secondes
-  setInterval(async () => {
+  messagePollingInterval = setInterval(async () => {
     if (authService.getToken()) {
         try {
             const { count } = await messageService.getUnreadCount()
@@ -95,6 +96,12 @@ onMounted(() => {
         } catch (e) { /* Ignore background errors */ }
     }
   }, 30000)
+})
+
+onUnmounted(() => {
+  if (messagePollingInterval) {
+    clearInterval(messagePollingInterval)
+  }
 })
 </script>
 

@@ -50,25 +50,28 @@ class CampusService {
     /**
      * Récupère les lieux par catégorie.
      */
-    getPlacesByCategory(category) {
-        return campusData.features.filter(f => f.properties.category === category);
+    async getPlacesByCategory(category) {
+        const places = await this.getAllPlaces();
+        return places.filter(f => f.properties.category === category);
     }
 
     /**
      * Liste toutes les catégories uniques disponibles.
      */
-    getCategories() {
-        const categories = campusData.features.map(f => f.properties.category);
+    async getCategories() {
+        const places = await this.getAllPlaces();
+        const categories = places.map(f => f.properties.category);
         return [...new Set(categories)];
     }
 
     /**
      * Recherche textuelle dans les lieux.
      */
-    searchPlaces(query) {
+    async searchPlaces(query) {
         if (!query) return [];
+        const places = await this.getAllPlaces();
         const q = query.toLowerCase();
-        return campusData.features.filter(f => 
+        return places.filter(f => 
             f.properties.name.toLowerCase().includes(q) || 
             f.properties.type.toLowerCase().includes(q) ||
             (f.properties.tags && f.properties.tags.some(t => t.toLowerCase().includes(q)))

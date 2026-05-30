@@ -447,7 +447,7 @@ const selectAIChat = () => {
         { role: 'assistant', content: "Bonjour ! Je suis l'intelligence artificielle officielle de l'UAC. Comment puis-je t'aider sur le campus aujourd'hui ?" }
     ]
     if (route.query.chat !== 'ai') {
-        router.replace({ query: { chat: 'ai' } })
+        router.push({ query: { chat: 'ai' } })
     }
     scrollToBottom()
 }
@@ -455,14 +455,14 @@ const selectAIChat = () => {
 const selectChat = async (student) => {
     activeChat.value = { ...student, isAI: false }
     if (route.query.chat != student.id) {
-        router.replace({ query: { chat: student.id } })
+        router.push({ query: { chat: student.id } })
     }
     await loadMessages()
 }
 
 const closeChat = () => {
     activeChat.value = null
-    router.replace({ query: {} })
+    router.push({ query: {} })
 }
 
 const loadMessages = async () => {
