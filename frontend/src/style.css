@@ -32,3 +32,26 @@ html, body, #app {
 ::-webkit-scrollbar-thumb {
     @apply bg-gray-300 dark:bg-gray-600 rounded-full;
 }
+
+/* Mode Sombre pour Leaflet */
+.dark .leaflet-tile-container {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+/* Conserver les couleurs d'origine des marqueurs et des popups */
+.dark .leaflet-marker-icon,
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+  filter: none;
+}
+.dark .leaflet-popup-content {
+  color: #1f2937; /* Assurer que le texte du popup reste lisible */
+}
+
+/* Mode Sombre Premium pour Leaflet Map Tiles (sauf en vue satellite) */
+.dark #map:not(.map-satellite) .leaflet-tile-container {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+.dark .leaflet-container {
+    background: #0f172a !important; /* Couleur slate-900 en fond pour éviter les flashs blancs */
+}
+

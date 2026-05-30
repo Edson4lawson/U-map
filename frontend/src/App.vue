@@ -60,6 +60,23 @@ const reloadApp = () => {
   window.location.reload()
 }
 
+const fetchUnreadCountIfVisible = async () => {
+  if (document.hidden) return // Ne pas requêter si l'onglet est masqué
+  if (authService.getToken()) {
+      try {
+          const { count } = await messageService.getUnreadCount()
+          if (count > 0) {
+              notificationStore.addNotification({
+                  id: 'new_msg',
+                  title: 'Nouveau message !',
+                  message: `Vous avez ${count} message(s) non lu(s).`,
+                  type: 'info'
+              })
+          }
+      } catch (e) { /* Ignore background errors */ }
+  }
+}
+
 onErrorCaptured((err) => {
   error.value = err.toString()
   return false // Prevent propogation
@@ -79,29 +96,21 @@ onMounted(() => {
   // Lancer la surveillance de proximité (GPS) pour les notifications
   startWatching()
 
+  // Premier appel immédiat
+  fetchUnreadCountIfVisible()
 
   // Polling des messages non lus toutes les 30 secondes
-  messagePollingInterval = setInterval(async () => {
-    if (authService.getToken()) {
-        try {
-            const { count } = await messageService.getUnreadCount()
-            if (count > 0) {
-                notificationStore.addNotification({
-                    id: 'new_msg',
-                    title: 'Nouveau message !',
-                    message: `Vous avez ${count} message(s) non lu(s).`,
-                    type: 'info'
-                })
-            }
-        } catch (e) { /* Ignore background errors */ }
-    }
-  }, 30000)
+  messagePollingInterval = setInterval(fetchUnreadCountIfVisible, 30000)
+
+  // Écouter les changements de visibilité
+  document.addEventListener('visibilitychange', fetchUnreadCountIfVisible)
 })
 
 onUnmounted(() => {
   if (messagePollingInterval) {
     clearInterval(messagePollingInterval)
   }
+  document.removeEventListener('visibilitychange', fetchUnreadCountIfVisible)
 })
 </script>
 

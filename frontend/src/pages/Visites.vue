@@ -9,6 +9,39 @@
         </button>
       </div>
       
+      <!-- Mes Badges de Réussite Carousel -->
+      <section class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+           <span>🏆</span> Mes Badges d'Exploration
+        </h2>
+        <div class="flex gap-4 overflow-x-auto pb-3 custom-scrollbar">
+           <div v-for="badge in allBadges" :key="badge.id"
+                :class="[isUnlocked(badge) ? 'bg-gradient-to-tr text-white border-none' : 'bg-slate-900/40 text-slate-500 border border-slate-800/40']"
+                class="flex-shrink-0 w-44 p-4 rounded-2xl flex flex-col items-center justify-between text-center relative overflow-hidden transition-all duration-300">
+             
+             <!-- Unlocked lighting background effect -->
+             <div v-if="isUnlocked(badge)" :class="badge.color" class="absolute inset-0 opacity-85 z-0"></div>
+             
+             <div class="relative z-10 flex flex-col items-center">
+                <div :class="[isUnlocked(badge) ? 'bg-white/20 text-white' : 'bg-slate-850 text-slate-600']" 
+                     class="w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                   <Icon :icon="badge.icon" class="w-6 h-6" />
+                </div>
+                <h3 class="font-black text-[11px] tracking-wide uppercase leading-tight">{{ badge.name }}</h3>
+                <p class="text-[9px] mt-1.5 line-clamp-2 leading-tight" :class="isUnlocked(badge) ? 'text-white/80' : 'text-slate-500'">
+                   {{ badge.description }}
+                </p>
+             </div>
+             
+             <!-- Unlock status indicator -->
+             <span class="relative z-10 text-[8px] font-extrabold px-2 py-0.5 rounded-full mt-3 uppercase tracking-widest"
+                   :class="isUnlocked(badge) ? 'bg-white/30 text-white' : 'bg-slate-850 text-slate-500'">
+                {{ isUnlocked(badge) ? 'Débloqué' : 'Verrouillé' }}
+             </span>
+           </div>
+        </div>
+      </section>
+
       <!-- Visited Places List -->
       <div v-if="visitedPlacesList.length > 0" class="space-y-4">
          <div 
@@ -96,9 +129,17 @@ import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { campusService } from '../services/campusService'
 import { useVisitedStore } from '../stores/visited'
+import { useBadgeStore } from '../stores/badges'
 
 const router = useRouter()
 const visitedStore = useVisitedStore()
+const badgeStore = useBadgeStore()
+
+const allBadges = computed(() => badgeStore.allBadges)
+
+const isUnlocked = (badge) => {
+    return badge.condition(visitedStore.visitedPlaces, allPlaces.value)
+}
 
 const showAddModal = ref(false)
 const searchQuery = ref('')

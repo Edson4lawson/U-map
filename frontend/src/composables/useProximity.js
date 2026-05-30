@@ -78,6 +78,8 @@ export function useProximity() {
     const places = await campusService.getAllPlaces()
     
     places.forEach(feature => {
+      if (!feature.geometry || !feature.geometry.coordinates) return
+      
       const { id, name } = feature.properties
       // GeoJSON structure: [longitude, latitude]
       const [placeLon, placeLat] = feature.geometry.coordinates

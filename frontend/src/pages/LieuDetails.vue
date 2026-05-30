@@ -61,6 +61,15 @@
              </h2>
              <p class="text-gray-600 dark:text-gray-400">{{ place.openingHours }}</p>
           </section>
+
+          <!-- Plan d'intérieur interactif (BU centrale ou grands amphis) -->
+          <section v-if="hasIndoorPlan" class="border-t border-gray-100 dark:border-gray-800 pt-6">
+             <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+               <Icon icon="ph:map-trifold-bold" class="text-primary" />
+               Plan d'Intérieur Interactif
+             </h2>
+             <IndoorMap />
+          </section>
        </div>
 
        <!-- Sticky Bottom Action -->
@@ -92,6 +101,7 @@ import 'swiper/css/pagination'
 
 import { campusService } from '../services/campusService'
 import { useVisitedStore } from '../stores/visited'
+import IndoorMap from '../components/IndoorMap.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -99,6 +109,16 @@ const visitedStore = useVisitedStore()
 const modules = [Pagination]
 
 const place = ref(null)
+
+const hasIndoorPlan = computed(() => {
+    return place.value && (
+        place.value.name.toLowerCase().includes('bibliothèque') || 
+        place.value.name.toLowerCase().includes('bu') ||
+        place.value.id === 'bu_centrale' ||
+        place.value.id === '1' ||
+        place.value.category.toLowerCase().includes('bibliothèque')
+    )
+})
 
 onMounted(async () => {
   const feature = await campusService.getPlaceById(route.params.id)

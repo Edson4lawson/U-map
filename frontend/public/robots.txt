@@ -1,0 +1,18 @@
+# robots.txt pour U-map - Guide Intelligent du Campus UAC
+
+User-agent: *
+Allow: /
+
+# Interdire l'accès aux fichiers de configuration et scripts
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /dist/
+
+# Autoriser les fichiers importants pour le SEO
+Allow: /manifest.json
+Allow: /robots.txt
+Allow: /sitemap.xml
+
+# Sitemap
+Sitemap: https://u-map.vercel.app/sitemap.xml

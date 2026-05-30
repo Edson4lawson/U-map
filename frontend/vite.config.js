@@ -30,6 +30,15 @@ export default defineConfig({
               cacheName: 'map-tiles',
               expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 30 }
             }
+          },
+          {
+            urlPattern: /.*\/api\/places/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api-places-cache',
+              expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 * 24 * 7 }, // 7 jours
+              cacheableResponse: { statuses: [0, 200] }
+            }
           }
         ]
       }

@@ -99,6 +99,41 @@
               <Icon icon="ph:caret-right-bold" class="text-indigo-400 group-hover:translate-x-1 transition-transform" />
             </div>
 
+            <!-- Study Status / Study Buddies Section -->
+            <div class="p-5 bg-gradient-to-br from-blue-950/40 via-slate-900/40 to-indigo-950/30 border border-blue-500/20 rounded-2xl shadow-lg space-y-4">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                   <span>📚</span> Mon Statut d'Étude
+                </h3>
+                <div class="space-y-3">
+                   <div class="flex flex-col sm:flex-row gap-2">
+                      <input v-model="myStudyStatus" type="text" placeholder="Ex: Révise les maths..." 
+                             class="flex-1 bg-white/5 border border-white/10 rounded-xl py-2 px-3 text-xs text-white outline-none focus:ring-1 focus:ring-blue-500">
+                      <input v-model="myStudyLocation" type="text" placeholder="Ex: BU..." 
+                             class="w-full sm:w-1/3 bg-white/5 border border-white/10 rounded-xl py-2 px-3 text-xs text-white outline-none focus:ring-1 focus:ring-blue-500">
+                      <button @click="saveMyStudyStatus" 
+                              class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-xl transition-all">
+                         Enregistrer
+                      </button>
+                   </div>
+                   
+                   <!-- Active Study Buddies list -->
+                   <div v-if="studyBuddies.length > 0" class="pt-3 border-t border-white/5 space-y-2">
+                      <h4 class="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">Étudiants actifs en ce moment :</h4>
+                      <div class="max-h-24 overflow-y-auto space-y-1.5 custom-scrollbar pr-1">
+                         <div v-for="buddy in studyBuddies" :key="buddy.id" @click="startNewConversation(buddy)" 
+                              class="flex items-center justify-between p-2.5 hover:bg-white/5 rounded-xl transition-colors cursor-pointer border border-white/5">
+                            <div class="min-w-0">
+                               <div class="text-xs font-bold text-white truncate">{{ buddy.name }}</div>
+                               <div class="text-[10px] text-slate-400 truncate">📖 {{ buddy.study_status }} — 📍 {{ buddy.study_location }}</div>
+                            </div>
+                            <span class="text-[9px] bg-blue-500/20 text-blue-400 font-extrabold px-2 py-1 rounded-lg">Rejoindre</span>
+                         </div>
+                      </div>
+                   </div>
+                   <div v-else class="text-[10px] text-slate-500 italic pt-1">Aucun autre étudiant actif pour le moment.</div>
+                </div>
+            </div>
+
             <!-- Custom Separator -->
             <div class="flex items-center gap-3">
               <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Conversations actives</span>
@@ -328,6 +363,7 @@ import { Icon } from '@iconify/vue'
 import { authService } from '../services/authService'
 import { aiService } from '../services/aiService'
 import { messageService } from '../services/messageService'
+import { studyService } from '../services/studyService'
 
 const router = useRouter()
 const route = useRoute()
@@ -352,10 +388,37 @@ const reporting = ref(false)
 
 const authForm = ref({ name: '', email: '', password: '' })
 
+// Study Buddies state
+const myStudyStatus = ref('')
+const myStudyLocation = ref('')
+const studyBuddies = ref([])
+
+const loadStudyBuddies = async () => {
+    try {
+        studyBuddies.value = await studyService.getStudyBuddies()
+    } catch (e) { console.error(e) }
+}
+
+const saveMyStudyStatus = async () => {
+    try {
+        await studyService.updateStudyStatus(myStudyStatus.value, myStudyLocation.value)
+        alert('Votre statut d\'étude a été enregistré avec succès !')
+        await loadStudyBuddies()
+    } catch (e) { alert(e.message) }
+}
+
 onMounted(async () => {
     if (isLoggedIn.value) {
         await loadStudents()
         await loadConversations()
+        await loadStudyBuddies()
+        
+        // Initialiser mon propre statut d'étude
+        const me = authService.getCurrentUser()
+        if (me) {
+            myStudyStatus.value = me.study_status || ''
+            myStudyLocation.value = me.study_location || ''
+        }
         
         // Sync active chat with URL query ?chat=
         if (route.query.chat) {

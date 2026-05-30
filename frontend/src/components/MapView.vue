@@ -22,29 +22,66 @@
   <!-- Add Place Modal -->
   <div v-if="showModal" class="fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md shadow-2xl scale-in">
-          <h2 class="text-xl font-bold mb-4 dark:text-white">Ajouter un lieu à l'UAC</h2>
-          <form @submit.prevent="submitPlace" class="space-y-4">
-              <div>
-                  <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nom du lieu (ou pseudo)</label>
-                  <input v-model="newPlace.name" type="text" required placeholder="Ex: Amphi Houdégbé (Ancien)" 
-                         class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
+          <h2 class="text-xl font-bold mb-4 dark:text-white">Contribuer à U-Map UAC</h2>
+          
+          <!-- Contribution Type Selector -->
+          <div class="flex gap-2 mb-4 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl">
+              <button type="button" @click="contributionType = 'place'" 
+                      :class="contributionType === 'place' ? 'bg-white dark:bg-gray-700 shadow-sm text-primary font-bold' : 'text-gray-500'"
+                      class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
+                  📍 Lieu Permanent
+              </button>
+              <button type="button" @click="contributionType = 'report'" 
+                      :class="contributionType === 'report' ? 'bg-white dark:bg-gray-700 shadow-sm text-red-500 font-bold' : 'text-gray-500'"
+                      class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
+                  ⚠️ Infos en direct
+              </button>
+          </div>
+
+          <form @submit.prevent="submitContribution" class="space-y-4">
+              <div v-if="contributionType === 'place'" class="space-y-4">
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nom du lieu (ou pseudo)</label>
+                      <input v-model="newPlace.name" type="text" required placeholder="Ex: Amphi Houdégbé (Ancien)" 
+                             class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
+                  </div>
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Catégorie</label>
+                      <select v-model="newPlace.category" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
+                          <option value="Enseignements et académique">Amphi / Salle</option>
+                          <option value="Vie étudiante">Détente / Resto</option>
+                          <option value="Administratif">Administration</option>
+                          <option value="Divers">Autre</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description (Optionnel)</label>
+                      <textarea v-model="newPlace.description" rows="2" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white"></textarea>
+                  </div>
               </div>
-              <div>
-                  <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Catégorie</label>
-                  <select v-model="newPlace.category" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
-                      <option value="Enseignements et académique">Amphi / Salle</option>
-                      <option value="Vie étudiante">Détente / Resto</option>
-                      <option value="Administratif">Administration</option>
-                      <option value="Divers">Autre</option>
-                  </select>
+              
+              <div v-else class="space-y-4">
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Type de situation en direct</label>
+                      <select v-model="newLiveReport.type" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white">
+                          <option value="power_outage">🔌 Coupure d'électricité</option>
+                          <option value="crowded">👥 Amphi / Lieu bondé</option>
+                          <option value="event">🎉 Événement en cours</option>
+                          <option value="other">⚠️ Autre signalement</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description de la situation</label>
+                      <textarea v-model="newLiveReport.description" required placeholder="Ex: Panne générale sur tout le secteur..." rows="2" 
+                                class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white"></textarea>
+                  </div>
               </div>
-              <div>
-                  <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description (Optionnel)</label>
-                  <textarea v-model="newPlace.description" rows="2" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white"></textarea>
-              </div>
+
               <div class="flex gap-3 pt-2">
                   <button type="button" @click="showModal = false" class="flex-1 py-3 text-gray-500 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">Annuler</button>
-                  <button type="submit" :disabled="isSubmitting" class="flex-2 py-3 px-8 bg-primary text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 disabled:opacity-50">
+                  <button type="submit" :disabled="isSubmitting" 
+                          :class="contributionType === 'report' ? 'bg-red-500 shadow-red-500/20 hover:bg-red-600' : 'bg-primary shadow-blue-500/20'"
+                          class="flex-2 py-3 px-8 text-white font-bold rounded-xl shadow-lg disabled:opacity-50 transition-colors">
                       {{ isSubmitting ? 'Envoi...' : 'Contribuer' }}
                   </button>
               </div>
@@ -73,6 +110,7 @@ let userWatchId = null
 // State pour l'ajout de lieux
 const showModal = ref(false)
 const isSubmitting = ref(false)
+const contributionType = ref('place')
 const newPlace = ref({
     name: '',
     type: 'Lieu suggéré',
@@ -81,9 +119,20 @@ const newPlace = ref({
     latitude: 0,
     longitude: 0
 })
+const newLiveReport = ref({
+    type: 'power_outage',
+    description: '',
+    latitude: 0,
+    longitude: 0
+})
+const liveReportMarkers = ref([])
 
 const updateMarkers = async () => {
   if (!map.value) return
+
+  // Nettoyer les anciens signalements en direct
+  liveReportMarkers.value.forEach(m => map.value.removeLayer(m))
+  liveReportMarkers.value = []
 
   const places = await campusService.getAllPlaces()
   places.forEach(feature => {
@@ -94,6 +143,8 @@ const updateMarkers = async () => {
     let color = isVisited ? '#10B981' : '#3B82F6'
     if (status === 'pending') color = '#F97316' // Orange pour "En attente"
 
+    if (!feature.geometry || !feature.geometry.coordinates) return
+    
     const [lng, lat] = feature.geometry.coordinates
     
     addMarker(id, lat, lng, {
@@ -101,6 +152,39 @@ const updateMarkers = async () => {
       popupContent: createPopupContent(feature.properties, id, feature.geometry.coordinates)
     })
   })
+
+  // Récupérer et afficher les signalements communautaires en direct
+  try {
+      const liveReports = await campusService.getLiveReports()
+      liveReports.forEach(report => {
+        let emoji = '⚠️';
+        let label = 'Signalement';
+        if (report.type === 'power_outage') { emoji = '🔌'; label = 'Coupure d\'électricité'; }
+        else if (report.type === 'crowded') { emoji = '👥'; label = 'Amphi / Lieu bondé'; }
+        else if (report.type === 'event') { emoji = '🎉'; label = 'Événement en cours'; }
+
+        const liveIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: `<div class="pulsing-marker" style="background-color: #EF4444; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 8px;"></div>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+        });
+
+        const marker = L.marker([report.latitude, report.longitude], { icon: liveIcon }).addTo(map.value);
+        marker.bindPopup(`
+          <div class="p-2 min-w-[180px] font-sans text-gray-900">
+             <h3 class="font-bold text-red-600 text-sm mb-1">${emoji} ${label}</h3>
+             <p class="text-xs text-gray-700 mb-2">${report.description}</p>
+             <div class="text-[9px] text-gray-400">Signalé par : ${report.reporter_name}</div>
+             <div class="text-[9px] text-gray-400">Il y a : ${Math.round((new Date() - new Date(report.created_at)) / 60000)} min</div>
+          </div>
+        `);
+
+        liveReportMarkers.value.push(marker)
+      })
+  } catch (e) {
+      console.warn("Could not load live reports:", e)
+  }
 }
 
 const createPopupContent = (props, id, coordinates) => {
@@ -217,16 +301,24 @@ const handleAddClick = () => {
     )
 }
 
-const submitPlace = async () => {
+const submitContribution = async () => {
     isSubmitting.value = true
     try {
-        await campusService.createPlace(newPlace.value)
+        if (contributionType.value === 'place') {
+            await campusService.createPlace(newPlace.value)
+            alert("Succès ! Votre position a été enregistrée comme nouveau lieu. Un admin validera le nom bientôt.")
+        } else {
+            newLiveReport.value.latitude = newPlace.value.latitude
+            newLiveReport.value.longitude = newPlace.value.longitude
+            await campusService.createLiveReport(newLiveReport.value)
+            alert("Merci ! Votre signalement en direct a bien été publié sur la carte.")
+        }
         showModal.value = false
         // Réinitialiser
         newPlace.value = { name: '', type: 'Lieu suggéré', category: 'Divers', description: '', latitude: 0, longitude: 0 }
+        newLiveReport.value = { type: 'power_outage', description: '', latitude: 0, longitude: 0 }
         // Rafraîchir les marqueurs
         await updateMarkers()
-        alert("Succès ! Votre position a été enregistrée comme nouveau lieu. Un admin validera le nom bientôt.")
     } catch (e) {
         alert("Erreur lors de l'envoi. Assurez-vous d'être connecté.")
     } finally {
@@ -326,7 +418,9 @@ onMounted(() => {
   
   if (route.query.focus) {
       const place = campusService.getPlaceById(route.query.focus)
-      if (place) focusOn(place.geometry.coordinates[1], place.geometry.coordinates[0])
+      if (place && place.geometry && place.geometry.coordinates) {
+          focusOn(place.geometry.coordinates[1], place.geometry.coordinates[0])
+      }
   }
 })
 
@@ -364,5 +458,24 @@ onUnmounted(() => {
 
 :deep(.leaflet-control-zoom) {
     margin-bottom: 75px !important;
+}
+
+/* Pulsing warning icon styling for Live Reports */
+:deep(.pulsing-marker) {
+    position: relative;
+    border-radius: 50%;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 </style>

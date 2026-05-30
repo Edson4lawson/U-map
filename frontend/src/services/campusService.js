@@ -99,6 +99,41 @@ class CampusService {
 
         return await response.json();
     }
+
+    /**
+     * Récupère tous les signalements en temps réel.
+     */
+    async getLiveReports() {
+        try {
+            const response = await fetch(`${API_URL}/live-reports`);
+            return await response.json();
+        } catch (e) {
+            console.error("Error fetching live reports:", e);
+            return [];
+        }
+    }
+
+    /**
+     * Crée un signalement en direct.
+     */
+    async createLiveReport(reportData) {
+        const token = localStorage.getItem('u_map_token');
+        const response = await fetch(`${API_URL}/live-reports`, {
+            method: 'POST',
+            headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(reportData)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Erreur lors de la création du signalement');
+        }
+
+        return await response.json();
+    }
 }
 
 export const campusService = new CampusService();

@@ -48,6 +48,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/places', [PlaceController::class, 'store']);
     Route::post('/users/{id}/report', function (Request $request, $id) {
         $request->validate(['reason' => 'required|string|max:1000']);
+        
+        // Vérifier si l'utilisateur existe
+        if (!\App\Models\User::where('id', $id)->exists()) {
+            return response()->json(['message' => 'L\'utilisateur signalé n\'existe pas.'], 404);
+        }
+        
         \App\Models\Report::create([
             'reporter_id' => auth()->id(),
             'reported_user_id' => $id,
@@ -59,6 +65,57 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/students', function() {
         return \App\Models\User::where('id', '!=', auth()->id())->get();
     });
+    
+    // API de Signalements communautaires
+    Route::post('/live-reports', function(Request $request) {
+        $request->validate([
+            'type' => 'required|string|in:power_outage,crowded,event,other',
+            'description' => 'required|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+        
+        $report = \App\Models\LiveReport::create([
+            'type' => $request->type,
+            'description' => $request->description,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'reporter_name' => auth()->user()->name
+        ]);
+        
+        return response()->json($report, 201);
+    });
+
+    // API d'étude ("Study Buddies")
+    Route::put('/users/study-status', function(Request $request) {
+        $request->validate([
+            'study_status' => 'nullable|string|max:255',
+            'study_location' => 'nullable|string|max:255',
+        ]);
+        
+        $user = auth()->user();
+        $user->study_status = $request->study_status;
+        $user->study_location = $request->study_location;
+        $user->save();
+        
+        return response()->json([
+            'message' => 'Statut mis à jour.',
+            'user' => $user
+        ]);
+    });
+    
+    Route::get('/study-buddies', function() {
+        return \App\Models\User::whereNotNull('study_status')
+            ->where('study_status', '!=', '')
+            ->where('id', '!=', auth()->id())
+            ->get(['id', 'name', 'email', 'study_status', 'study_location']);
+    });
+});
+
+Route::get('/live-reports', function() {
+    return \App\Models\LiveReport::where('created_at', '>=', now()->subHours(3))
+        ->orderByDesc('created_at')
+        ->get();
 });
 
 // Route pour l'IA hybride (Gemma 2 via Groq ou Gemini officiel)
@@ -95,10 +152,13 @@ Route::post('/ai/ask', function (Request $request) {
             $placesJson = implode("\n", $placesList);
         }
         
-        $systemInstruction = "Tu es l'assistant intelligent officiel de l'application U-Map pour l'Université d'Abomey-Calavi (UAC) au Bénin. " .
-            "Ton rôle est d'aider, de guider et de renseigner chaleureusement les étudiants et visiteurs sur le campus (localisation des facultés, amphis, restaurants, bibliothèque, etc.).\n" .
-            "Sois toujours accueillant, précis et réponds de manière concise (maximum 3-4 phrases par réponse si possible) en français.\n\n" .
-            "Voici les lieux officiels du campus de l'UAC enregistrés dans la base de données U-Map pour t'aider :\n" . $placesJson;
+        $systemInstruction = "Tu es l'assistant intelligent officiel universel de l'Université d'Abomey-Calavi (UAC) au Bénin. " .
+            "Ton rôle est d'aider, d'orienter et de conseiller chaleureusement les étudiants et visiteurs sur tous les aspects de la vie universitaire :\n" .
+            "- La vie académique (cours, examens, inscriptions, départements, système LMD, facultés)\n" .
+            "- La vie quotidienne sur le campus (logements, restaurants universitaires, bibliothèque, activités culturelles et sportives)\n" .
+            "- L'orientation géographique (localisation des facultés, amphis, restaurants, bibliothèque, etc.)\n\n" .
+            "Tu n'es pas limité aux questions d'itinéraires : tu es un conseiller et mentor étudiant complet. Sois toujours accueillant, précis, bienveillant et réponds de manière structurée et concise (maximum 4-5 phrases) en français.\n\n" .
+            "Voici les lieux officiels du campus de l'UAC pour t'aider si besoin :\n" . $placesJson;
             
         // OPTION 1 : Llama 3.3 via Groq (Prioritaire si la clé est fournie)
         if ($groqKey) {

@@ -41,12 +41,15 @@ export function useMapManager() {
 
   const toggleLayer = () => {
     isSatellite.value = !isSatellite.value
+    const mapEl = document.getElementById('map')
     if (isSatellite.value) {
+        if (mapEl) mapEl.classList.add('map-satellite')
         // Couche Satellite (Esri par exemple)
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri'
         }).addTo(map.value);
     } else {
+        if (mapEl) mapEl.classList.remove('map-satellite')
         // Retour à OSM
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap'
