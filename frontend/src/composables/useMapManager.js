@@ -16,75 +16,98 @@ export function useMapManager() {
   const routingControl = ref(null)
 
   const init = (containerId, initialView = [6.44100, 2.35200], options = {}) => {
-    // Initialisation de la carte Leaflet
-    map.value = L.map(containerId, {
-        zoomControl: false 
-    }).setView(initialView, 16); // Zoom 16 est parfait pour voir les bâtiments de l'UAC
+    try {
+      // Initialisation de la carte Leaflet
+      map.value = L.map(containerId, {
+          zoomControl: false
+      }).setView(initialView, 16); // Zoom 16 est parfait pour voir les bâtiments de l'UAC
 
-    // Ajout de la couche OpenStreetMap par défaut
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map.value);
+      // Ajout de la couche OpenStreetMap par défaut
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map.value);
 
-    // Ajout d'un contrôle de zoom personnalisé en bas à droite
-    L.control.zoom({
-        position: 'bottomright'
-    }).addTo(map.value);
+      // Ajout d'un contrôle de zoom personnalisé en bas à droite
+      L.control.zoom({
+          position: 'bottomright'
+      }).addTo(map.value);
 
-    // Gestion du clic sur la carte
-    map.value.on('click', (e) => {
-        if (options.onClick) {
-            options.onClick(e.latlng.lat, e.latlng.lng)
-        }
-    });
+      // Gestion du clic sur la carte
+      map.value.on('click', (e) => {
+          if (options.onClick) {
+              options.onClick(e.latlng.lat, e.latlng.lng)
+          }
+      });
+    } catch (e) {
+      console.error('Error initializing map:', e)
+    }
   }
 
   const toggleLayer = () => {
+    if (!map.value) return
     isSatellite.value = !isSatellite.value
     const mapEl = document.getElementById('map')
     if (isSatellite.value) {
         if (mapEl) mapEl.classList.add('map-satellite')
         // Couche Satellite (Esri par exemple)
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri'
-        }).addTo(map.value);
+        try {
+          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+              attribution: 'Tiles &copy; Esri'
+          }).addTo(map.value);
+        } catch (e) {
+          console.error('Error adding satellite layer:', e)
+        }
     } else {
         if (mapEl) mapEl.classList.remove('map-satellite')
         // Retour à OSM
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map.value);
+        try {
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap'
+          }).addTo(map.value);
+        } catch (e) {
+          console.error('Error adding OSM layer:', e)
+        }
     }
   }
 
   const addMarker = (id, lat, lng, options = {}) => {
+    if (!map.value) return null
     const { color = '#3B82F6', popupContent = '' } = options
-    
-    if (markers.value[id]) {
-      map.value.removeLayer(markers.value[id])
+
+    try {
+      if (markers.value[id]) {
+        map.value.removeLayer(markers.value[id])
+      }
+
+      // Custom marker avec CSS simple
+      const customIcon = L.divIcon({
+          className: 'custom-div-icon',
+          html: `<div style="background-color: ${color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
+          iconSize: [12, 12],
+          iconAnchor: [6, 6]
+      });
+
+      const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map.value);
+
+      if (popupContent) {
+          marker.bindPopup(popupContent);
+      }
+
+      markers.value[id] = marker
+      return marker
+    } catch (e) {
+      console.error('Error adding marker:', e)
+      return null
     }
-
-    // Custom marker avec CSS simple
-    const customIcon = L.divIcon({
-        className: 'custom-div-icon',
-        html: `<div style="background-color: ${color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
-        iconSize: [12, 12],
-        iconAnchor: [6, 6]
-    });
-
-    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map.value);
-
-    if (popupContent) {
-        marker.bindPopup(popupContent);
-    }
-    
-    markers.value[id] = marker
-    return marker
   }
 
   const focusOn = (lat, lng, zoom = 18) => {
-    if (map.value) {
-      map.value.setView([lat, lng], zoom)
+    if (map.value && map.value._map) {
+      try {
+        map.value.setView([lat, lng], zoom)
+      } catch (e) {
+        console.error('Error focusing on location:', e)
+      }
     }
   }
 

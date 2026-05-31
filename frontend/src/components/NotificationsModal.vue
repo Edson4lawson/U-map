@@ -4,7 +4,7 @@
     <div @click="close" class="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-auto transition-opacity" aria-hidden="true"></div>
 
     <!-- Panel -->
-    <div class="relative w-full max-w-sm h-full bg-white dark:bg-gray-900 shadow-2xl pointer-events-auto flex flex-col transform transition-transform duration-300"
+    <div class="relative w-full max-w-sm sm:max-w-md h-full bg-white dark:bg-gray-900 shadow-2xl pointer-events-auto flex flex-col transform transition-transform duration-300"
          :class="isOpen ? 'translate-x-0' : 'translate-x-full'">
        
       <!-- Header -->

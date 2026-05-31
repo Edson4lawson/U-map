@@ -101,10 +101,13 @@
 
             <!-- Study Status / Study Buddies Section -->
             <div class="p-5 bg-gradient-to-br from-blue-950/40 via-slate-900/40 to-indigo-950/30 border border-blue-500/20 rounded-2xl shadow-lg space-y-4">
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                   <span>📚</span> Mon Statut d'Étude
+                <h3 class="text-sm font-bold text-white flex items-center justify-between cursor-pointer" @click="studyStatusExpanded = !studyStatusExpanded">
+                   <div class="flex items-center gap-6">
+                      <span>📚</span> Mon Statut d'Étude
+                      <Icon :icon="studyStatusExpanded ? 'ph:chevron-up-bold' : 'ph:caret-down-bold'" class="w-5 h-5 text-blue-400 ml-1" />
+                   </div>
                 </h3>
-                <div class="space-y-3">
+                <div v-show="studyStatusExpanded" class="space-y-3">
                    <div class="flex flex-col sm:flex-row gap-2">
                       <input v-model="myStudyStatus" type="text" placeholder="Ex: Révise les maths..." 
                              class="flex-1 bg-white/5 border border-white/10 rounded-xl py-2 px-3 text-xs text-white outline-none focus:ring-1 focus:ring-blue-500">
@@ -389,6 +392,7 @@ const reporting = ref(false)
 const authForm = ref({ name: '', email: '', password: '' })
 
 // Study Buddies state
+const studyStatusExpanded = ref(true)
 const myStudyStatus = ref('')
 const myStudyLocation = ref('')
 const studyBuddies = ref([])

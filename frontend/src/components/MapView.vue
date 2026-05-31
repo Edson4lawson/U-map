@@ -1,92 +1,94 @@
 <template>
-  <div id="map" class="w-full h-full z-0"></div>
-  
-  <!-- Map Controls Overlay -->
-  <div class="absolute top-4 right-4 z-[400] flex flex-col gap-2">
-     <button @click="toggleLayer" class="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl text-gray-700 dark:text-gray-200 hover:scale-105 transition-transform" aria-label="Toggle Layer">
-       <Icon :icon="isSatellite ? 'ph:map-trifold' : 'ph:globe-hemisphere-west'" class="w-6 h-6" />
-     </button>
-     <button @click="locateUser" class="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl text-primary hover:scale-105 transition-transform" aria-label="Locate Me">
-       <Icon icon="ph:navigation-arrow-fill" class="w-6 h-6" />
-     </button>
-     <button @click="handleAddClick" 
-        class="p-3 bg-white dark:bg-gray-800 text-orange-500 rounded-2xl shadow-xl hover:scale-105 transition-transform" 
-        aria-label="Add Place">
-        <Icon icon="ph:plus-circle-bold" class="w-6 h-6" />
-     </button>
-  </div>
+  <div class="relative w-full h-full">
+    <div id="map" class="w-full h-full z-0"></div>
+    
+    <!-- Map Controls Overlay -->
+    <div class="absolute top-4 right-4 z-[400] flex flex-col gap-2">
+       <button @click="toggleLayer" class="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl text-gray-700 dark:text-gray-200 hover:scale-105 transition-transform" aria-label="Toggle Layer">
+         <Icon :icon="isSatellite ? 'ph:map-trifold' : 'ph:globe-hemisphere-west'" class="w-6 h-6" />
+       </button>
+       <button @click="locateUser" class="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl text-primary hover:scale-105 transition-transform" aria-label="Locate Me">
+         <Icon icon="ph:navigation-arrow-fill" class="w-6 h-6" />
+       </button>
+       <button @click="handleAddClick" 
+          class="p-3 bg-white dark:bg-gray-800 text-orange-500 rounded-2xl shadow-xl hover:scale-105 transition-transform" 
+          aria-label="Add Place">
+          <Icon icon="ph:plus-circle-bold" class="w-6 h-6" />
+       </button>
+    </div>
 
-  <!-- Remove Instruction Overlay for Add Mode as it is now automatic -->
+    <!-- Remove Instruction Overlay for Add Mode as it is now automatic -->
 
 
-  <!-- Add Place Modal -->
-  <div v-if="showModal" class="fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md shadow-2xl scale-in">
-          <h2 class="text-xl font-bold mb-4 dark:text-white">Contribuer à U-Map UAC</h2>
-          
-          <!-- Contribution Type Selector -->
-          <div class="flex gap-2 mb-4 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl">
-              <button type="button" @click="contributionType = 'place'" 
-                      :class="contributionType === 'place' ? 'bg-white dark:bg-gray-700 shadow-sm text-primary font-bold' : 'text-gray-500'"
-                      class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
-                  📍 Lieu Permanent
-              </button>
-              <button type="button" @click="contributionType = 'report'" 
-                      :class="contributionType === 'report' ? 'bg-white dark:bg-gray-700 shadow-sm text-red-500 font-bold' : 'text-gray-500'"
-                      class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
-                  ⚠️ Infos en direct
-              </button>
-          </div>
+    <!-- Add Place Modal -->
+    <div v-if="showModal" class="fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md shadow-2xl scale-in">
+            <h2 class="text-xl font-bold mb-4 dark:text-white">Contribuer à U-Map UAC</h2>
+            
+            <!-- Contribution Type Selector -->
+            <div class="flex gap-2 mb-4 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl">
+                <button type="button" @click="contributionType = 'place'" 
+                        :class="contributionType === 'place' ? 'bg-white dark:bg-gray-700 shadow-sm text-primary font-bold' : 'text-gray-500'"
+                        class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
+                    📍 Lieu Permanent
+                </button>
+                <button type="button" @click="contributionType = 'report'" 
+                        :class="contributionType === 'report' ? 'bg-white dark:bg-gray-700 shadow-sm text-red-500 font-bold' : 'text-gray-500'"
+                        class="flex-1 py-2 text-xs font-medium rounded-xl transition-all">
+                    ⚠️ Infos en direct
+                </button>
+            </div>
 
-          <form @submit.prevent="submitContribution" class="space-y-4">
-              <div v-if="contributionType === 'place'" class="space-y-4">
-                  <div>
-                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nom du lieu (ou pseudo)</label>
-                      <input v-model="newPlace.name" type="text" required placeholder="Ex: Amphi Houdégbé (Ancien)" 
-                             class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
-                  </div>
-                  <div>
-                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Catégorie</label>
-                      <select v-model="newPlace.category" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
-                          <option value="Enseignements et académique">Amphi / Salle</option>
-                          <option value="Vie étudiante">Détente / Resto</option>
-                          <option value="Administratif">Administration</option>
-                          <option value="Divers">Autre</option>
-                      </select>
-                  </div>
-                  <div>
-                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description (Optionnel)</label>
-                      <textarea v-model="newPlace.description" rows="2" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white"></textarea>
-                  </div>
-              </div>
-              
-              <div v-else class="space-y-4">
-                  <div>
-                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Type de situation en direct</label>
-                      <select v-model="newLiveReport.type" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white">
-                          <option value="power_outage">🔌 Coupure d'électricité</option>
-                          <option value="crowded">👥 Amphi / Lieu bondé</option>
-                          <option value="event">🎉 Événement en cours</option>
-                          <option value="other">⚠️ Autre signalement</option>
-                      </select>
-                  </div>
-                  <div>
-                      <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description de la situation</label>
-                      <textarea v-model="newLiveReport.description" required placeholder="Ex: Panne générale sur tout le secteur..." rows="2" 
-                                class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white"></textarea>
-                  </div>
-              </div>
+            <form @submit.prevent="submitContribution" class="space-y-4">
+                <div v-if="contributionType === 'place'" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nom du lieu (ou pseudo)</label>
+                        <input v-model="newPlace.name" type="text" required placeholder="Ex: Amphi Houdégbé (Ancien)" 
+                               class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Catégorie</label>
+                        <select v-model="newPlace.category" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white">
+                            <option value="Enseignements et académique">Amphi / Salle</option>
+                            <option value="Vie étudiante">Détente / Resto</option>
+                            <option value="Administratif">Administration</option>
+                            <option value="Divers">Autre</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description (Optionnel)</label>
+                        <textarea v-model="newPlace.description" rows="2" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-primary dark:text-white"></textarea>
+                    </div>
+                </div>
+                
+                <div v-else class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Type de situation en direct</label>
+                        <select v-model="newLiveReport.type" class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white">
+                            <option value="power_outage">🔌 Coupure d'électricité</option>
+                            <option value="crowded">👥 Amphi / Lieu bondé</option>
+                            <option value="event">🎉 Événement en cours</option>
+                            <option value="other">⚠️ Autre signalement</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description de la situation</label>
+                        <textarea v-model="newLiveReport.description" required placeholder="Ex: Panne générale sur tout le secteur..." rows="2" 
+                                  class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-xl p-3 focus:ring-2 focus:ring-red-500 dark:text-white"></textarea>
+                    </div>
+                </div>
 
-              <div class="flex gap-3 pt-2">
-                  <button type="button" @click="showModal = false" class="flex-1 py-3 text-gray-500 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">Annuler</button>
-                  <button type="submit" :disabled="isSubmitting" 
-                          :class="contributionType === 'report' ? 'bg-red-500 shadow-red-500/20 hover:bg-red-600' : 'bg-primary shadow-blue-500/20'"
-                          class="flex-2 py-3 px-8 text-white font-bold rounded-xl shadow-lg disabled:opacity-50 transition-colors">
-                      {{ isSubmitting ? 'Envoi...' : 'Contribuer' }}
-                  </button>
-              </div>
-          </form>
-      </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" @click="showModal = false" class="flex-1 py-3 text-gray-500 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">Annuler</button>
+                    <button type="submit" :disabled="isSubmitting" 
+                            :class="contributionType === 'report' ? 'bg-red-500 shadow-red-500/20 hover:bg-red-600' : 'bg-primary shadow-blue-500/20'"
+                            class="flex-2 py-3 px-8 text-white font-bold rounded-xl shadow-lg disabled:opacity-50 transition-colors">
+                        {{ isSubmitting ? 'Envoi...' : 'Contribuer' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -229,7 +231,13 @@ const locateUser = () => {
     navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords
         updateUserMarker(latitude, longitude)
-        map.value.setView([latitude, longitude], 17)
+        if (map.value && map.value._map) {
+            try {
+                map.value.setView([latitude, longitude], 17)
+            } catch (e) {
+                console.error('Error setting view:', e)
+            }
+        }
     }, (err) => {
         alert("Erreur GPS : Impossible d'obtenir une position précise. Vérifiez vos réglages.")
     }, {
@@ -354,11 +362,17 @@ const startRoute = (destLat, destLng) => {
         drawRoute(latitude, longitude, destLat, destLng)
         
         // Centrer immédiatement la carte
-        const bounds = L.latLngBounds([
-            [latitude, longitude],
-            [destLat, destLng]
-        ])
-        map.value.fitBounds(bounds, { padding: [50, 50] })
+        if (map.value && map.value._map) {
+            try {
+                const bounds = L.latLngBounds([
+                    [latitude, longitude],
+                    [destLat, destLng]
+                ])
+                map.value.fitBounds(bounds, { padding: [50, 50] })
+            } catch (e) {
+                console.error('Error fitting bounds:', e)
+            }
+        }
         isFirstPoint = false
     }, (err) => {
         console.warn("Erreur GPS instantanée :", err)
@@ -385,11 +399,17 @@ const startRoute = (destLat, destLng) => {
         if (isFirstPoint) {
             drawRoute(latitude, longitude, destLat, destLng)
             
-            const bounds = L.latLngBounds([
-                [latitude, longitude],
-                [destLat, destLng]
-            ])
-            map.value.fitBounds(bounds, { padding: [50, 50] })
+            if (map.value && map.value._map) {
+                try {
+                    const bounds = L.latLngBounds([
+                        [latitude, longitude],
+                        [destLat, destLng]
+                    ])
+                    map.value.fitBounds(bounds, { padding: [50, 50] })
+                } catch (e) {
+                    console.error('Error fitting bounds:', e)
+                }
+            }
             isFirstPoint = false
         } else {
             // Mettre à jour dynamiquement la position de départ de la route existante
