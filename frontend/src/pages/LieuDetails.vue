@@ -140,7 +140,7 @@ const goToMap = () => {
 }
 
 const startItinerary = () => {
-    router.push({ name: 'Map', query: { routeTo: place.value.id } })
+  router.push({ name: 'Map', query: { focus: place.value.id, routeTo: place.value.id } })
 }
 
 
