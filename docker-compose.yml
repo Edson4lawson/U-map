@@ -1,0 +1,208 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: umap-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_DATABASE:-umap}
+      MYSQL_USER: ${DB_USERNAME:-umap}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - umap-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Redis for cache and queues
+  redis:
+    image: redis:7-alpine
+    container_name: umap-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - umap-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Laravel Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: umap-backend
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://localhost}
+      APP_KEY: ${APP_KEY}
+      
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-umap}
+      DB_USERNAME: ${DB_USERNAME:-umap}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+      
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+      
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      
+      RUN_MIGRATIONS: "true"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/var/www/html
+      - backend_storage:/var/www/html/storage
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - umap-network
+
+  # Laravel Queue Worker
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: umap-worker
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_KEY: ${APP_KEY}
+      
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-umap}
+      DB_USERNAME: ${DB_USERNAME:-umap}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+    command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
+    volumes:
+      - ./backend:/var/www/html
+      - backend_storage:/var/www/html/storage
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - umap-network
+
+  # Laravel Scheduler
+  scheduler:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: umap-scheduler
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_KEY: ${APP_KEY}
+      
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-umap}
+      DB_USERNAME: ${DB_USERNAME:-umap}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+    command: >
+      sh -c "while true; do
+        php artisan schedule:work --verbose --no-interaction &
+        sleep 60
+      done"
+    volumes:
+      - ./backend:/var/www/html
+      - backend_storage:/var/www/html/storage
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - umap-network
+
+  # Vue.js Frontend (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: umap-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:8000/api}
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - umap-network
+
+  # Nginx Reverse Proxy (Production)
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: umap-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - umap-network
+    profiles:
+      - production
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  backend_storage:
+    driver: local
+
+networks:
+  umap-network:
+    driver: bridge

@@ -1,0 +1,247 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all-ingress
+  namespace: umap
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all-egress
+  namespace: umap
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-ingress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 9000
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-egress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-backend
+  policyTypes:
+  - Egress
+  egress:
+  # Allow DNS
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53
+  # Allow MySQL (external)
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/8 # Replace with your MySQL subnet
+    ports:
+    - protocol: TCP
+      port: 3306
+  # Allow Redis (internal)
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow external APIs (Groq, Gemini)
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - protocol: TCP
+      port: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-ingress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-egress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-frontend
+  policyTypes:
+  - Egress
+  egress:
+  # Allow DNS
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53
+  # Allow backend API
+  - to:
+    - podSelector:
+        matchLabels:
+          app: umap-backend
+    ports:
+    - protocol: TCP
+      port: 9000
+  # Allow external APIs (maps, etc.)
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - protocol: TCP
+      port: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-worker-egress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-worker
+  policyTypes:
+  - Egress
+  egress:
+  # Allow DNS
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53
+  # Allow MySQL
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/8 # Replace with your MySQL subnet
+    ports:
+    - protocol: TCP
+      port: 3306
+  # Allow Redis
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-scheduler-egress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: umap-scheduler
+  policyTypes:
+  - Egress
+  egress:
+  # Allow DNS
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53
+  # Allow MySQL
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/8 # Replace with your MySQL subnet
+    ports:
+    - protocol: TCP
+      port: 3306
+  # Allow Redis
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-redis-ingress
+  namespace: umap
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow backend
+  - from:
+    - podSelector:
+        matchLabels:
+          app: umap-backend
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow worker
+  - from:
+    - podSelector:
+        matchLabels:
+          app: umap-worker
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow scheduler
+  - from:
+    - podSelector:
+        matchLabels:
+          app: umap-scheduler
+    ports:
+    - protocol: TCP
+      port: 6379

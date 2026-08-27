@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: umap-config
+  namespace: umap
+data:
+  app-url: "https://your-domain.com"
+  api-url: "https://your-domain.com/api"
+  db-host: "mysql-service"
+  db-port: "3306"
+  redis-host: "redis-service"
+  redis-port: "6379"
+  allowed-origins: "https://your-domain.com,https://www.your-domain.com"

@@ -1,0 +1,50 @@
+{
+  "common": {
+    "welcome": "Bienvenue",
+    "explore": "Explorer",
+    "search": "Rechercher...",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "back": "Retour",
+    "save": "Enregister",
+    "cancel": "Annuler"
+  },
+  "home": {
+    "hero_title": "Bienvenue sur {brand}",
+    "hero_subtitle": "Votre guide interactif du campus d'Abomey-Calavi.",
+    "popular_places": "Lieux Populaires",
+    "view_all": "Voir tout",
+    "quick_access": "Accès Rapide",
+    "actions": {
+        "studies": "Études",
+        "food": "Resto",
+        "favorites": "Favoris"
+    },
+    "stats": {
+      "places": "Lieux",
+      "visited": "Visités"
+    }
+  },
+  "map": {
+    "locate": "Me localiser",
+    "layers": "Changer de fond",
+    "route": "Itinéraire",
+    "share": "Partager",
+    "details": "Voir détails",
+    "clear_route": "Effacer l'itinéraire"
+  },
+  "chat": {
+    "title": "Messagerie",
+    "new_message": "Nouveau",
+    "search_placeholder": "Rechercher une conversation...",
+    "no_conversations": "Aucune conversation pour le moment.",
+    "smart_suggestions": "Suggestions intelligentes",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Tout marquer comme lu",
+    "empty": "Aucune notification"
+  }
+}

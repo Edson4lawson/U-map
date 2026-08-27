@@ -1,0 +1,3213 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "36",
+                "name": "Zone Master",
+                "type": "Bâtiments d'enseignement",
+                "category": "Facultés, écoles et instituts",
+                "description": "Zone regroupant les salles de cours pour les programmes de Master et laboratoires de recherche.",
+                "openingHours": "07:30 - 19:00",
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop"
+                ],
+                "tags": [
+                    "Master",
+                    "Cours",
+                    "Recherche"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.34014,
+                    6.42157
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038112",
+                "name": "Bibliothèque Centrale de L'UAC",
+                "type": "amenity",
+                "category": "library",
+                "description": "Bibliothèque principale de l'Université d'Abomey-Calavi, offrant des ouvrages, mémoires, thèses, ressources documentaires et espaces de travail.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1521587760476-6c12a4b040da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxpYnJhcnl8ZW58MHwwfHx8MTc4NTE2MTE3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038112,
+                    "name": "Bibliothèque Centrale de L'UAC",
+                    "amenity": "library",
+                    "building": null,
+                    "type": "library"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3430109,
+                    6.4148789
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038115",
+                "name": "École Nationale d’Administartion et de Magistrature",
+                "type": "amenity",
+                "category": "school",
+                "description": "Établissement public de formation spécialisé dans l'administration publique, la magistrature et les carrières juridiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358254-1fee21f7c2cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038115,
+                    "name": "École Nationale d’Administartion et de Magistrature",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.340408,
+                    6.418572
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038116",
+                "name": "Faculté de Droit et Sciences Politiques",
+                "type": "amenity",
+                "category": "faculty",
+                "description": "Faculté spécialisée dans la formation et la recherche en droit, sciences politiques et disciplines juridiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358756-1f342bedf97c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038116,
+                    "name": "Faculté de Droit et Sciences Politiques",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3422,
+                    6.416003
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038117",
+                "name": "Faculté de Lettres, Arts et Sciences Humaines",
+                "type": "amenity",
+                "category": "faculty",
+                "description": "Faculté proposant des formations en lettres, langues, arts, communication et sciences humaines.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1599043464895-0e273f94eed7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038117,
+                    "name": "Faculté de Lettres, Arts et Sciences Humaines",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3432936,
+                    6.4154003
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038118",
+                "name": "Faculté des Sciences Agronomiques",
+                "type": "amenity",
+                "category": "faculty",
+                "description": "Faculté spécialisée dans les sciences agronomiques, l'agriculture, l'élevage, l'environnement et le développement rural.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358254-1fee21f7c2cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038118,
+                    "name": "Faculté des Sciences Agronomiques",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.341917,
+                    6.416288
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038119",
+                "name": "Administration Faseg",
+                "type": "amenity",
+                "category": "office",
+                "description": "Administration centrale de la Faculté des Sciences Économiques et de Gestion, responsable des formalités administratives et académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1708451465471-21b4e225f801?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMG9mZmljZSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038119,
+                    "name": "Administration Faseg",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3409163,
+                    6.4198676
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038126",
+                "name": "Ecobank (distributeur automatique)",
+                "type": "amenity",
+                "category": "atm",
+                "description": "Distributeur automatique permettant les retraits d'espèces et certaines opérations bancaires 24h\/24.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1770388313796-f41cb71a5d44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8YmFuayUyMGJyYW5jaCUyMGF0bXxlbnwwfDB8fHwxNzg1MTYxMTg5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038126,
+                    "name": "Ecobank (distributeur automatique)",
+                    "amenity": "atm",
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3449797,
+                    6.4142902
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3536663768",
+                "name": "Ecobank",
+                "type": "amenity",
+                "category": "bank",
+                "description": "Agence bancaire offrant des services financiers, des opérations bancaires et des solutions de paiement à la communauté universitaire.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1760555960699-dc19c4104301?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8YmFuayUyMGJyYW5jaCUyMGF0bXxlbnwwfDB8fHwxNzg1MTYxMTg5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3536663768,
+                    "name": "Ecobank",
+                    "amenity": "bank",
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3429509,
+                    6.4133264
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539471178",
+                "name": "Institut Confucius",
+                "type": "amenity",
+                "category": "institute",
+                "description": "Institut dédié à l'enseignement de la langue chinoise ainsi qu'à la promotion de la culture chinoise au sein de l'UAC.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774978237289-559332246cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539471178,
+                    "name": "Institut Confucius",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3398385,
+                    6.4118343
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539471179",
+                "name": "Institut National de l'Eau",
+                "type": "amenity",
+                "category": "institute",
+                "description": "Institut de formation et de recherche spécialisé dans les ressources en eau, l'hydrologie et la gestion environnementale.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193531678-57b7ba3e603d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539471179,
+                    "name": "Institut National de l'Eau",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3410377,
+                    6.4127469
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539644411",
+                "name": "Bibliothèque EPAC",
+                "type": "amenity",
+                "category": "library",
+                "description": "Bibliothèque de l'EPAC proposant des ouvrages spécialisés, des ressources scientifiques et des espaces d'étude.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1498243691581-b145c3f54a5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxpYnJhcnl8ZW58MHwwfHx8MTc4NTE2MTE3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539644411,
+                    "name": "Bibliothèque EPAC",
+                    "amenity": "library",
+                    "building": null,
+                    "type": "library"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3421237,
+                    6.4142388
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539644412",
+                "name": "Bibliothèque Fadesp",
+                "type": "amenity",
+                "category": "library",
+                "description": "Bibliothèque universitaire de la FADESP offrant des ressources documentaires adaptées aux différentes filières de la faculté.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1521587760476-6c12a4b040da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxpYnJhcnl8ZW58MHwwfHx8MTc4NTE2MTE3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539644412,
+                    "name": "Bibliothèque Fadesp",
+                    "amenity": "library",
+                    "building": null,
+                    "type": "library"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3437931,
+                    6.4161199
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3989796508",
+                "name": "Station MRS",
+                "type": "amenity",
+                "category": "fuel",
+                "description": "Station-service située à proximité du campus, offrant carburants et services automobiles.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1709536240401-58dff8e8d597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8Z2FzJTIwc3RhdGlvbiUyMGZ1ZWwlMjBwdW1wfGVufDB8MHx8fDE3ODUxNjEyMTh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3989796508,
+                    "name": "Station MRS",
+                    "amenity": "fuel",
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3463126,
+                    6.4178773
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4401032990",
+                "name": "École Polytechnique d’Abomey Calavi",
+                "type": "amenity",
+                "category": "school",
+                "description": "Grande école d'ingénieurs de l'UAC offrant des formations en génie, technologies, architecture et sciences appliquées.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358756-1f342bedf97c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4401032990,
+                    "name": "École Polytechnique d’Abomey Calavi",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423477,
+                    6.4142818
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4401314589",
+                "name": "Institut de Formation et de Recherche en Informatique",
+                "type": "amenity",
+                "category": "institute",
+                "description": "Institut spécialisé dans les formations en informatique, intelligence artificielle, cybersécurité, réseaux et technologies numériques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193529611-40ef867726fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4401314589,
+                    "name": "Institut de Formation et de Recherche en Informatique",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3401684,
+                    6.4163194
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4403228628",
+                "name": "Université Virtuelle Africaine (UVA)",
+                "type": "amenity",
+                "category": "institute",
+                "description": "Centre universitaire proposant des formations à distance et des ressources numériques pour l'enseignement supérieur.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193531678-57b7ba3e603d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4403228628,
+                    "name": "Université Virtuelle Africaine (UVA)",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3401975,
+                    6.4162884
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4972021612",
+                "name": "Bâtiment MIRD",
+                "type": "amenity",
+                "category": "building",
+                "description": "Bâtiment principal du MIRD regroupant les espaces d'enseignement, de recherche et les services administratifs.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1599043464895-0e273f94eed7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4972021612,
+                    "name": "Bâtiment MIRD",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3413847,
+                    6.4200337
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4972026746",
+                "name": "Amphi MIRD",
+                "type": "amenity",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre du MIRD utilisé pour les cours, conférences et activités scientifiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4972026746,
+                    "name": "Amphi MIRD",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3414367,
+                    6.4199933
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "5006362973",
+                "name": "amphi Etisalat",
+                "type": "amenity",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre universitaire utilisé pour les cours magistraux, conférences et événements académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 5006362973,
+                    "name": "amphi Etisalat",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3453709,
+                    6.4185722
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "5171289536",
+                "name": "Station puma",
+                "type": "amenity",
+                "category": "fuel",
+                "description": "Station-service proposant la distribution de carburants et divers services aux usagers du campus.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1695561324569-5e47c76dc0a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8Z2FzJTIwc3RhdGlvbiUyMGZ1ZWwlMjBwdW1wfGVufDB8MHx8fDE3ODUxNjEyMTh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 5171289536,
+                    "name": "Station puma",
+                    "amenity": "fuel",
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3448133,
+                    6.4173506
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "7271514131",
+                "name": "Resteau-bar UAC",
+                "type": "amenity",
+                "category": "cafe",
+                "description": "Café-restaurant proposant boissons, repas légers et espace de détente au sein du campus.",
+                "openingHours": null,
+                "images": [],
+                "tags": {
+                    "osmid": 7271514131,
+                    "name": "Resteau-bar UAC",
+                    "amenity": "cafe",
+                    "building": null,
+                    "type": "food"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3432301,
+                    6.4139099
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "8155337518",
+                "name": "Centre Commercial EPAC",
+                "type": "amenity",
+                "category": "restaurant",
+                "description": "Espace de restauration proposant des repas rapides, boissons et collations aux étudiants et au personnel.",
+                "openingHours": null,
+                "images": [],
+                "tags": {
+                    "osmid": 8155337518,
+                    "name": "Centre Commercial EPAC",
+                    "amenity": "fast_food",
+                    "building": null,
+                    "type": "food"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3417289,
+                    6.4126933
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "10723664193",
+                "name": "CIPMA Chaire UNESCO",
+                "type": "amenity",
+                "category": "research_center",
+                "description": "Centre de recherche universitaire spécialisé dans les mathématiques et leurs applications, reconnu comme Chaire UNESCO.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193529611-40ef867726fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 10723664193,
+                    "name": "CIPMA Chaire UNESCO",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3397398,
+                    6.4204124
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038122",
+                "name": "Rectorat Annexe",
+                "type": "other",
+                "category": "administration",
+                "description": "Bâtiment administratif complémentaire accueillant certains services du rectorat.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784154637840-9a3291ebf887?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGFkbWluaXN0cmF0aW9uJTIwYnVpbGRpbmclMjBmYWNhZGV8ZW58MHwwfHx8MTc4NTE2MTIwMXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038122,
+                    "name": "Rectorat Annexe",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.34406,
+                    6.414933
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3091038123",
+                "name": "Rectorat",
+                "type": "other",
+                "category": "administration",
+                "description": "Siège administratif principal de l'Université d'Abomey-Calavi, regroupant les services de gouvernance et la présidence de l'université.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1770629835248-5da510436ec4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGFkbWluaXN0cmF0aW9uJTIwYnVpbGRpbmclMjBmYWNhZGV8ZW58MHwwfHx8MTc4NTE2MTIwMXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3091038123,
+                    "name": "Rectorat",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3434687,
+                    6.4149892
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539032288",
+                "name": "Laboratoire FAST",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Laboratoire de la FAST dédié aux activités pédagogiques et scientifiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539032288,
+                    "name": "Laboratoire FAST",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3452764,
+                    6.4177955
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "3539813700",
+                "name": "Laboratoire de Cartographie(LaCarto)",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé en cartographie, systèmes d'information géographique (SIG) et analyse spatiale.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 3539813700,
+                    "name": "Laboratoire de Cartographie(LaCarto)",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.341058,
+                    6.4215756
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "4972015829",
+                "name": "Amphithéatre Théléthon",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre destiné aux enseignements, conférences et diverses activités universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 4972015829,
+                    "name": "Amphithéatre Théléthon",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3455629,
+                    6.4197174
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "5661359923",
+                "name": "SMEL-UAC",
+                "type": "other",
+                "category": "health_center",
+                "description": "Service médical de l'Université d'Abomey-Calavi assurant les soins de santé de première nécessité aux étudiants et au personnel.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1632988663082-4bac2c1847a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 5661359923,
+                    "name": "SMEL-UAC",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.341185,
+                    6.41572
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "5661360314",
+                "name": "Vice rectorat",
+                "type": "other",
+                "category": "administration",
+                "description": "Bâtiment administratif hébergeant les services du Vice-Rectorat et les directions universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1769283997902-5f1fa52daabe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGFkbWluaXN0cmF0aW9uJTIwYnVpbGRpbmclMjBmYWNhZGV8ZW58MHwwfHx8MTc4NTE2MTIwMXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 5661360314,
+                    "name": "Vice rectorat",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3411916,
+                    6.4156792
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "7862605449",
+                "name": "Laboratoire d'Ecologie Appliquée",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Centre de recherche consacré à l'écologie, à la biodiversité et à la gestion durable des écosystèmes.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 7862605449,
+                    "name": "Laboratoire d'Ecologie Appliquée",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3392691,
+                    6.4153935
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "7945980659",
+                "name": "Laboratoire de l'Hydraulique Appliquée",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Laboratoire dédié aux expérimentations et aux recherches dans le domaine de l'hydraulique.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 7945980659,
+                    "name": "Laboratoire de l'Hydraulique Appliquée",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3386506,
+                    6.4128933
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "7946002363",
+                "name": "Laboratoire des Sciences et Techniques de l’Eau et de l'Environnement",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Centre de recherche spécialisé dans les sciences de l'eau, l'environnement et le développement durable.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 7946002363,
+                    "name": "Laboratoire des Sciences et Techniques de l’Eau et de l'Environnement",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3384459,
+                    6.4126838
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347214829",
+                "name": "Université d'Abomey-Calavi",
+                "type": "amenity",
+                "category": "university",
+                "description": "Plus grande université publique du Bénin, regroupant plusieurs facultés, écoles, instituts, laboratoires et infrastructures de recherche.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358756-1f342bedf97c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347214829,
+                    "name": "Université d'Abomey-Calavi",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.341985,
+                    6.4160904
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314867",
+                "name": "Résidence A2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire offrant des logements aux étudiants dans un cadre propice aux études.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784162075161-9efc77355cd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314867,
+                    "name": "Résidence A2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3443504,
+                    6.4127327
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314868",
+                "name": "Résidence B2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire proposant des chambres pour les étudiants de l'UAC.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314868,
+                    "name": "Résidence B2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3442852,
+                    6.4120702
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314869",
+                "name": "Résidence C2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire destinée à l'hébergement des étudiants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774078618445-ca7f78a2d830?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314869,
+                    "name": "Résidence C2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3441538,
+                    6.4114776
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314870",
+                "name": "Résidence D",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire située sur le campus de l'UAC.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314870,
+                    "name": "Résidence D",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3420552,
+                    6.4113521
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314871",
+                "name": "Résidence D2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire offrant des logements aux étudiants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784162075161-9efc77355cd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314871,
+                    "name": "Résidence D2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3438431,
+                    6.4109818
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314872",
+                "name": "Résidence E",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire réservée aux étudiants de l'université.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774078618445-ca7f78a2d830?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314872,
+                    "name": "Résidence E",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3420654,
+                    6.410895
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314873",
+                "name": "Résidence E2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire offrant un hébergement à proximité des facultés.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314873,
+                    "name": "Résidence E2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3436204,
+                    6.4105489
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314874",
+                "name": "Résidence F2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire située au sein du campus universitaire.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774078618445-ca7f78a2d830?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314874,
+                    "name": "Résidence F2",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3434023,
+                    6.4101177
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347314875",
+                "name": "Résidence I",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire offrant un cadre de vie adapté aux étudiants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774078618445-ca7f78a2d830?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347314875,
+                    "name": "Résidence I",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3421367,
+                    6.4103889
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347317835",
+                "name": "Résidence C Français",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire accueillant principalement des étudiants sur le campus.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784162075161-9efc77355cd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347317835,
+                    "name": "Résidence C Français",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3428682,
+                    6.4124055
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333082",
+                "name": "Résidence A",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire destinée au logement des étudiants de l'Université d'Abomey-Calavi.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333082,
+                    "name": "Résidence A",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3429122,
+                    6.413275
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333084",
+                "name": "Résidence B",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire réservée à l'hébergement des étudiants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774078618445-ca7f78a2d830?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333084,
+                    "name": "Résidence B",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3428723,
+                    6.41298
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333085",
+                "name": "Résidence F",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire destinée aux étudiants inscrits à l'UAC.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784162075161-9efc77355cd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333085,
+                    "name": "Résidence F",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3424162,
+                    6.413553
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333086",
+                "name": "Résidence G",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire accueillant les étudiants pendant leur parcours académique.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333086,
+                    "name": "Résidence G",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423716,
+                    6.4132643
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333087",
+                "name": "Résidence H",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire proposant des logements sur le campus.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1784162075161-9efc77355cd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333087,
+                    "name": "Résidence H",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423248,
+                    6.4129691
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347333088",
+                "name": "Résidence MK2",
+                "type": "building",
+                "category": "dormitory",
+                "description": "Résidence universitaire destinée à l'hébergement des étudiants et chercheurs.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1721657197499-5c12825c3a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c3R1ZGVudCUyMGRvcm1pdG9yeSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjEyMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347333088,
+                    "name": "Résidence MK2",
+                    "amenity": null,
+                    "building": "residential",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3421885,
+                    6.4119257
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347335306",
+                "name": "Restaurant Universitaire 1",
+                "type": "building",
+                "category": "restaurant",
+                "description": "Restaurant universitaire offrant des repas à prix subventionnés pour les étudiants et le personnel.",
+                "openingHours": null,
+                "images": [],
+                "tags": {
+                    "osmid": 347335306,
+                    "name": "Restaurant Universitaire 1",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3430245,
+                    6.4140837
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347349927",
+                "name": "Ferme d'application et de production de la FSA",
+                "type": "other",
+                "category": "farm",
+                "description": "Ferme pédagogique et expérimentale utilisée pour les travaux pratiques, la recherche et les activités de production agricole.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1588011882503-2e6061ace84d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8YWdyaWN1bHR1cmFsJTIwZmFybSUyMGZpZWxkfGVufDB8MHx8fDE3ODUxNjExOTF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347349927,
+                    "name": "Ferme d'application et de production de la FSA",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3395915,
+                    6.4153687
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347349932",
+                "name": "Imprimerie de l'UAC",
+                "type": "building",
+                "category": "print_shop",
+                "description": "Service d'impression et de reprographie destiné aux étudiants, enseignants et personnels administratifs de l'université.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1581508512961-0e3b9524db40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8cHJpbnRpbmclMjBwcmVzcyUyMHdvcmtzaG9wfGVufDB8MHx8fDE3ODUxNjExOTR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347349932,
+                    "name": "Imprimerie de l'UAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3411154,
+                    6.4156398
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347349934",
+                "name": "Laboratoire de Zoogéographie",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé dans l'étude de la répartition géographique des espèces animales et de leur environnement.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347349934,
+                    "name": "Laboratoire de Zoogéographie",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3382802,
+                    6.416679
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347349942",
+                "name": "Restaurant Universitaire 2",
+                "type": "amenity",
+                "category": "restaurant",
+                "description": "Restaurant universitaire proposant des repas équilibrés dans un cadre adapté à la communauté universitaire.",
+                "openingHours": null,
+                "images": [],
+                "tags": {
+                    "osmid": 347349942,
+                    "name": "Restaurant Universitaire 2",
+                    "amenity": "restaurant",
+                    "building": "yes",
+                    "type": "food"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3410396,
+                    6.4176659
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347350025",
+                "name": "Bâtiment H FSA",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de la Faculté des Sciences Agronomiques destiné aux enseignements et à la recherche.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1731349219592-60ca16964631?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347350025,
+                    "name": "Bâtiment H FSA",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3406225,
+                    6.4163682
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347366368",
+                "name": "Amphi Uemoa",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre utilisé pour les cours magistraux, conférences et événements académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347366368,
+                    "name": "Amphi Uemoa",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3425072,
+                    6.420964
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347366370",
+                "name": "Restaurant Universitaire 4",
+                "type": "building",
+                "category": "restaurant",
+                "description": "Restaurant universitaire assurant un service de restauration pour les étudiants, enseignants et visiteurs.",
+                "openingHours": null,
+                "images": [],
+                "tags": {
+                    "osmid": 347366370,
+                    "name": "Restaurant Universitaire 4",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.344861,
+                    6.414713
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347366372",
+                "name": "Salle des doctorant IFRI",
+                "type": "building",
+                "category": "research_center",
+                "description": "Salle de travail réservée aux doctorants de l'IFRI pour les activités de recherche, de collaboration et de rédaction scientifique.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774978237289-559332246cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347366372,
+                    "name": "Salle des doctorant IFRI",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3445206,
+                    6.4156289
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661193",
+                "name": "Administration FAST",
+                "type": "building",
+                "category": "office",
+                "description": "Services administratifs de la Faculté des Sciences et Techniques (FAST), chargés de la gestion des dossiers académiques et administratifs.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1572103627949-6335c50b5931?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMG9mZmljZSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661193,
+                    "name": "Administration FAST",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.345273,
+                    6.4178785
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661195",
+                "name": "Amphi B 750",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de 750 places utilisé pour les cours magistraux et les conférences universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661195,
+                    "name": "Amphi B 750",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423517,
+                    6.4213678
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661196",
+                "name": "Amphi A 1000",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Grand amphithéâtre d'une capacité d'environ 1000 places, utilisé pour les cours magistraux, conférences et événements universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661196,
+                    "name": "Amphi A 1000",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3409118,
+                    6.4199462
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661198",
+                "name": "Amphi Alassane Dramane Ouattara",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre dédié aux cours magistraux, conférences, séminaires et événements scientifiques de l'université.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661198,
+                    "name": "Amphi Alassane Dramane Ouattara",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.345855,
+                    6.4192652
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661200",
+                "name": "Amphi C 1000",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Grand amphithéâtre de 1000 places utilisé pour les cours magistraux, conférences et cérémonies universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661200,
+                    "name": "Amphi C 1000",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3411441,
+                    6.421664
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661201",
+                "name": "Amphi Houdegbe",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre utilisé pour les enseignements universitaires, conférences et soutenances.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661201,
+                    "name": "Amphi Houdegbe",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3453697,
+                    6.4194169
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661202",
+                "name": "Amphi Idriss Deby",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre destiné aux enseignements, conférences et manifestations académiques de l'UAC.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661202,
+                    "name": "Amphi Idriss Deby",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3417296,
+                    6.4214419
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661211",
+                "name": "Amphi Prof Géro AMOUSSAGA",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre universitaire dédié aux enseignements, conférences et rencontres scientifiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661211,
+                    "name": "Amphi Prof Géro AMOUSSAGA",
+                    "amenity": null,
+                    "building": "construction",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3461836,
+                    6.4200934
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661212",
+                "name": "Département d'Espagnol",
+                "type": "building",
+                "category": "department",
+                "description": "Département universitaire assurant l'enseignement, la recherche et la promotion de la langue et de la culture espagnoles.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1572103627949-6335c50b5931?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGRlcGFydG1lbnQlMjBvZmZpY2V8ZW58MHwwfHx8MTc4NTE2MTE4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661212,
+                    "name": "Département d'Espagnol",
+                    "amenity": null,
+                    "building": "office",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423357,
+                    6.42047
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347661216",
+                "name": "Labo FAST",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire de la Faculté des Sciences et Techniques destiné aux travaux pratiques, aux expérimentations et aux activités de recherche scientifique.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347661216,
+                    "name": "Labo FAST",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3459236,
+                    6.4195706
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676660",
+                "name": "Amphi A 500",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de 500 places utilisé pour les cours magistraux et les rencontres académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676660,
+                    "name": "Amphi A 500",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3395339,
+                    6.4201071
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676661",
+                "name": "Amphi B 500",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de 500 places accueillant les enseignements, conférences et activités académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606761568499-6d2451b23c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676661,
+                    "name": "Amphi B 500",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3398406,
+                    6.4195257
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676662",
+                "name": "Amphi B 1000",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Grand amphithéâtre d'environ 1000 places destiné aux grands rassemblements universitaires et aux enseignements magistraux.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676662,
+                    "name": "Amphi B 1000",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3388584,
+                    6.4198266
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676663",
+                "name": "Amphi Codjovi",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre accueillant les cours magistraux, conférences et rencontres scientifiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676663,
+                    "name": "Amphi Codjovi",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3398926,
+                    6.41874
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676664",
+                "name": "Amphi Mensah",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre accueillant les cours magistraux, conférences et événements académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676664,
+                    "name": "Amphi Mensah",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3397295,
+                    6.4191216
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676665",
+                "name": "Bibliothèque Vieyra",
+                "type": "amenity",
+                "category": "library",
+                "description": "Bibliothèque universitaire mettant à disposition des étudiants et chercheurs des ouvrages, espaces de lecture et ressources académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1564981797816-1043664bf78d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxpYnJhcnl8ZW58MHwwfHx8MTc4NTE2MTE3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676665,
+                    "name": "Bibliothèque Vieyra",
+                    "amenity": "library",
+                    "building": "yes",
+                    "type": "library"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3405708,
+                    6.4182293
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676672",
+                "name": "Bâtiment I FSA",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de la Faculté des Sciences Agronomiques utilisé pour les enseignements, la recherche et les services universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1641160616553-a9d21a846e49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676672,
+                    "name": "Bâtiment I FSA",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3404105,
+                    6.4167221
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676676",
+                "name": "Laboratoire d'Enthomologie Appliquée",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire dédié à l'étude des insectes, de la lutte biologique et des recherches en entomologie appliquée.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676676,
+                    "name": "Laboratoire d'Enthomologie Appliquée",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3413689,
+                    6.4169817
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347676677",
+                "name": "Laboratoire d'Hydrologie Appliquée",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé dans l'analyse des ressources hydriques, des bassins versants et des phénomènes hydrologiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347676677,
+                    "name": "Laboratoire d'Hydrologie Appliquée",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3394523,
+                    6.4197162
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695348",
+                "name": "Amphi B EPAC",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de l'EPAC destiné aux enseignements, conférences et soutenances académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695348,
+                    "name": "Amphi B EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3390684,
+                    6.4130251
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695349",
+                "name": "Amphi IRAN\/ Administration IFRI",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de l'IFRI servant aux cours magistraux, conférences et activités académiques de l'institut.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1774978237289-559332246cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695349,
+                    "name": "Amphi IRAN\/ Administration IFRI",
+                    "amenity": null,
+                    "building": "office",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3401809,
+                    6.4163609
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695350",
+                "name": "Bibliothèque Centre de Documentation",
+                "type": "amenity",
+                "category": "library",
+                "description": "Centre documentaire mettant à disposition des étudiants et chercheurs des ressources pédagogiques et scientifiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1564981797816-1043664bf78d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxpYnJhcnl8ZW58MHwwfHx8MTc4NTE2MTE3MXww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695350,
+                    "name": "Bibliothèque Centre de Documentation",
+                    "amenity": "library",
+                    "building": "yes",
+                    "type": "library"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3409609,
+                    6.4160648
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695351",
+                "name": "Bâtiment I EPAC",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de l'EPAC accueillant des salles de cours, des laboratoires et des bureaux universitaires.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1632988663082-4bac2c1847a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695351,
+                    "name": "Bâtiment I EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3385063,
+                    6.412296
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695354",
+                "name": "Département Génie Civil",
+                "type": "building",
+                "category": "department",
+                "description": "Département académique de l'EPAC chargé de la formation, de la recherche et des travaux pratiques en génie civil.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1708451465471-21b4e225f801?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGRlcGFydG1lbnQlMjBvZmZpY2V8ZW58MHwwfHx8MTc4NTE2MTE4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695354,
+                    "name": "Département Génie Civil",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3389422,
+                    6.4128994
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695356",
+                "name": "EPAC Village",
+                "type": "amenity",
+                "category": "campus",
+                "description": "Ensemble de bâtiments et d'infrastructures de l'EPAC regroupant les espaces pédagogiques, administratifs et techniques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1706078358254-1fee21f7c2cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGZhY3VsdHklMjBidWlsZGluZyUyMGNhbXB1c3xlbnwwfDB8fHwxNzg1MTYxMTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695356,
+                    "name": "EPAC Village",
+                    "amenity": "university",
+                    "building": null,
+                    "type": "academic"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3386689,
+                    6.4125328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695359",
+                "name": "Laboratoire d' Hydraulique et de Maîtrise de l'Eau",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé dans l'étude des ressources en eau, des ouvrages hydrauliques et de la gestion de l'eau.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695359,
+                    "name": "Laboratoire d' Hydraulique et de Maîtrise de l'Eau",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3408782,
+                    6.4163346
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695360",
+                "name": "Laboratoire d'Hydrobiologie et d'Aquaculture",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé dans les écosystèmes aquatiques, l'aquaculture et la gestion des ressources halieutiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695360,
+                    "name": "Laboratoire d'Hydrobiologie et d'Aquaculture",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3386427,
+                    6.4162466
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695361",
+                "name": "Laboratoire de Biotechnologie Animale",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Laboratoire consacré aux recherches en biotechnologie animale, amélioration génétique et reproduction.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695361,
+                    "name": "Laboratoire de Biotechnologie Animale",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3393685,
+                    6.4118422
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695362",
+                "name": "Laboratoire de Pathologie Animale, Microbilogie et Immunologie",
+                "type": "other",
+                "category": "laboratory",
+                "description": "Centre de recherche spécialisé dans les maladies animales, la microbiologie et l'immunologie vétérinaire.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695362,
+                    "name": "Laboratoire de Pathologie Animale, Microbilogie et Immunologie",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3394378,
+                    6.41199
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695363",
+                "name": "Laboratoire de Physiologie",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire consacré à l'étude du fonctionnement des organismes vivants et aux expérimentations en physiologie.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695363,
+                    "name": "Laboratoire de Physiologie",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3390389,
+                    6.4139008
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695364",
+                "name": "Laboratoire de Recherche en Biologie Appliquée",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire de recherche développant des travaux en biologie appliquée et en sciences du vivant.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695364,
+                    "name": "Laboratoire de Recherche en Biologie Appliquée",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3412493,
+                    6.413622
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347695365",
+                "name": "Laboratoire d'Hydrobiologie et de Recherche sur les Zones Humides (LHyReZ)",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Centre de recherche consacré aux zones humides, à l'hydrobiologie et à la conservation des milieux aquatiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347695365,
+                    "name": "Laboratoire d'Hydrobiologie et de Recherche sur les Zones Humides (LHyReZ)",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.33868,
+                    6.4148303
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710580",
+                "name": "Amphi A 150",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre d'environ 150 places destiné aux enseignements, séminaires et conférences de taille moyenne.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1736066330610-c102cab4e942?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710580,
+                    "name": "Amphi A 150",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3431961,
+                    6.4154272
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710581",
+                "name": "Amphi A 400",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de 400 places accueillant les cours magistraux, soutenances et manifestations académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1758270704262-ecc82b23dc37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGxlY3R1cmUlMjBoYWxsfGVufDB8MHx8fDE3ODUxNjExNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710581,
+                    "name": "Amphi A 400",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3428517,
+                    6.4154141
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710582",
+                "name": "Administration Fadesp",
+                "type": "building",
+                "category": "office",
+                "description": "Bâtiment administratif de la Faculté de Droit et de Sciences Politiques, accueillant les services destinés aux étudiants et au personnel.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1719920047220-d61e47a8fe45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMG9mZmljZSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710582,
+                    "name": "Administration Fadesp",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3420325,
+                    6.4160599
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710584",
+                "name": "Bloc Laboratoire Polyvalent",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Bâtiment regroupant plusieurs laboratoires destinés aux travaux pratiques, aux expérimentations et aux activités de recherche scientifique.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710584,
+                    "name": "Bloc Laboratoire Polyvalent",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423801,
+                    6.4168367
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710586",
+                "name": "Administration EPAC",
+                "type": "building",
+                "category": "office",
+                "description": "Bâtiment administratif principal de l'École Polytechnique d'Abomey-Calavi (EPAC), où sont assurées les démarches administratives, académiques et la gestion des étudiants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1708451465471-21b4e225f801?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMG9mZmljZSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710586,
+                    "name": "Administration EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3419698,
+                    6.4142688
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710588",
+                "name": "Bâtiment B EPAC",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de l'EPAC accueillant des salles de cours, des bureaux administratifs et des espaces dédiés aux activités pédagogiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1731349219592-60ca16964631?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710588,
+                    "name": "Bâtiment B EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3416465,
+                    6.4146377
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710589",
+                "name": "Bâtiment B FSA",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de la Faculté des Sciences Agronomiques regroupant des salles d'enseignement, des laboratoires et des bureaux.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1632988663082-4bac2c1847a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710589,
+                    "name": "Bâtiment B FSA",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3416156,
+                    6.4163661
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710590",
+                "name": "Bâtiment C EPAC",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment universitaire de l'EPAC dédié aux enseignements, aux travaux pratiques et aux activités académiques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1641160616553-a9d21a846e49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710590,
+                    "name": "Bâtiment C EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423923,
+                    6.4145207
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710591",
+                "name": "Bâtiment C FSA",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de la Faculté des Sciences Agronomiques accueillant des salles de cours et des espaces de recherche.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1731349219592-60ca16964631?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710591,
+                    "name": "Bâtiment C FSA",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3423727,
+                    6.4166401
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710592",
+                "name": "Bâtiment D EPAC",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment de l'EPAC regroupant des salles d'enseignement, des laboratoires et des bureaux administratifs.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1632988663082-4bac2c1847a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710592,
+                    "name": "Bâtiment D EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3420642,
+                    6.4148515
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710593",
+                "name": "Bâtiment E EPAC",
+                "type": "building",
+                "category": "building",
+                "description": "Bâtiment universitaire de l'EPAC consacré aux activités pédagogiques, scientifiques et administratives.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1641160616553-a9d21a846e49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710593,
+                    "name": "Bâtiment E EPAC",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3417367,
+                    6.4151792
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710598",
+                "name": "Département de génétique et de biotechnologie",
+                "type": "building",
+                "category": "department",
+                "description": "Département spécialisé dans la formation et la recherche en génétique, biotechnologie et sciences du vivant.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1708451465471-21b4e225f801?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGRlcGFydG1lbnQlMjBvZmZpY2V8ZW58MHwwfHx8MTc4NTE2MTE4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710598,
+                    "name": "Département de génétique et de biotechnologie",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3425559,
+                    6.4169944
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710600",
+                "name": "École Doctorale Fadesp",
+                "type": "building",
+                "category": "institute",
+                "description": "École doctorale chargée de la formation des doctorants, de l'encadrement de la recherche et de la coordination des études doctorales au sein de la FADESP.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193529611-40ef867726fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710600,
+                    "name": "École Doctorale Fadesp",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3434415,
+                    6.4162029
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710601",
+                "name": "FAST",
+                "type": "building",
+                "category": "faculty",
+                "description": "Faculté des Sciences et Techniques de l'Université d'Abomey-Calavi, regroupant plusieurs départements, laboratoires et infrastructures d'enseignement.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1731349219592-60ca16964631?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8dW5pdmVyc2l0eSUyMGNhbXB1cyUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710601,
+                    "name": "FAST",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3450672,
+                    6.417052
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710604",
+                "name": "Laboratoire Labio",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire spécialisé dans les analyses biologiques, les expérimentations et les recherches en sciences du vivant.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710604,
+                    "name": "Laboratoire Labio",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3420219,
+                    6.4168447
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710605",
+                "name": "Laboratoire de Microbiologie des Sols et d'Ecologie Microbiènne",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire étudiant les micro-organismes des sols et leurs interactions avec l'environnement.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710605,
+                    "name": "Laboratoire de Microbiologie des Sols et d'Ecologie Microbiènne",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3425793,
+                    6.4167867
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710606",
+                "name": "Laboratoire de génétique et de Biotechnologie",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire de recherche en génétique moléculaire, biotechnologie et amélioration des organismes vivants.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710606,
+                    "name": "Laboratoire de génétique et de Biotechnologie",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.342798,
+                    6.4166762
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347710607",
+                "name": "Laboratoire",
+                "type": "building",
+                "category": "laboratory",
+                "description": "Laboratoire universitaire polyvalent utilisé pour les travaux pratiques, les expérimentations et les projets de recherche.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1606206873764-fd15e242df52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MHwwfHx8MTc4NTE2MTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347710607,
+                    "name": "Laboratoire",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3426953,
+                    6.416882
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "347720256",
+                "name": "Jardin Botanique et Zoologique Edouard Adjanohoun",
+                "type": "other",
+                "category": "botanical_garden",
+                "description": "Jardin scientifique consacré à la conservation de la biodiversité, à l'enseignement et à la recherche en botanique et zoologie.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1701175148589-13305a642268?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8Ym90YW5pY2FsJTIwZ2FyZGVuJTIwem9vfGVufDB8MHx8fDE3ODUxNjExOTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 347720256,
+                    "name": "Jardin Botanique et Zoologique Edouard Adjanohoun",
+                    "amenity": null,
+                    "building": null,
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3429087,
+                    6.418466
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "480825891",
+                "name": "Décanat FLLAC & FASHS",
+                "type": "building",
+                "category": "office",
+                "description": "Bâtiment administratif regroupant le décanat et les services de gestion de la FLLAC et de la FASHS.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1572103627949-6335c50b5931?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMG9mZmljZSUyMGJ1aWxkaW5nfGVufDB8MHx8fDE3ODUxNjExNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 480825891,
+                    "name": "Décanat FLLAC & FASHS",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3419431,
+                    6.4200067
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "1019383647",
+                "name": "Amphithéâtre Jean PLIYA \/ Institut du Cadre de Vie UAC (ICaV)",
+                "type": "building",
+                "category": "amphitheatre",
+                "description": "Amphithéâtre de l'Institut du Cadre de Vie (ICaV), utilisé pour les enseignements et les conférences.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1759193531678-57b7ba3e603d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8Mnx8cmVzZWFyY2glMjBpbnN0aXR1dGUlMjBidWlsZGluZ3xlbnwwfDB8fHwxNzg1MTYxMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 1019383647,
+                    "name": "Amphithéâtre Jean PLIYA \/ Institut du Cadre de Vie UAC (ICaV)",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3460795,
+                    6.4198356
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "1228843885",
+                "name": "Serre du laboratoire de Génétique FAST",
+                "type": "building",
+                "category": "greenhouse",
+                "description": "Serre expérimentale utilisée pour les recherches en génétique végétale, biotechnologie et cultures expérimentales.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/uploads\/1411901100260f56b39b9\/ab70b250?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8MXx8Z3JlZW5ob3VzZSUyMHBsYW50c3xlbnwwfDB8fHwxNzg1MTYxMjE1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 1228843885,
+                    "name": "Serre du laboratoire de Génétique FAST",
+                    "amenity": null,
+                    "building": "greenhouse",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3426696,
+                    6.4167487
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "1274404068",
+                "name": "Département d'Etude Germanique",
+                "type": "building",
+                "category": "department",
+                "description": "Département chargé de l'enseignement de la langue allemande, de la littérature et des cultures germaniques.",
+                "openingHours": null,
+                "images": [
+                    "https:\/\/images.unsplash.com\/photo-1684335286201-2715b660eb3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDA0ODMzfDB8MXxzZWFyY2h8M3x8dW5pdmVyc2l0eSUyMGRlcGFydG1lbnQlMjBvZmZpY2V8ZW58MHwwfHx8MTc4NTE2MTE4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                ],
+                "tags": {
+                    "osmid": 1274404068,
+                    "name": "Département d'Etude Germanique",
+                    "amenity": null,
+                    "building": "yes",
+                    "type": "other"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.342875,
+                    6.4200382
+                ]
+            }
+        }
+    ]
+}

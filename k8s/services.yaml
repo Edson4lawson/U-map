@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: umap-backend
+  namespace: umap
+  labels:
+    app: umap-backend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9000
+    targetPort: 9000
+    protocol: TCP
+    name: http
+  selector:
+    app: umap-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: umap-frontend
+  namespace: umap
+  labels:
+    app: umap-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: umap-frontend

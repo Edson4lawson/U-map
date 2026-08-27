@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.env.example
+node_modules
+npm-debug.log
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+vendor
+Dockerfile
+docker-compose.yml

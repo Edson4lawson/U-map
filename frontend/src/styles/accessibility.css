@@ -1,0 +1,358 @@
+/* Accessibility improvements */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse users but keep for keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip to main content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px;
+  }
+  
+  button, a {
+    text-decoration: underline;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Text scaling */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Touch targets - minimum 44x44px */
+button, a, input, select, textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Exception for small inline elements */
+button.small, a.small, input.small {
+  min-height: auto;
+  min-width: auto;
+  padding: 8px 16px;
+}
+
+/* Color contrast improvements */
+.text-high-contrast {
+  color: #000000;
+}
+
+.text-high-contrast-dark {
+  color: #ffffff;
+}
+
+/* Dark mode accessibility */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1a1a;
+    --text-primary: #ffffff;
+    --border-color: #333333;
+  }
+}
+
+/* Responsive typography */
+.text-responsive {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.text-responsive-lg {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+}
+
+.text-responsive-xl {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+/* Accessible colors */
+.bg-accessible-blue {
+  background-color: #0052cc;
+}
+
+.bg-accessible-green {
+  background-color: #00875a;
+}
+
+.bg-accessible-red {
+  background-color: #de350b;
+}
+
+.bg-accessible-yellow {
+  background-color: #ff991f;
+}
+
+/* Accessible text colors */
+.text-accessible-blue {
+  color: #0052cc;
+}
+
+.text-accessible-green {
+  color: #00875a;
+}
+
+.text-accessible-red {
+  color: #de350b;
+}
+
+.text-accessible-yellow {
+  color: #b65c02;
+}
+
+/* Accessible borders */
+.border-accessible {
+  border-color: #42526e;
+}
+
+/* Link accessibility */
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus {
+  text-decoration-thickness: 3px;
+}
+
+/* Button accessibility */
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Form accessibility */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+/* Error messages */
+.error-message {
+  color: #de350b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Success messages */
+.success-message {
+  color: #00875a;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Warning messages */
+.warning-message {
+  color: #ff991f;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Loading announcements for screen readers */
+.aria-live-polite {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Table accessibility */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background-color: #f4f5f7;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 2px solid #dfe1e6;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dfe1e6;
+}
+
+tr:hover td {
+  background-color: #f4f5f7;
+}
+
+/* Image accessibility */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img[alt=""] {
+  display: none;
+}
+
+/* Responsive grid */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.grid-responsive-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.grid-responsive-lg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1rem;
+}
+
+/* Responsive spacing */
+.p-responsive {
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.m-responsive {
+  margin: clamp(1rem, 3vw, 2rem);
+}
+
+/* Accessible modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 0.5rem;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    max-width: 600px;
+  }
+}
+
+/* Accessible tooltips */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1a1a1a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 100;
+}
+
+.tooltip:hover::after,
+.tooltip:focus::after {
+  opacity: 1;
+  visibility: visible;
+}

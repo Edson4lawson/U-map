@@ -1,0 +1,1 @@
+UPDATE places SET images = '["https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop"]' WHERE slug IN ('resteau-bar-uac', 'centre-commercial-epac', 'restaurant-universitaire-1', 'restaurant-universitaire-2', 'restaurant-universitaire-4');

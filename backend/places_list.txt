@@ -1,0 +1,120 @@
+ID | Nom | Catégorie | Description
+------------------------------------------------------------------------------------------------------------------------------------------------------
+343 | Administration EPAC | yes | Regroupe les services administratifs de l'EPAC.
+307 | Administration FAST | yes | Accueille les démarches administratives de la Faculté des Sciences et Techniques.
+341 | Administration Fadesp | yes | Sert de point d'accueil et de gestion administrative pour la FADESP.
+53 | Administration Faseg | university | Accueille les démarches administratives et de gestion de la FASEG.
+309 | Amphi A 1000 | yes | Espace dédié aux cours magistraux et grands rassemblements étudiants.
+339 | Amphi A 150 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 150 places pour les enseignements universitaires.
+340 | Amphi A 400 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 400 places pour les enseignements universitaires.
+317 | Amphi A 500 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 500 places pour les enseignements universitaires.
+310 | Amphi Alassane Dramane Ouattara | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+319 | Amphi B 1000 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 1000 places pour les enseignements universitaires.
+318 | Amphi B 500 | yes | Espace dédié aux cours magistraux et grands rassemblements étudiants.
+308 | Amphi B 750 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 750 places pour les enseignements universitaires.
+326 | Amphi B EPAC | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+311 | Amphi C 1000 | yes | Espace dédié aux cours magistraux et conférences avec une capacité d'environ 1000 places pour les enseignements universitaires.
+320 | Amphi Codjovi | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+312 | Amphi Houdegbe | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+327 | Amphi IRAN/ Administration IFRI | office | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+313 | Amphi Idriss Deby | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+111 | Amphi MIRD | university | Faculté ou établissement universitaire: Amphi MIRD
+321 | Amphi Mensah | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+314 | Amphi Prof Géro AMOUSSAGA | construction |  - Construction
+304 | Amphi Uemoa | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+274 | Amphithéatre Théléthon | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+359 | Amphithéâtre Jean PLIYA / Institut du Cadre de Vie UAC (ICaV) | yes | Espace dédié aux cours magistraux et conférences pour les enseignements universitaires.
+48 | Bibliothèque Centrale de L'UAC | library | Bibliothèque universitaire: Bibliothèque Centrale de L'UAC
+328 | Bibliothèque Centre de Documentation | library | Espace de consultation et de mise à disposition de ressources documentaires pour les étudiants.
+58 | Bibliothèque EPAC | library | Bibliothèque universitaire: Bibliothèque EPAC
+59 | Bibliothèque Fadesp | library | Bibliothèque universitaire: Bibliothèque Fadesp
+322 | Bibliothèque Vieyra | library | Espace dédié aux ressources documentaires et d'étude pour les étudiants de l'UAC.
+342 | Bloc Laboratoire Polyvalent | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+344 | Bâtiment B EPAC | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+345 | Bâtiment B FSA | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+346 | Bâtiment C EPAC | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+347 | Bâtiment C FSA | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+348 | Bâtiment D EPAC | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+349 | Bâtiment E EPAC | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+303 | Bâtiment H FSA | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+329 | Bâtiment I EPAC | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+323 | Bâtiment I FSA | yes | Bâtiment universitaire accueillant les activités d'enseignement et de recherche.
+110 | Bâtiment MIRD | university | Faculté ou établissement universitaire: Bâtiment MIRD
+251 | CIPMA Chaire UNESCO | university | Faculté ou établissement universitaire: CIPMA Chaire UNESCO
+239 | Centre Commercial EPAC | fast_food | Espace de restauration servant des repas variés aux étudiants et personnel de l'université.
+358 | Décanat FLLAC & FASHS | yes | Regroupe les services administratifs et de gestion pour la communauté universitaire.
+330 | Département Génie Civil | yes | Unité d'enseignement et de recherche regroupant les activités académiques d'une discipline.
+315 | Département d'Espagnol | office | Unité d'enseignement et de recherche regroupant les activités académiques d'une discipline.
+361 | Département d'Etude Germanique | yes | Unité d'enseignement et de recherche regroupant les activités académiques d'une discipline.
+350 | Département de génétique et de biotechnologie | yes | Unité d'enseignement et de recherche regroupant les activités académiques d'une discipline.
+331 | EPAC Village | university | Faculté ou établissement universitaire: EPAC Village
+55 | Ecobank | bank | Agence bancaire offrant des services financiers à la communauté universitaire de l'UAC.
+54 | Ecobank (distributeur automatique) | atm | Agence bancaire offrant des services financiers à la communauté universitaire de l'UAC.
+352 | FAST | yes | Espace universitaire dédié aux activités d'enseignement, de recherche et de vie étudiante.
+50 | Faculté de Droit et Sciences Politiques | university | Faculté ou établissement universitaire: Faculté de Droit et Sciences Politiques
+51 | Faculté de Lettres, Arts et Sciences Humaines | university | Faculté ou établissement universitaire: Faculté de Lettres, Arts et Sciences Humaines
+52 | Faculté des Sciences Agronomiques | university | Faculté ou établissement universitaire: Faculté des Sciences Agronomiques
+299 | Ferme d'application et de production de la FSA |  | Lieu importé depuis OpenStreetMap
+300 | Imprimerie de l'UAC | yes | Atelier d'impression et de reprographie fournissant des services documentaires à l'université.
+56 | Institut Confucius | university | Faculté ou établissement universitaire: Institut Confucius
+57 | Institut National de l'Eau | university | Faculté ou établissement universitaire: Institut National de l'Eau
+93 | Institut de Formation et de Recherche en Informatique | university | Faculté ou établissement universitaire: Institut de Formation et de Recherche en Informatique
+357 | Jardin Botanique et Zoologique Edouard Adjanohoun |  | Lieu importé depuis OpenStreetMap
+316 | Labo FAST | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+356 | Laboratoire | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+272 | Laboratoire FAST |  | Lieu importé depuis OpenStreetMap
+353 | Laboratoire Labio | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+332 | Laboratoire d' Hydraulique et de Maîtrise de l'Eau | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+278 | Laboratoire d'Ecologie Appliquée |  | Lieu importé depuis OpenStreetMap
+324 | Laboratoire d'Enthomologie Appliquée | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+333 | Laboratoire d'Hydrobiologie et d'Aquaculture | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+338 | Laboratoire d'Hydrobiologie et de Recherche sur les Zones Humides (LHyReZ) | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+325 | Laboratoire d'Hydrologie Appliquée | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+277 | Laboratoire d'hydraulique Appliqué |  | Lieu importé depuis OpenStreetMap
+334 | Laboratoire de Biotechnologie Animale |  | Lieu importé depuis OpenStreetMap
+273 | Laboratoire de Cartographie(LaCarto) |  | Lieu importé depuis OpenStreetMap
+354 | Laboratoire de Microbiologie des Sols et d'Ecologie Microbiènne | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+335 | Laboratoire de Pathologie Animale, Microbilogie et Immunologie |  | Lieu importé depuis OpenStreetMap
+336 | Laboratoire de Physiologie | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+337 | Laboratoire de Recherche en Biologie Appliquée | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+301 | Laboratoire de Zoogéographie | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+355 | Laboratoire de génétique et de Biotechnologie | yes | Équipé pour les expériences scientifiques et travaux pratiques de recherche universitaire.
+279 | Laboratoire de l'Hydraulique Appliquée |  | Lieu importé depuis OpenStreetMap
+280 | Laboratoire des Sciences et Techniques de l’Eau et de l'Environnement |  | Lieu importé depuis OpenStreetMap
+271 | Rectorat |  | Lieu importé depuis OpenStreetMap
+270 | Rectorat Annexe |  | Lieu importé depuis OpenStreetMap
+298 | Restaurant Universitaire 1 | yes | Espace de restauration servant des repas variés aux étudiants et personnel de l'université.
+302 | Restaurant Universitaire 2 | restaurant | Espace de restauration servant des repas variés aux étudiants et personnel de l'université.
+305 | Restaurant Universitaire 4 | yes | Espace de restauration servant des repas variés aux étudiants et personnel de l'université.
+233 | Resteau-bar UAC | cafe | Espace de restauration servant des repas variés aux étudiants et personnel de l'université.
+292 | Résidence A | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+282 | Résidence A2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+293 | Résidence B | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+283 | Résidence B2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+291 | Résidence C Français | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+284 | Résidence C2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+285 | Résidence D | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+286 | Résidence D2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+287 | Résidence E | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+288 | Résidence E2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+294 | Résidence F | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+289 | Résidence F2 | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+295 | Résidence G | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+296 | Résidence H | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+290 | Résidence I | yes | Résidence universitaire hébergeant les étudiants de l'Université d'Abomey-Calavi.
+297 | Résidence MK2 | residential |  - Residential
+275 | SMEL-UAC |  | Lieu importé depuis OpenStreetMap
+306 | Salle des doctorant IFRI | yes | Centre de recherche et de formation spécialisé dans les domaines académiques de l'UAC.
+360 | Serre du laboratoire de Génétique FAST | greenhouse |  - Greenhouse
+68 | Station MRS | fuel | Point de ravitaillement en carburant pour les véhicules de la communauté universitaire.
+127 | Station puma | fuel | Point de ravitaillement en carburant pour les véhicules de la communauté universitaire.
+94 | Université Virtuelle Africaine (UVA) | university | Faculté ou établissement universitaire: Université Virtuelle Africaine (UVA)
+281 | Université d'Abomey-Calavi | university | Faculté ou établissement universitaire: Université d'Abomey-Calavi
+276 | Vice rectorat |  | Lieu importé depuis OpenStreetMap
+22 | Zone Master | university | Zone regroupant les salles de cours pour les programmes de Master et laboratoires de recherche.
+115 | amphi Etisalat | university | Faculté ou établissement universitaire: amphi Etisalat
+351 | École Doctorale Fadesp | yes | Espace universitaire dédié aux activités d'enseignement, de recherche et de vie étudiante.
+49 | École Nationale d’Administartion et de Magistrature | university | Faculté ou établissement universitaire: École Nationale d’Administartion et de Magistrature
+92 | École Polytechnique d’Abomey Calavi | university | Faculté ou établissement universitaire: École Polytechnique d’Abomey Calavi
+
+Total: 116 lieux

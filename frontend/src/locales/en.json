@@ -1,0 +1,50 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "explore": "Explore",
+    "search": "Search...",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "home": {
+    "hero_title": "Welcome to {brand}",
+    "hero_subtitle": "Your interactive guide to the Abomey-Calavi campus.",
+    "popular_places": "Popular Places",
+    "view_all": "View all",
+    "quick_access": "Quick Access",
+    "actions": {
+        "studies": "Studies",
+        "food": "Food",
+        "favorites": "Favorites"
+    },
+    "stats": {
+      "places": "Places",
+      "visited": "Visited"
+    }
+  },
+  "map": {
+    "locate": "Locate me",
+    "layers": "Toggle layers",
+    "route": "Route",
+    "share": "Share",
+    "details": "View details",
+    "clear_route": "Clear route"
+  },
+  "chat": {
+    "title": "Messages",
+    "new_message": "New",
+    "search_placeholder": "Search conversation...",
+    "no_conversations": "No conversations yet.",
+    "smart_suggestions": "Smart suggestions",
+    "login": "Login",
+    "register": "Register"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Mark all as read",
+    "empty": "No notifications"
+  }
+}

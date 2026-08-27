@@ -1,0 +1,64 @@
+{
+  "name": "U-map — Guide du Campus UAC",
+  "short_name": "U-map",
+  "description": "Guide interactif et intelligent du campus de l'Université d'Abomey-Calavi. Navigation GPS, carte interactive, lieux et badges d'exploration.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#3B82F6",
+  "categories": ["education", "travel", "navigation"],
+  "icons": [
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "U-map — Accueil"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Carte Interactive",
+      "short_name": "Carte",
+      "description": "Ouvrir la carte du campus",
+      "url": "/map",
+      "icons": [{ "src": "/vite.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Lieux du Campus",
+      "short_name": "Lieux",
+      "description": "Explorer les lieux du campus",
+      "url": "/lieux",
+      "icons": [{ "src": "/vite.svg", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

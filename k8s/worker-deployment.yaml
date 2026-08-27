@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umap-worker
+  namespace: umap
+  labels:
+    app: umap-worker
+    version: v1
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: umap-worker
+  template:
+    metadata:
+      labels:
+        app: umap-worker
+        version: v1
+    spec:
+      containers:
+      - name: worker
+        image: umap-backend:latest
+        imagePullPolicy: Always
+        command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=90"]
+        env:
+        - name: APP_ENV
+          value: "production"
+        - name: APP_DEBUG
+          value: "false"
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: app-key
+        - name: DB_CONNECTION
+          value: "mysql"
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: db-host
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: db-port
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-database
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-password
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: redis-host
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: redis-port
+        - name: CACHE_DRIVER
+          value: "redis"
+        - name: QUEUE_CONNECTION
+          value: "redis"
+        - name: SESSION_DRIVER
+          value: "redis"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "300m"
+        volumeMounts:
+        - name: storage
+          mountPath: /var/www/html/storage
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /var/www/html/bootstrap/cache
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: umap-backend-storage
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      restartPolicy: Always

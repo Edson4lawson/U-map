@@ -1,0 +1,160 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umap-backend
+  namespace: umap
+  labels:
+    app: umap-backend
+    version: v1
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: umap-backend
+  template:
+    metadata:
+      labels:
+        app: umap-backend
+        version: v1
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: backend
+        image: umap-backend:latest
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1001
+          capabilities:
+            drop:
+            - ALL
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        env:
+        - name: APP_ENV
+          value: "production"
+        - name: APP_DEBUG
+          value: "false"
+        - name: APP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: app-url
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: app-key
+        - name: DB_CONNECTION
+          value: "mysql"
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: db-host
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: db-port
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-database
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: db-password
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: redis-host
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: redis-port
+        - name: CACHE_DRIVER
+          value: "redis"
+        - name: QUEUE_CONNECTION
+          value: "redis"
+        - name: SESSION_DRIVER
+          value: "redis"
+        - name: ALLOWED_ORIGINS
+          valueFrom:
+            configMapKeyRef:
+              name: umap-config
+              key: allowed-origins
+        - name: GROQ_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: groq-api-key
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: umap-secrets
+              key: gemini-api-key
+        - name: RUN_MIGRATIONS
+          value: "true"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 9000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 9000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: storage
+          mountPath: /var/www/html/storage
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /var/www/html/bootstrap/cache
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: umap-backend-storage
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      restartPolicy: Always
