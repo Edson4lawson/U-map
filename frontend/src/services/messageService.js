@@ -52,9 +52,27 @@ class MessageService {
      * Récupère le nombre de messages non lus.
      */
     async getUnreadCount() {
-        if (!authService.getToken()) return { count: 0 };
+        const token = authService.getToken();
+        if (!token) return { count: 0 };
+        
         try {
-            return await this.#apiCall(`${API_URL}/messages/unread-count`);
+            const response = await fetch(`${API_URL}/messages/unread-count`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            if (response.status === 401) {
+                // Token invalide ou expiré, retourner 0 sans erreur
+                return { count: 0 };
+            }
+            
+            if (!response.ok) {
+                return { count: 0 };
+            }
+            
+            return await response.json();
         } catch {
             return { count: 0 };
         }
