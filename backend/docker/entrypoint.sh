@@ -47,7 +47,7 @@ php artisan storage:link 2>/dev/null || echo "WARNING: storage:link failed, cont
 if [ "$APP_ENV" = "production" ]; then
     echo "Caching configuration for production..."
     php artisan config:cache || echo "WARNING: config:cache failed, continuing..."
-    php artisan route:cache || echo "WARNING: route:cache failed, continuing..."
+    php artisan route:clear || echo "WARNING: route:clear failed, continuing..."
     php artisan view:cache || echo "WARNING: view:cache failed, continuing..."
     php artisan optimize || echo "WARNING: optimize failed, continuing..."
 fi
