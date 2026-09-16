@@ -20,14 +20,19 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->statefulApi();
         $middleware->redirectGuestsTo(function (Request $request) {
             if ($request->is('api/*')) {
                 return null; // Retourne 401 pour les requêtes API
             }
             return route('login');
         });
-        $middleware->validateCsrfTokens(except: [
+        $middleware->redirectUsersTo(function (Request $request) {
+            if ($request->is('api/*')) {
+                return null; // Pas de redirect pour les requêtes API authentifiées
+            }
+            return route('dashboard');
+        });
+        $middleware->preventRequestForgery(except: [
             'api/*',
         ]);
 
