@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS events (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    event_date TIMESTAMP NOT NULL,
+    start_time TIMESTAMP NOT NULL,
     location VARCHAR(255),
     image_url VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
