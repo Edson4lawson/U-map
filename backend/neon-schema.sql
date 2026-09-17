@@ -12,13 +12,16 @@ CREATE TABLE IF NOT EXISTS users (
     remember_token VARCHAR(100),
     is_restricted BOOLEAN DEFAULT FALSE,
     role VARCHAR(50) DEFAULT 'user',
-    two_factor_secret VARCHAR(255),
+    two_factor_secret TEXT,
     two_factor_confirmed_at TIMESTAMP,
     two_factor_recovery_codes TEXT,
+    social_provider VARCHAR(255),
+    social_id VARCHAR(255),
     google_id VARCHAR(255),
     google_token TEXT,
     google_refresh_token TEXT,
-    study_status VARCHAR(50),
+    study_status VARCHAR(255),
+    study_location VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
