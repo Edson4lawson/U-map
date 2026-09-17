@@ -40,6 +40,16 @@ fi
 echo "Running database migrations..."
 php artisan migrate --force || echo "WARNING: Migration failed, continuing..."
 
+# Lancer le seeder places si la table est vide
+echo "Checking if places table needs seeding..."
+PLACE_COUNT=$(php artisan tinker --execute="echo \App\Models\Place::count();" 2>/dev/null || echo "0")
+if [ "$PLACE_COUNT" = "0" ]; then
+    echo "Places table is empty, running PlaceSeeder..."
+    php artisan db:seed --class=PlaceSeeder --force || echo "WARNING: PlaceSeeder failed, continuing..."
+else
+    echo "Places table already has $PLACE_COUNT records, skipping seeder"
+fi
+
 # Lier le storage
 php artisan storage:link 2>/dev/null || echo "WARNING: storage:link failed, continuing..."
 
