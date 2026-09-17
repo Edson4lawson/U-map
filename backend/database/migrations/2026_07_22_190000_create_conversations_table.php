@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conversations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_one_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('user_two_id')->constrained('users')->onDelete('cascade');
-            $table->timestamp('last_message_at')->nullable();
-            $table->timestamps();
+        if (!Schema::hasTable('conversations')) {
+            Schema::create('conversations', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_one_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('user_two_id')->constrained('users')->onDelete('cascade');
+                $table->timestamp('last_message_at')->nullable();
+                $table->timestamps();
 
-            $table->unique(['user_one_id', 'user_two_id'], 'unique_user_conversation');
-            $table->index(['user_one_id', 'last_message_at'], 'idx_user_one_last_msg');
-            $table->index(['user_two_id', 'last_message_at'], 'idx_user_two_last_msg');
-        });
+                $table->unique(['user_one_id', 'user_two_id'], 'unique_user_conversation');
+                $table->index(['user_one_id', 'last_message_at'], 'idx_user_one_last_msg');
+                $table->index(['user_two_id', 'last_message_at'], 'idx_user_two_last_msg');
+            });
+        }
     }
 
     /**

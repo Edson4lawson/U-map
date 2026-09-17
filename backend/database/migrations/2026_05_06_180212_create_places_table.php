@@ -15,13 +15,16 @@ return new class extends Migration
             Schema::create('places', function (Blueprint $table) {
                 $table->id();
                 $table->string('uuid')->unique(); // Original GeoJSON ID
+                $table->string('slug')->unique()->nullable();
                 $table->string('name');
-                $table->string('type');
+                $table->string('type')->nullable();
                 $table->string('category')->nullable();
                 $table->text('description')->nullable();
                 $table->string('opening_hours')->nullable();
                 $table->decimal('latitude', 10, 8);
                 $table->decimal('longitude', 11, 8);
+                $table->string('added_by')->nullable();
+                $table->string('status')->default('pending');
                 $table->json('images')->nullable();
                 $table->json('tags')->nullable();
                 $table->timestamps();

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,9 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasColumn('places', 'slug')) {
+        // Force change added_by from bigint to varchar if it exists
+        if (Schema::hasColumn('places', 'added_by')) {
+            DB::statement('ALTER TABLE places ALTER COLUMN added_by TYPE VARCHAR(255)');
+        } else {
             Schema::table('places', function (Blueprint $table) {
-                $table->string('slug')->nullable()->after('name');
+                $table->string('added_by')->nullable()->after('longitude');
             });
         }
     }
@@ -23,10 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasColumn('places', 'slug')) {
-            Schema::table('places', function (Blueprint $table) {
-                $table->dropColumn('slug');
-            });
-        }
+        Schema::table('places', function (Blueprint $table) {
+            //
+        });
     }
 };

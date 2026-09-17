@@ -11,24 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Index pour login par username et tri par name
-            $table->index('name', 'idx_users_name');
-        });
+        try {
+            Schema::table('users', function (Blueprint $table) {
+                $table->index('name', 'idx_users_name');
+            });
+        } catch (\Throwable $e) {}
 
-        Schema::table('places', function (Blueprint $table) {
-            // Index pour recherche par uuid et slug
-            $table->index('uuid', 'idx_places_uuid');
-            $table->index('slug', 'idx_places_slug');
-        });
+        try {
+            Schema::table('places', function (Blueprint $table) {
+                $table->index('uuid', 'idx_places_uuid');
+                $table->index('slug', 'idx_places_slug');
+            });
+        } catch (\Throwable $e) {}
 
-        Schema::table('conversations', function (Blueprint $table) {
-            // Index pour récupérer les conversations d'un utilisateur
-            $table->index('user_one_id', 'idx_conversations_user_one');
-            $table->index('user_two_id', 'idx_conversations_user_two');
-            // Index pour tri par dernier message
-            $table->index('last_message_at', 'idx_conversations_last_message');
-        });
+        if (Schema::hasTable('conversations')) {
+            try {
+                Schema::table('conversations', function (Blueprint $table) {
+                    $table->index('user_one_id', 'idx_conversations_user_one');
+                    $table->index('user_two_id', 'idx_conversations_user_two');
+                    $table->index('last_message_at', 'idx_conversations_last_message');
+                });
+            } catch (\Throwable $e) {}
+        }
     }
 
     /**
@@ -36,19 +40,27 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex('idx_users_name');
-        });
+        try {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropIndex('idx_users_name');
+            });
+        } catch (\Throwable $e) {}
 
-        Schema::table('places', function (Blueprint $table) {
-            $table->dropIndex('idx_places_uuid');
-            $table->dropIndex('idx_places_slug');
-        });
+        try {
+            Schema::table('places', function (Blueprint $table) {
+                $table->dropIndex('idx_places_uuid');
+                $table->dropIndex('idx_places_slug');
+            });
+        } catch (\Throwable $e) {}
 
-        Schema::table('conversations', function (Blueprint $table) {
-            $table->dropIndex('idx_conversations_user_one');
-            $table->dropIndex('idx_conversations_user_two');
-            $table->dropIndex('idx_conversations_last_message');
-        });
+        if (Schema::hasTable('conversations')) {
+            try {
+                Schema::table('conversations', function (Blueprint $table) {
+                    $table->dropIndex('idx_conversations_user_one');
+                    $table->dropIndex('idx_conversations_user_two');
+                    $table->dropIndex('idx_conversations_last_message');
+                });
+            } catch (\Throwable $e) {}
+        }
     }
 };
