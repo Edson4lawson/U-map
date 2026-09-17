@@ -89,20 +89,19 @@ CREATE TABLE IF NOT EXISTS failed_jobs (
 -- Places table
 CREATE TABLE IF NOT EXISTS places (
     id BIGSERIAL PRIMARY KEY,
-    uuid VARCHAR(255) UNIQUE,
+    uuid VARCHAR(36) UNIQUE,
+    slug VARCHAR(255) UNIQUE,
     name VARCHAR(255) NOT NULL,
+    type VARCHAR(255),
+    category VARCHAR(255),
     description TEXT,
-    category VARCHAR(100),
-    type VARCHAR(100),
     opening_hours TEXT,
-    latitude DECIMAL(10, 8) NOT NULL,
-    longitude DECIMAL(11, 8) NOT NULL,
-    image_url VARCHAR(500),
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    added_by VARCHAR(255),
+    status VARCHAR(20) DEFAULT 'pending',
     images JSONB,
     tags JSONB,
-    added_by BIGINT NULL REFERENCES users(id) ON DELETE SET NULL,
-    status VARCHAR(50) DEFAULT 'approved',
-    slug VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
