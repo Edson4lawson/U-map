@@ -52,7 +52,7 @@
     </Transition>
 
     <!-- Main Content Area -->
-    <main class="flex-1 w-full relative z-0 scroll-smooth" :class="[route.path === '/chat' ? 'overflow-hidden' : 'overflow-y-auto', {'pb-24': !hideNavigation}]">
+    <main class="flex-1 w-full relative z-0 scroll-smooth" :class="[route.path === '/chat' ? 'overflow-hidden' : 'overflow-y-auto', {'pb-40': !hideNavigation}]">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <keep-alive :include="['Home', 'Lieux', 'Visites', 'Chat', 'Map']">
@@ -65,8 +65,8 @@
     <!-- Toast Notifications -->
     <Toast :toasts="toastState.toasts.value" @remove="toastState.removeToast" />
 
-    <!-- Floating Actions -->
-    <FloatingButtons v-if="!hideNavigation" />
+    <!-- Floating Actions (Extensible FAB Menu) -->
+    <FabMenu v-if="!hideNavigation" />
 
     <!-- Bottom Navigation -->
     <Navbar v-if="!hideNavigation" />
@@ -79,7 +79,7 @@ import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import VideoBackground from './components/VideoBackground.vue'
 import Navbar from './components/Navbar.vue'
-import FloatingButtons from './components/FloatingButtons.vue'
+import FabMenu from './components/FabMenu.vue'
 import Toast from './components/Toast.vue'
 import { useProximity } from './composables/useProximity'
 import { useNotificationStore } from './stores/notifications'
