@@ -120,13 +120,22 @@
       <!-- Quick Actions Grid -->
       <section class="mt-8">
         <h2 class="text-xl font-bold dark:text-white mb-4 px-2">{{ $t('home.quick_access') }}</h2>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <button
+            class="card-glass p-4 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            @click="$router.push('/lieux?filter=amphi')">
+            <div
+              class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+              <Icon icon="ph:chalkboard-teacher" class="w-5 h-5 md:w-7 md:h-7" />
+            </div>
+            <span class="text-xs font-medium dark:text-gray-300">Amphithéâtres</span>
+          </button>
           <button
             class="card-glass p-4 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             @click="$router.push('/lieux?filter=studies')">
             <div
-              class="w-10 h-10 md:w-16 md:h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-              <Icon icon="ph:graduation-cap" class="w-5 h-5 md:w-8 md:h-8" />
+              class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <Icon icon="ph:graduation-cap" class="w-5 h-5 md:w-7 md:h-7" />
             </div>
             <span class="text-xs font-medium dark:text-gray-300">{{ $t('home.actions.studies') }}</span>
           </button>
@@ -134,8 +143,8 @@
             class="card-glass p-4 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             @click="$router.push('/lieux?filter=food')">
             <div
-              class="w-10 h-10 md:w-16 md:h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
-              <Icon icon="ph:fork-knife" class="w-5 h-5 md:w-8 md:h-8" />
+              class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+              <Icon icon="ph:fork-knife" class="w-5 h-5 md:w-7 md:h-7" />
             </div>
             <span class="text-xs font-medium dark:text-gray-300">{{ $t('home.actions.food') }}</span>
           </button>
@@ -143,8 +152,8 @@
             class="card-glass p-4 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             @click="$router.push('/lieux?filter=visited')">
             <div
-              class="w-10 h-10 md:w-16 md:h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-              <Icon icon="ph:star" class="w-5 h-5 md:w-8 md:h-8" />
+              class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+              <Icon icon="ph:star" class="w-5 h-5 md:w-7 md:h-7" />
             </div>
             <span class="text-xs font-medium dark:text-gray-300">{{ $t('home.actions.favorites') }}</span>
           </button>
@@ -190,6 +199,10 @@ import { useRouter } from 'vue-router'
 import { useMeta } from '../composables/useMeta'
 import { useStructuredData, getHomeSchema } from '../composables/useStructuredData'
 
+defineOptions({
+  name: 'Home'
+})
+
 useMeta('Accueil', "Votre guide interactif et communautaire du campus de l'UAC (Abomey-Calavi). Carte interactive, navigation GPS, lieux et badges d'exploration.", { canonicalPath: '/' })
 
 useStructuredData(getHomeSchema())
@@ -215,7 +228,12 @@ const modules = [Pagination, Autoplay]
 const showNotifications = ref(false)
 
 const allPlaces = ref([])
-const visitedCount = computed(() => visitedStore.visitedPlaces.length)
+const visitedCount = computed(() => {
+  if (!allPlaces.value || allPlaces.value.length === 0) {
+    return visitedStore.visitedPlaces.length
+  }
+  return allPlaces.value.filter(p => visitedStore.isVisited(p.id || p.properties?.id)).length
+})
 const featuredPlaces = computed(() => allPlaces.value.slice(0, 5))
 const dynamicEvents = ref([])
 
@@ -226,7 +244,8 @@ onMounted(async () => {
         eventService.fetchEvents()
     ])
     
-    allPlaces.value = places.map(f => f.properties)
+    allPlaces.value = (places || []).map(f => f.properties || f)
+
     dynamicEvents.value = eventService.getUpcomingEvents()
 
     // Générer des notifications dynamiques basées sur les événements

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Log;
 use App\Services\MessageEncryptionService;
 
 /**
@@ -24,7 +25,7 @@ use App\Services\MessageEncryptionService;
  */
 class Message extends Model
 {
-    protected $fillable = ['sender_id', 'receiver_id', 'encrypted_content', 'is_read', 'is_encrypted'];
+    protected $fillable = ['sender_id', 'receiver_id', 'content', 'encrypted_content', 'is_read', 'is_encrypted'];
 
     protected $hidden = ['encrypted_content', 'is_encrypted'];
 
@@ -67,7 +68,7 @@ class Message extends Model
                 $encryptionService = new MessageEncryptionService();
                 return $encryptionService->decrypt($this->encrypted_content);
             } catch (\Exception $e) {
-                \Log::error('Failed to decrypt message content', [
+                Log::error('Failed to decrypt message content', [
                     'message_id' => $this->id,
                     'error' => $e->getMessage(),
                 ]);
@@ -80,15 +81,17 @@ class Message extends Model
 
     /**
      * Set the content attribute with encryption.
+     *
+     * @param string $value
      */
-    public function setContentAttribute($value): void
+    public function setContentAttribute(string $value): void
     {
         try {
             $encryptionService = new MessageEncryptionService();
             $this->attributes['encrypted_content'] = $encryptionService->encrypt($value);
             $this->attributes['is_encrypted'] = true;
         } catch (\Exception $e) {
-            \Log::error('Failed to encrypt message content', [
+            Log::error('Failed to encrypt message content', [
                 'error' => $e->getMessage(),
             ]);
             throw new \RuntimeException('Failed to encrypt message content');
@@ -97,8 +100,13 @@ class Message extends Model
 
     /**
      * Scope to get messages for a conversation.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $userId
+     * @param int $otherUserId
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeConversation($query, $userId, $otherUserId)
+    public function scopeConversation($query, int $userId, int $otherUserId)
     {
         return $query->where(function ($q) use ($userId, $otherUserId) {
             $q->where('sender_id', $userId)->where('receiver_id', $otherUserId);

@@ -71,7 +71,7 @@ class PlaceController extends Controller
     public function store(StorePlaceRequest $request)
     {
         $validated = $request->validated();
-        $user = auth()->user();
+        $user = $request->user();
 
         // Generate slug from name
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $validated['name'])));
@@ -150,7 +150,7 @@ class PlaceController extends Controller
     /**
      * Get a place by ID or slug
      */
-    public function show($identifier)
+    public function show(string $identifier)
     {
         // Check if identifier is a valid UUID format
         $isUuid = preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $identifier);

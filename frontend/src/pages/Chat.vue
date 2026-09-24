@@ -35,7 +35,7 @@
           <header class="pt-5 pb-4 px-4 sm:px-6 border-b border-gray-200 dark:border-white/10 backdrop-blur-md bg-white/80 dark:bg-slate-950/80 flex items-center justify-between">
             <div>
               <h1 class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">Messagerie</h1>
-              <p class="text-[10px] sm:text-xs text-gray-500 dark:text-slate-400 mt-0.5">Discussions éphémères de 7 jours</p>
+              <p class="text-[10px] sm:text-xs text-gray-500 dark:text-slate-400 mt-0.5">Discussions instantanées & partage de positions</p>
             </div>
             <div class="flex items-center gap-2">
               <button @click="showNewChatModal = true" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 dark:text-blue-400 flex items-center justify-center transition-all border border-blue-500/20" title="Nouvelle discussion">
@@ -70,7 +70,7 @@
             <div class="p-5 bg-gradient-to-br from-blue-50 via-slate-50 to-indigo-50 dark:from-blue-950/40 dark:via-slate-900/40 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-500/20 rounded-2xl shadow-lg space-y-4">
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center justify-between cursor-pointer" @click="studyStatusExpanded = !studyStatusExpanded">
                    <div class="flex items-center gap-2">
-                      <Icon icon="ph:books-bold" class="w-4 h-4 text-blue-500 dark:text-blue-400" /> Mon Statut d'Étude
+                      <Icon icon="ph:books-bold" class="w-4 h-4 text-blue-500 dark:text-blue-400" /> Mon Statut d'Étude & Campus
                    </div>
                    <Icon :icon="studyStatusExpanded ? 'ph:chevron-up-bold' : 'ph:caret-down-bold'" class="w-5 h-5 text-blue-500 dark:text-blue-400 ml-1" />
                 </h3>
@@ -78,7 +78,7 @@
                    <div class="flex flex-col sm:flex-row gap-2">
                       <input v-model="myStudyStatus" type="text" placeholder="Ex: Révise les maths..."
                              class="flex-1 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl py-2 px-3 text-xs text-gray-900 dark:text-white outline-none focus:ring-1 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-slate-500">
-                      <input v-model="myStudyLocation" type="text" placeholder="Ex: BU..."
+                      <input v-model="myStudyLocation" type="text" placeholder="Ex: BU Centrale..."
                              class="w-full sm:w-1/3 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl py-2 px-3 text-xs text-gray-900 dark:text-white outline-none focus:ring-1 focus:ring-blue-500 placeholder-gray-400 dark:placeholder-slate-500">
                       <button @click="saveMyStudyStatus"
                               class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-xl transition-all">
@@ -96,7 +96,7 @@
                                <div class="text-xs font-bold text-gray-900 dark:text-white truncate">{{ buddy.name }}</div>
                                <div class="text-[10px] text-gray-500 dark:text-slate-400 truncate flex items-center gap-1"><Icon icon="ph:book-open" class="w-3 h-3 inline flex-shrink-0" /> {{ buddy.study_status }} — <Icon icon="ph:map-pin-fill" class="w-3 h-3 inline flex-shrink-0" /> {{ buddy.study_location }}</div>
                             </div>
-                            <span class="text-[9px] bg-blue-500/20 text-blue-600 dark:text-blue-400 font-extrabold px-2 py-1 rounded-lg">Rejoindre</span>
+                            <span class="text-[9px] bg-blue-500/20 text-blue-600 dark:text-blue-400 font-extrabold px-2 py-1 rounded-lg">Écrire</span>
                          </div>
                       </div>
                    </div>
@@ -106,20 +106,31 @@
 
             <!-- Custom Separator -->
             <div class="flex items-center gap-3">
-              <span class="text-[10px] font-bold text-gray-500 dark:text-slate-500 uppercase tracking-widest">Conversations actives</span>
-              <div class="flex-1 h-[1px] bg-gray-200 dark:bg-white/10"></div>
+              <span class="text-[10px] font-bold text-gray-500 dark:text-slate-500 uppercase tracking-widest">Discussions récentes</span>
+              <div class="flex-1 h-[1px] bg-gray-200 dark:border-white/10"></div>
             </div>
 
             <!-- List of Chats -->
             <div class="space-y-3">
+              <!-- Loading skeleton while fetching conversations -->
+              <div v-if="conversationsLoading" class="space-y-3">
+                <div v-for="i in 3" :key="i" class="p-3.5 sm:p-4 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 rounded-2xl flex gap-3.5 items-center animate-pulse">
+                  <div class="w-12 h-12 rounded-full bg-gray-200 dark:bg-slate-700 flex-shrink-0"></div>
+                  <div class="flex-1 space-y-2">
+                    <div class="h-3.5 bg-gray-200 dark:bg-slate-700 rounded-full w-1/3"></div>
+                    <div class="h-2.5 bg-gray-200 dark:bg-slate-700 rounded-full w-2/3"></div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Empty State when no conversations exist -->
-              <div v-if="conversations.length === 0" class="p-8 sm:p-10 text-center bg-gradient-to-b from-gray-50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-950/20 border border-gray-200 dark:border-white/10 rounded-3xl shadow-lg relative overflow-hidden my-2">
+              <div v-else-if="conversations.length === 0" class="p-8 sm:p-10 text-center bg-gradient-to-b from-gray-50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-950/20 border border-gray-200 dark:border-white/10 rounded-3xl shadow-lg relative overflow-hidden my-2">
                 <div class="w-14 h-14 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-xl shadow-blue-500/20 animate-bounce">
                   <Icon icon="ph:paper-plane-tilt-bold" class="w-7 h-7 text-white" />
                 </div>
                 <h3 class="text-base font-bold text-gray-900 dark:text-white tracking-tight">Aucune discussion en cours</h3>
                 <p class="text-xs text-gray-500 dark:text-slate-400 mt-1.5 max-w-sm mx-auto leading-relaxed">
-                  Vos conversations sont éphémères et s'auto-détruisent après 7 jours. Lancez votre premier échange avec la communauté de l'UAC !
+                  Discutez, partagez vos positions GPS et retrouvez facilement vos amis sur le campus de l'UAC !
                 </p>
                 <div class="flex flex-wrap justify-center gap-3 mt-5">
                   <button @click="showNewChatModal = true" class="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all transform active:scale-95">
@@ -148,15 +159,14 @@
                     </span>
                   </div>
 
-                  <!-- Snippet or Expired state badge -->
+                  <!-- Snippet -->
                   <div class="flex items-center gap-1.5">
                     <p v-if="chat.last_message" class="text-xs text-gray-600 dark:text-slate-400 truncate">
                       <span v-if="isMyMessage(chat.last_message)" class="font-semibold text-gray-500 dark:text-slate-400">Vous : </span>
-                      {{ chat.last_message.content }}
+                      {{ formatSnippet(chat.last_message.content) }}
                     </p>
                     <p v-else class="text-[11px] text-slate-400 dark:text-slate-500 italic flex items-center gap-1 truncate">
-                      <Icon icon="ph:lock-key-bold" class="w-3 h-3 text-amber-500 flex-shrink-0" />
-                      <span>Messages expirés (7j)</span>
+                      <span>Démarrer la discussion 👋</span>
                     </p>
                   </div>
                 </div>
@@ -173,13 +183,13 @@
           </div>
         </div>
 
-        <!-- CASE B: FULL SCREEN PREMIUM ACTIVE CHAT VIEW -->
+        <!-- CASE B: FULL SCREEN ACTIVE CHAT VIEW (MESSENGER STYLE) -->
         <div v-else class="flex-1 flex flex-col h-full bg-white dark:bg-slate-950 overflow-hidden relative">
 
           <!-- Premium Chat Header -->
           <header class="py-3 px-3 sm:px-6 border-b border-gray-200 dark:border-white/10 bg-gray-50/60 dark:bg-slate-900/60 backdrop-blur-2xl flex items-center justify-between z-20">
             <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-              <button @click="closeChat" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-white flex items-center justify-center transition-all" title="Retour">
+              <button @click="closeChat" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-white flex items-center justify-center transition-all" title="Retour aux discussions">
                 <Icon icon="ph:arrow-left-bold" class="w-5 h-5" />
               </button>
 
@@ -193,9 +203,9 @@
                 </div>
                 <div class="min-w-0">
                   <h2 class="text-gray-900 dark:text-white font-bold truncate tracking-tight text-sm sm:text-base">{{ activeChat?.name }}</h2>
-                  <p class="text-[9px] sm:text-[10px] text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
-                    <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    {{ activeChat?.isAI ? 'Assistant intelligent' : 'En ligne' }}
+                  <p class="text-[9px] sm:text-[10px] font-semibold flex items-center gap-1 mt-0.5" :class="activeChat?.isAI ? 'text-indigo-500' : 'text-emerald-400'">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    {{ activeChat?.isAI ? 'Assistant intelligent UAC' : (activeChat?.study_location ? `À la ${activeChat.study_location}` : 'En ligne') }}
                   </p>
                 </div>
               </div>
@@ -203,6 +213,9 @@
 
             <!-- Actions Header -->
             <div class="flex items-center gap-1.5">
+              <button v-if="!activeChat?.isAI" @click="openLocationModal" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 dark:text-blue-400 flex items-center justify-center transition-all border border-blue-500/20" title="Partager un lieu ou ma position">
+                <Icon icon="ph:map-pin-bold" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+              </button>
               <button v-if="!activeChat?.isAI" @click="showReportModal = true" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-500/10 hover:bg-red-500/20 text-red-400 flex items-center justify-center transition-all border border-red-500/20" title="Signaler cet utilisateur">
                 <Icon icon="ph:flag-bold" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
@@ -212,15 +225,14 @@
           <!-- Chat Messages Body -->
           <div class="flex-1 overflow-y-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 bg-gray-50 dark:bg-slate-950" id="chat-messages">
 
-            <!-- Ephemeral Notification Notice -->
-            <div v-if="!activeChat?.isAI" class="max-w-md mx-auto p-4 bg-blue-50 dark:bg-blue-500/5 border border-blue-200 dark:border-blue-500/20 rounded-2xl text-center mb-6">
-              <Icon icon="ph:clock-countdown-bold" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 dark:text-blue-400 mx-auto mb-1.5 animate-pulse" />
-              <h4 class="text-[10px] sm:text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">Sécurité Éphémère Activée</h4>
-              <p class="text-[10px] sm:text-[11px] text-gray-600 dark:text-slate-400 mt-1">Tous vos messages sur U-Map s'auto-détruisent après 7 jours pour préserver la vie privée sur le campus.</p>
+            <!-- Loading Skeleton -->
+            <div v-if="messagesLoading" class="flex flex-col items-center justify-center py-12 space-y-3">
+              <Icon icon="ph:spinner-gap-bold" class="w-8 h-8 text-blue-500 animate-spin" />
+              <p class="text-xs text-gray-400 dark:text-slate-500">Chargement des messages chiffrés...</p>
             </div>
 
-            <!-- Empty Conversation Starter (Snapchat / Messenger style) -->
-            <div v-if="!activeChat?.isAI && chatMessages.length === 0" class="py-8 px-4 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-300">
+            <!-- Empty Conversation Starter -->
+            <div v-else-if="!activeChat?.isAI && chatMessages.length === 0" class="py-8 px-4 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-300">
               <div class="relative mb-4">
                 <img :src="activeChat?.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activeChat?.name) + '&background=0284c7&color=fff'" class="w-20 h-20 rounded-full border-4 border-white dark:border-slate-800 shadow-xl object-cover">
                 <div class="absolute bottom-1 right-1 w-4 h-4 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full"></div>
@@ -228,7 +240,7 @@
 
               <h3 class="text-lg sm:text-xl font-black text-gray-900 dark:text-white tracking-tight">Vous êtes connecté avec {{ activeChat?.name }} ! 👋</h3>
               <p class="text-xs text-gray-500 dark:text-slate-400 mt-1.5 max-w-xs leading-relaxed">
-                Démarrez la discussion. Vos messages sont chiffrés et s'effacent automatiquement après 7 jours.
+                Envoyez un message, partagez votre position GPS en temps réel ou donnez-vous rendez-vous sur le campus !
               </p>
 
               <!-- Quick starter suggestion pills -->
@@ -239,24 +251,27 @@
                 <button @click="sendQuickStarter('Hello ! Tu révises à la BU ? 📚')" class="px-3.5 py-2 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 rounded-full text-xs text-gray-700 dark:text-slate-300 font-medium shadow-sm transition-all active:scale-95">
                   "Hello ! Tu révises à la BU ? 📚"
                 </button>
-                <button @click="sendQuickStarter('Bonjour ! Quel est ton statut d\'étude ? 🎓')" class="px-3.5 py-2 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 rounded-full text-xs text-gray-700 dark:text-slate-300 font-medium shadow-sm transition-all active:scale-95">
-                  "Bonjour ! Quel est ton statut ? 🎓"
+                <button @click="openLocationModal" class="px-3.5 py-2 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-200 dark:border-blue-500/30 rounded-full text-xs text-blue-600 dark:text-blue-400 font-bold shadow-sm transition-all active:scale-95 flex items-center gap-1.5">
+                  <Icon icon="ph:map-pin-fill" class="w-3.5 h-3.5" />
+                  "Partager ma position 📍"
                 </button>
               </div>
             </div>
 
             <!-- Messages Loop -->
             <div v-for="(msg, index) in chatMessages" :key="msg.id || index" :class="[isMyMessage(msg) ? 'flex justify-end' : 'flex justify-start']" class="w-full">
-              <div class="max-w-[85%] sm:max-w-[75%] flex flex-col" :class="[isMyMessage(msg) ? 'items-end' : 'items-start']">
+              <div class="max-w-[88%] sm:max-w-[75%] flex flex-col" :class="[isMyMessage(msg) ? 'items-end' : 'items-start']">
 
                 <!-- Bubble Wrapper -->
                 <div :class="[
                   isMyMessage(msg)
-                    ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white rounded-2xl rounded-tr-none shadow-md shadow-blue-500/10'
-                    : 'bg-white dark:bg-slate-800/80 text-gray-900 dark:text-slate-200 rounded-2xl rounded-tl-none border border-gray-200 dark:border-white/5 shadow-sm',
+                    ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white rounded-2xl rounded-tr-none shadow-md shadow-blue-500/15'
+                    : 'bg-white dark:bg-slate-800/90 text-gray-900 dark:text-slate-200 rounded-2xl rounded-tl-none border border-gray-200 dark:border-white/10 shadow-sm',
                   msg._optimistic ? 'opacity-70' : 'opacity-100',
-                ]" class="px-4 py-3 shadow-lg transition-opacity duration-200">
-                  <div class="text-sm leading-relaxed whitespace-pre-wrap select-text" v-html="parsePlaceLinks(msg.content)"></div>
+                ]" class="px-4 py-3 transition-opacity duration-200">
+
+                  <!-- Render Location Card if message has location tag, else regular text -->
+                  <div class="text-sm leading-relaxed whitespace-pre-wrap select-text" v-html="renderMessageBody(msg.content, isMyMessage(msg))"></div>
                 </div>
 
                 <!-- Timestamp + status -->
@@ -265,14 +280,14 @@
                     {{ formatMessageTime(msg.created_at) }}
                   </span>
                   <!-- Sending indicator for optimistic messages -->
-                  <Icon v-if="msg._optimistic" icon="ph:clock" class="w-3 h-3 text-gray-400 dark:text-slate-600" />
+                  <Icon v-if="msg._optimistic" icon="ph:clock" class="w-3 h-3 text-gray-400 dark:text-slate-600 animate-spin" />
                   <!-- Read indicator for sent messages -->
                   <Icon v-else-if="isMyMessage(msg)" :icon="msg.is_read ? 'ph:checks-bold' : 'ph:check-bold'" :class="msg.is_read ? 'text-blue-400' : 'text-gray-400 dark:text-slate-500'" class="w-3.5 h-3.5" />
                 </div>
               </div>
             </div>
 
-            <!-- AI Typing Indicator -->
+            <!-- AI / User Typing Indicator -->
             <div v-if="isTyping" class="flex justify-start">
               <div class="bg-white dark:bg-slate-800/80 border border-gray-200 dark:border-white/5 px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-1.5 shadow-sm">
                 <span class="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce"></span>
@@ -284,28 +299,34 @@
           </div>
 
           <!-- Premium Input Bar -->
-          <footer class="p-3 sm:p-4 border-t border-gray-200 dark:border-white/10 bg-gray-50/40 dark:bg-slate-900/40 backdrop-blur-2xl z-20" style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem)">
+          <footer class="p-3 sm:p-4 border-t border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-slate-900/70 backdrop-blur-2xl z-20" style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem)">
             <div class="max-w-4xl mx-auto flex items-end gap-2 sm:gap-3">
               <div class="flex-1 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-2xl flex items-end px-3 sm:px-4 focus-within:ring-2 focus-within:ring-blue-500/50 focus-within:border-blue-500 transition-all shadow-sm">
+                
+                <!-- Quick Location Share Button inside input bar -->
+                <button v-if="!activeChat?.isAI" type="button" @click="openLocationModal" class="p-1 mb-2.5 sm:mb-3 hover:text-blue-500 text-gray-400 dark:text-slate-400 transition-colors flex-shrink-0 mr-1" title="Partager un lieu ou ma position GPS">
+                  <Icon icon="ph:map-pin-bold" class="w-5 h-5" />
+                </button>
+
                 <!-- Textarea: Enter sends, Shift+Enter adds a line break -->
                 <textarea
                   v-model="messageInput"
                   @input="handleTyping"
                   @keydown.enter.exact.prevent="handleSendMessage"
-                  :placeholder="activeChat?.isAI ? 'Demander quelque chose à l\'IA...' : 'Écrire un message... (Shift+Entrée pour saut de ligne)'"
+                  :placeholder="activeChat?.isAI ? 'Demander un lieu, amphi, resto à l\'IA...' : 'Écrire un message... (Shift+Entrée pour saut de ligne)'"
                   rows="1"
-                  class="w-full bg-transparent border-none py-2.5 sm:py-3.5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 outline-none text-xs sm:text-sm resize-none overflow-hidden leading-relaxed"
+                  class="flex-1 bg-transparent border-none py-2.5 sm:py-3.5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 outline-none text-xs sm:text-sm resize-none overflow-hidden leading-relaxed"
                   style="max-height: 120px; overflow-y: auto;"
                   @input.native="$event.target.style.height = 'auto'; $event.target.style.height = Math.min($event.target.scrollHeight, 120) + 'px'"
                 ></textarea>
 
-                <!-- Quick Send Icon triggers & Emoji Picker -->
+                <!-- Emoji Picker -->
                 <div class="relative flex items-center mb-2 sm:mb-3 gap-1">
                   <button type="button" @click="showEmojiPicker = !showEmojiPicker" class="p-1 hover:text-blue-500 text-gray-400 dark:text-slate-400 transition-colors flex-shrink-0" title="Ajouter un émoji">
                     <Icon icon="ph:smiley-bold" class="w-5 h-5" />
                   </button>
                   <div v-if="showEmojiPicker" class="absolute bottom-10 right-0 z-50 bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 p-2.5 rounded-2xl shadow-xl flex gap-2 animate-in fade-in zoom-in duration-150">
-                    <button type="button" v-for="emoji in ['👍', '❤️', '😂', '🔥', '👏', '🙏', '🎓', '📚', '👋']" :key="emoji" @click="addEmoji(emoji)" class="text-lg hover:scale-125 transition-transform p-1">
+                    <button type="button" v-for="emoji in ['👍', '❤️', '😂', '🔥', '👏', '🙏', '📍', '🎓', '📚', '👋']" :key="emoji" @click="addEmoji(emoji)" class="text-lg hover:scale-125 transition-transform p-1">
                       {{ emoji }}
                     </button>
                   </div>
@@ -316,7 +337,7 @@
                 </button>
               </div>
               
-              <button @click="handleSendMessage" class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all flex-shrink-0 mb-0.5">
+              <button @click="handleSendMessage" :disabled="!messageInput.trim()" class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all flex-shrink-0 mb-0.5">
                 <Icon icon="ph:paper-plane-right-fill" class="w-4.5 h-4.5 sm:w-5 sm:h-5" />
               </button>
             </div>
@@ -326,6 +347,89 @@
 
       </div>
 
+    </div>
+
+    <!-- LOCATION & PLACE SHARING MODAL (MESSENGER STYLE) -->
+    <div v-if="showLocationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+      <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 rounded-3xl w-full max-w-lg p-6 shadow-2xl flex flex-col max-h-[85vh] relative overflow-hidden animate-in fade-in zoom-in duration-200">
+        
+        <div class="flex justify-between items-center mb-4">
+           <div class="flex items-center gap-2.5">
+             <div class="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+               <Icon icon="ph:map-pin-fill" class="w-5 h-5" />
+             </div>
+             <div>
+               <h3 class="text-lg font-bold text-gray-900 dark:text-white tracking-tight">Partager un lieu ou ma position</h3>
+               <p class="text-xs text-gray-500 dark:text-slate-400">Envoyez vos coordonnées à {{ activeChat?.name }}</p>
+             </div>
+           </div>
+           <button @click="showLocationModal = false" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-500 dark:text-slate-400 flex items-center justify-center transition-all">
+             <Icon icon="ph:x-bold" class="w-5 h-5" />
+           </button>
+        </div>
+
+        <!-- Tab Selector: Live GPS vs Campus Places -->
+        <div class="flex gap-2 mb-4 p-1 bg-gray-100 dark:bg-white/5 rounded-2xl">
+          <button @click="locationTab = 'gps'" :class="locationTab === 'gps' ? 'bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 font-bold' : 'text-gray-500 dark:text-slate-400 font-medium'" class="flex-1 py-2.5 text-xs rounded-xl transition-all flex items-center justify-center gap-1.5">
+            <Icon icon="ph:crosshair-bold" class="w-4 h-4" />
+            Ma position GPS en direct
+          </button>
+          <button @click="locationTab = 'places'" :class="locationTab === 'places' ? 'bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 font-bold' : 'text-gray-500 dark:text-slate-400 font-medium'" class="flex-1 py-2.5 text-xs rounded-xl transition-all flex items-center justify-center gap-1.5">
+            <Icon icon="ph:buildings-bold" class="w-4 h-4" />
+            Lieux du campus ({{ allCampusPlaces.length }})
+          </button>
+        </div>
+
+        <!-- TAB 1: LIVE GPS SHARE -->
+        <div v-if="locationTab === 'gps'" class="space-y-4 py-2">
+          <div class="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/20 border border-blue-200 dark:border-blue-500/20 rounded-2xl text-center space-y-3">
+            <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center mx-auto shadow-lg shadow-blue-500/25">
+              <Icon icon="ph:navigation-arrow-fill" class="w-6 h-6 animate-pulse" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white">Partage instantané de position</h4>
+              <p class="text-xs text-gray-500 dark:text-slate-400 mt-1 max-w-xs mx-auto">
+                Votre ami recevra une carte interactive avec un bouton d'itinéraire piéton direct vers votre position actuelle.
+              </p>
+            </div>
+
+            <button @click="shareCurrentGPSLocation" :disabled="gpsLoading" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 text-xs disabled:opacity-60">
+              <Icon :icon="gpsLoading ? 'ph:spinner-gap-bold' : 'ph:paper-plane-tilt-bold'" :class="gpsLoading ? 'animate-spin' : ''" class="w-4 h-4" />
+              <span>{{ gpsLoading ? 'Acquisition du signal GPS...' : '📍 Envoyer ma position actuelle' }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: SEARCH CAMPUS PLACES -->
+        <div v-else class="flex-1 flex flex-col min-h-0 space-y-3">
+          <div class="relative">
+            <Icon icon="ph:magnifying-glass" class="absolute left-3.5 top-3 text-gray-400 dark:text-slate-500 w-4.5 h-4.5" />
+            <input v-model="placeSearchQuery" type="text" placeholder="Rechercher un amphi, la BU, un resto..." class="w-full bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-xs text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/40">
+          </div>
+
+          <div class="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar max-h-64">
+            <div v-for="place in filteredCampusPlaces" :key="place.id" @click="shareCampusPlace(place)" class="p-3 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl cursor-pointer transition-all border border-gray-200/60 dark:border-white/5 flex items-center justify-between group">
+              <div class="min-w-0 flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                  <Icon :icon="getPlaceIcon(place.category || place.type)" class="w-4 h-4" />
+                </div>
+                <div class="min-w-0">
+                  <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate group-hover:text-blue-500 transition-colors">{{ place.name }}</h5>
+                  <p class="text-[10px] text-gray-500 dark:text-slate-400 truncate">{{ place.category || place.type || 'Lieu du campus' }}</p>
+                </div>
+              </div>
+              <span class="text-[10px] bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold px-2 py-1 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-all flex items-center gap-1 flex-shrink-0">
+                <span>Envoyer</span>
+                <Icon icon="ph:paper-plane-right-fill" class="w-3 h-3" />
+              </span>
+            </div>
+            <div v-if="filteredCampusPlaces.length === 0" class="text-center py-6 text-xs text-gray-400 dark:text-slate-500">
+              Aucun lieu correspondant à "{{ placeSearchQuery }}"
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- NEW DISCUSSION MODAL -->
@@ -380,7 +484,7 @@
         </div>
 
         <p class="text-xs text-gray-500 dark:text-slate-400 mb-4 leading-relaxed">
-          U-Map s'engage à assurer la sécurité du campus. Décrivez le motif du signalement. L'équipe d'administration prendra des mesures de restriction immédiates si nécessaire.
+          U-Map s'engage à assurer la sécurité du campus. Décrivez le motif du signalement.
         </p>
 
         <form @submit.prevent="submitReport" class="space-y-4">
@@ -421,11 +525,17 @@ import { authService } from '../services/authService'
 import { aiService } from '../services/aiService'
 import { messageService } from '../services/messageService'
 import { studyService } from '../services/studyService'
+import { campusService } from '../services/campusService'
 import { useMeta } from '../composables/useMeta'
 import echo from '../services/echo'
 import errorHandler from '../services/errorHandler'
 
-useMeta('Messagerie', "Échangez avec la communauté étudiante de l'UAC. Messagerie instantanée et suggestions intelligentes sur U-map.", { canonicalPath: '/chat' })
+defineOptions({
+  name: 'Chat'
+})
+
+useMeta('Messagerie', "Échangez avec la communauté étudiante de l'UAC. Messagerie instantanée et partage de positions sur U-map.", { canonicalPath: '/chat' })
+
 
 const router = useRouter()
 const route = useRoute()
@@ -437,16 +547,25 @@ const messageInput = ref('')
 const isTyping = ref(false)
 const authMode = ref('login')
 const loading = ref(false)
+const messagesLoading = ref(false)
+const conversationsLoading = ref(false)
 const showNewChatModal = ref(false)
 const searchQuery = ref('')
 const students = ref([])
 const conversations = ref([])
 const showEmojiPicker = ref(false)
 
-const addEmoji = (emoji) => {
-  messageInput.value += emoji
-  showEmojiPicker.value = false
-}
+// Location & Place Sharing state
+const showLocationModal = ref(false)
+const locationTab = ref('gps') // 'gps' | 'places'
+const placeSearchQuery = ref('')
+const allCampusPlaces = ref([])
+const gpsLoading = ref(false)
+
+// Polling interval for robust local dev syncing
+let activePollInterval = null
+let currentEchoChannel = null
+let typingTimeout = null
 
 // Report Modal variables
 const showReportModal = ref(false)
@@ -461,7 +580,11 @@ const studyStatusExpanded = ref(false)
 const myStudyStatus = ref('')
 const myStudyLocation = ref('')
 const studyBuddies = ref([])
-let currentEchoChannel = null
+
+const addEmoji = (emoji) => {
+  messageInput.value += emoji
+  showEmojiPicker.value = false
+}
 
 const loadStudyBuddies = async () => {
     try {
@@ -469,9 +592,154 @@ const loadStudyBuddies = async () => {
     } catch (e) { console.error(e) }
 }
 
-let typingTimeout = null
+const loadCampusPlaces = async () => {
+    try {
+        const places = await campusService.getAllPlaces()
+        allCampusPlaces.value = (places || []).map(p => ({
+            id: p.properties?.id || p.id,
+            name: p.properties?.name || p.name || 'Lieu',
+            category: p.properties?.category || p.category || '',
+            type: p.properties?.type || p.type || '',
+            coordinates: p.geometry?.coordinates || null,
+        })).filter(p => p.name && p.name !== 'Lieu')
+    } catch (e) {
+        console.error('Error loading campus places for sharing:', e)
+    }
+}
 
-// Subscribe to a private Echo channel for the current conversation
+const filteredCampusPlaces = computed(() => {
+    if (!placeSearchQuery.value) return allCampusPlaces.value.slice(0, 30)
+    const q = placeSearchQuery.value.toLowerCase()
+    return allCampusPlaces.value.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        (p.category && p.category.toLowerCase().includes(q))
+    ).slice(0, 30)
+})
+
+const getPlaceIcon = (category) => {
+    const c = (category || '').toLowerCase()
+    if (c.includes('amphi') || c.includes('cours') || c.includes('enseign')) return 'ph:graduation-cap-bold'
+    if (c.includes('resto') || c.includes('manger') || c.includes('cafet')) return 'ph:fork-knife-bold'
+    if (c.includes('biblio') || c.includes('bu')) return 'ph:books-bold'
+    if (c.includes('admin') || c.includes('rectorat')) return 'ph:bank-bold'
+    if (c.includes('sante') || c.includes('medical')) return 'ph:first-aid-bold'
+    if (c.includes('sport')) return 'ph:football-bold'
+    return 'ph:map-pin-bold'
+}
+
+// Open Location Share modal
+const openLocationModal = async () => {
+    showLocationModal.value = true
+    if (allCampusPlaces.value.length === 0) {
+        await loadCampusPlaces()
+    }
+}
+
+// Share current live GPS coordinates
+const shareCurrentGPSLocation = () => {
+    if (!navigator.geolocation) {
+        errorHandler.error("La géolocalisation n'est pas supportée par votre navigateur.")
+        return
+    }
+
+    gpsLoading.value = true
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            gpsLoading.value = false
+            showLocationModal.value = false
+            const { latitude, longitude } = position.coords
+            const me = authService.getCurrentUser()
+            const name = me?.name || 'Moi'
+            const msgContent = `📍 Je suis ici sur le campus : [POSITION:${latitude.toFixed(6)},${longitude.toFixed(6)}|Position de ${name}]`
+            await sendMessageDirect(msgContent)
+        },
+        (err) => {
+            gpsLoading.value = false
+            if (err.code === 1) {
+                errorHandler.error("Accès GPS refusé. Veuillez autoriser la localisation.")
+            } else {
+                errorHandler.error("Impossible d'obtenir votre position GPS.")
+            }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    )
+}
+
+// Share a specific campus place
+const shareCampusPlace = async (place) => {
+    showLocationModal.value = false
+    const msgContent = `🏛️ Retrouvons-nous ici : [LIEU:${place.name}|${place.id}]`
+    await sendMessageDirect(msgContent)
+}
+
+// Direct send helper (for location messages, quick starters)
+const sendMessageDirect = async (content) => {
+    if (!activeChat.value || !content.trim()) return
+    messageInput.value = content
+    await handleSendMessage()
+}
+
+// Render message body with modern interactive location cards
+const renderMessageBody = (content, isMe) => {
+    if (!content || typeof content !== 'string') return ''
+
+    // 1. Sanitize HTML
+    let sanitized = content
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+
+    // 2. Parse [POSITION:lat,lng|Label] -> Interactive GPS Card
+    sanitized = sanitized.replace(/\[POSITION:([^,]+),([^\|]+)\|([^\]]+)\]/g, (match, lat, lng, label) => {
+        const btnClass = isMe
+            ? 'bg-white/20 hover:bg-white/30 text-white border border-white/30'
+            : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/20'
+        
+        const targetUrl = `/map?lat=${lat}&lng=${lng}&route=true&label=${encodeURIComponent(label)}`
+        return `<div class="mt-2 mb-1 p-3 rounded-xl ${isMe ? 'bg-black/15 border border-white/20' : 'bg-blue-50 dark:bg-slate-900 border border-blue-200 dark:border-white/10'} shadow-sm">
+            <div class="flex items-center gap-2 mb-1.5 font-bold ${isMe ? 'text-white' : 'text-blue-600 dark:text-blue-400'} text-xs">
+                <span>📍 ${label}</span>
+            </div>
+            <div class="text-[10px] opacity-75 font-mono mb-2">Lat: ${lat} • Lng: ${lng}</div>
+            <button type="button" onclick="window.navigateToMap('${targetUrl}')" 
+               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${btnClass} cursor-pointer border-none">
+               <span>🗺️ Voir sur la carte & Itinéraire</span>
+            </button>
+        </div>`
+    })
+
+    // 3. Parse [LIEU:Nom|id] -> Interactive Campus Place Card
+    sanitized = sanitized.replace(/\[LIEU:([^\|]+)\|([^\]]+)\]/g, (match, name, id) => {
+        const btnClass = isMe
+            ? 'bg-white/20 hover:bg-white/30 text-white border border-white/30'
+            : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/20'
+
+        const targetUrl = `/map?place=${id}&route=true`
+        return `<div class="mt-2 mb-1 p-3 rounded-xl ${isMe ? 'bg-black/15 border border-white/20' : 'bg-blue-50 dark:bg-slate-900 border border-blue-200 dark:border-white/10'} shadow-sm">
+            <div class="flex items-center gap-2 mb-1.5 font-bold ${isMe ? 'text-white' : 'text-blue-600 dark:text-blue-400'} text-xs">
+                <span>🏛️ ${name}</span>
+            </div>
+            <button type="button" onclick="window.navigateToMap('${targetUrl}')" 
+               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${btnClass} cursor-pointer border-none">
+               <span>📍 Voir sur la carte & Itinéraire</span>
+            </button>
+        </div>`
+    })
+
+    return sanitized
+}
+
+const formatSnippet = (content) => {
+    if (!content) return ''
+    if (content.includes('[POSITION:')) return '📍 Position GPS partagée'
+    if (content.includes('[LIEU:')) {
+        const match = content.match(/\[LIEU:([^\|]+)\|/)
+        return match ? `📍 Lieu : ${match[1]}` : '📍 Lieu partagé'
+    }
+    return content
+}
+
+// Subscribe to a private Echo channel with clean sender isolation
 const subscribeToChatChannel = () => {
     if (!activeChat.value || activeChat.value?.isAI || !echo) return
     unsubscribeFromChatChannel()
@@ -479,45 +747,97 @@ const subscribeToChatChannel = () => {
     const me = authService.getCurrentUser()
     if (!me) return
 
-    const minId = Math.min(me.id, activeChat.value.id)
-    const maxId = Math.max(me.id, activeChat.value.id)
+    const partnerId = activeChat.value.id
+    const minId = Math.min(me.id, partnerId)
+    const maxId = Math.max(me.id, partnerId)
     const channelName = `chat.${minId}.${maxId}`
     currentEchoChannel = channelName
 
-    echo.private(channelName)
-        .listen('.message.sent', (data) => {
-            // Only append if the message is from the other user (avoid duplicate with optimistic update)
-            if (data.sender_id !== me.id) {
-                chatMessages.value.push({
-                    ...data,
-                    // Normalize: WebSocket payload uses 'content' directly (decrypted by broadcastWith)
-                    content: data.content,
-                })
-                scrollToBottom()
-
-                // Update sidebar with the new incoming message
+    try {
+        echo.private(channelName)
+            .listen('.message.sent', (data) => {
+                // Strict isolation: only append if this message belongs to the current open chat
+                if (activeChat.value && !activeChat.value.isAI && activeChat.value.id === partnerId) {
+                    if (data.sender_id === partnerId && data.receiver_id === me.id) {
+                        // Check if already in list to avoid duplicates
+                        if (!chatMessages.value.some(m => m.id === data.id)) {
+                            chatMessages.value.push({
+                                ...data,
+                                content: data.content,
+                            })
+                            scrollToBottom()
+                        }
+                    }
+                }
                 _updateConversationSidebar(data)
+            })
+            .listenForWhisper('typing', (e) => {
+                if (activeChat.value?.id === partnerId) {
+                    isTyping.value = !!e.isTyping
+                    if (typingTimeout) clearTimeout(typingTimeout)
+                    if (e.isTyping) {
+                        typingTimeout = setTimeout(() => {
+                            isTyping.value = false
+                        }, 3000)
+                    }
+                }
+            })
+    } catch (e) {
+        console.warn('Echo subscription warning:', e)
+    }
+
+    // Start background sync poll every 3.5s for seamless local dev
+    startPollingMessages(partnerId)
+}
+
+const startPollingMessages = (partnerId) => {
+    stopPollingMessages()
+    activePollInterval = setInterval(async () => {
+        if (!activeChat.value || activeChat.value.isAI || activeChat.value.id !== partnerId) {
+            stopPollingMessages()
+            return
+        }
+        try {
+            const response = await messageService.getMessages(partnerId)
+            const msgs = Array.isArray(response.data) ? response.data : (Array.isArray(response) ? response : [])
+            if (activeChat.value?.id === partnerId && msgs.length > 0) {
+                // Merge cleanly preserving optimistic messages
+                const optimistic = chatMessages.value.filter(m => m._optimistic)
+                const realIds = new Set(msgs.map(m => m.id))
+                const pendingOptimistic = optimistic.filter(o => !realIds.has(o.id))
+                
+                // If message count or latest ID changed, update smoothly
+                if (msgs.length !== (chatMessages.value.length - optimistic.length)) {
+                    chatMessages.value = [...msgs, ...pendingOptimistic]
+                    scrollToBottom()
+                }
             }
-        })
-        .listenForWhisper('typing', (e) => {
-            isTyping.value = !!e.isTyping
-            if (typingTimeout) clearTimeout(typingTimeout)
-            if (e.isTyping) {
-                typingTimeout = setTimeout(() => {
-                    isTyping.value = false
-                }, 3000)
-            }
-        })
+        } catch (e) {
+            // silent poll failure
+        }
+    }, 3500)
+}
+
+const stopPollingMessages = () => {
+    if (activePollInterval) {
+        clearInterval(activePollInterval)
+        activePollInterval = null
+    }
 }
 
 const handleTyping = () => {
     if (!activeChat.value || activeChat.value?.isAI || !currentEchoChannel || !echo) return
-    echo.private(currentEchoChannel).whisper('typing', { isTyping: true })
+    try {
+        echo.private(currentEchoChannel).whisper('typing', { isTyping: true })
+    } catch {}
 }
 
 const unsubscribeFromChatChannel = () => {
+    stopPollingMessages()
     if (currentEchoChannel && echo) {
-        echo.leaveChannel(`private-${currentEchoChannel}`)
+        try {
+            echo.leaveChannel(`private-${currentEchoChannel}`)
+        } catch {}
         currentEchoChannel = null
     }
     if (typingTimeout) {
@@ -534,20 +854,30 @@ const saveMyStudyStatus = async () => {
     } catch (e) { errorHandler.error(e.message) }
 }
 
-onMounted(async () => {
-    if (isLoggedIn.value) {
-        await loadStudents()
-        await loadConversations()
-        await loadStudyBuddies()
+const handleAuthExpired = () => {
+    isLoggedIn.value = false
+    activeChat.value = null
+    chatMessages.value = []
+}
 
-        // Initialiser mon propre statut d'étude
+onMounted(async () => {
+    window.navigateToMap = (path) => router.push(path)
+    window.addEventListener('auth:expired', handleAuthExpired)
+    if (isLoggedIn.value) {
+        // Parallel load using cached data first
+        await Promise.all([
+            loadStudents(),
+            loadConversations(),
+            loadStudyBuddies(),
+            loadCampusPlaces()
+        ])
+
         const me = authService.getCurrentUser()
         if (me) {
             myStudyStatus.value = me.study_status || ''
             myStudyLocation.value = me.study_location || ''
         }
 
-        // Sync active chat with URL query ?chat=
         if (route.query.chat) {
             await syncChatFromQuery()
         }
@@ -555,14 +885,17 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
+    delete window.navigateToMap
+    window.removeEventListener('auth:expired', handleAuthExpired)
     unsubscribeFromChatChannel()
 })
 
-// Watch route query to switch active chats dynamically
-watch(() => route.query.chat, async (newChatId) => {
-    if (newChatId) {
+// Watch route query to switch active chats dynamically with zero bleed
+watch(() => route.query.chat, async (newChatId, oldChatId) => {
+    if (newChatId && newChatId !== oldChatId) {
         await syncChatFromQuery()
-    } else {
+    } else if (!newChatId) {
+        unsubscribeFromChatChannel()
         activeChat.value = null
         chatMessages.value = []
     }
@@ -570,14 +903,14 @@ watch(() => route.query.chat, async (newChatId) => {
 
 const syncChatFromQuery = async () => {
     const chatId = route.query.chat
+    if (!chatId) return
+
     if (chatId === 'ai') {
         selectAIChat()
     } else {
-        // Try finding student in loaded list or fetch
         let student = (Array.isArray(conversations.value) ? conversations.value.find(c => c.id == chatId) : null) ||
                       (Array.isArray(students.value) ? students.value.find(s => s.id == chatId) : null)
         if (!student) {
-            // Fallback load
             await loadStudents()
             await loadConversations()
             student = (Array.isArray(conversations.value) ? conversations.value.find(c => c.id == chatId) : null) ||
@@ -585,22 +918,28 @@ const syncChatFromQuery = async () => {
         }
         if (student) {
             activeChat.value = { ...student, isAI: false }
-            await loadMessages()
+            await loadMessages(student.id)
+            subscribeToChatChannel()
         } else {
-            // clear query if invalid
             closeChat()
         }
     }
 }
 
 const loadConversations = async () => {
+    if (conversations.value.length === 0) {
+        conversationsLoading.value = true
+    }
     try {
         const res = await messageService.getConversations()
-        // Handle both paginated response and direct array
         conversations.value = res.data || res || []
     } catch (e) {
         console.error('Error loading conversations:', e)
-        conversations.value = []
+        if (conversations.value.length === 0) {
+            conversations.value = []
+        }
+    } finally {
+        conversationsLoading.value = false
     }
 }
 
@@ -615,26 +954,6 @@ const filteredStudents = computed(() => {
     return students.value.filter(s => s.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
 })
 
-const toggleAuthMode = () => authMode.value = authMode.value === 'login' ? 'register' : 'login'
-
-const handleAuth = async () => {
-    loading.value = true
-    try {
-        if (authMode.value === 'login') {
-            await authService.login(authForm.value.email, authForm.value.password)
-        } else {
-            await authService.register(authForm.value)
-        }
-        isLoggedIn.value = true
-        await loadStudents()
-        await loadConversations()
-    } catch (err) {
-        errorHandler.error(err.message)
-    } finally {
-        loading.value = false
-    }
-}
-
 const logout = () => {
     authService.logout()
     isLoggedIn.value = false
@@ -644,10 +963,11 @@ const logout = () => {
 }
 
 const selectAIChat = () => {
-    activeChat.value = { id: 'ai', name: 'U-Map Copilot AI', isAI: true, avatar: null }
+    unsubscribeFromChatChannel()
     chatMessages.value = [
-        { role: 'assistant', content: "Bonjour ! Je suis l'intelligence artificielle officielle de l'UAC. Comment puis-je t'aider sur le campus aujourd'hui ?" }
+        { role: 'assistant', content: "Bonjour ! 👋 Je suis l'intelligence artificielle officielle de l'UAC. Posez-moi des questions sur les lieux, amphithéâtres, restaurants ou la bibliothèque pour vous orienter directement sur le campus !" }
     ]
+    activeChat.value = { id: 'ai', name: 'U-Map Copilot AI', isAI: true, avatar: null }
     if (route.query.chat !== 'ai') {
         router.push({ query: { chat: 'ai' } })
     }
@@ -655,55 +975,57 @@ const selectAIChat = () => {
 }
 
 const selectChat = async (student) => {
+    if (activeChat.value?.id === student.id) return
+
+    unsubscribeFromChatChannel()
     activeChat.value = { ...student, isAI: false }
+
     if (route.query.chat != student.id) {
-        router.push({ query: { chat: student.id } })
+        await router.push({ query: { chat: student.id } })
     }
-    await loadMessages()
+    await loadMessages(student.id)
     subscribeToChatChannel()
 }
 
 const closeChat = () => {
     unsubscribeFromChatChannel()
     activeChat.value = null
+    chatMessages.value = []
     router.push({ query: {} })
 }
 
-const loadMessages = async () => {
-    if (!activeChat.value || activeChat.value?.isAI) return
-    try {
-        const response = await messageService.getMessages(activeChat.value.id)
-        // Backend always returns { data: [], meta: {} }
-        chatMessages.value = Array.isArray(response.data) ? response.data : (Array.isArray(response) ? response : [])
+const loadMessages = async (targetId) => {
+    const fetchId = targetId || activeChat.value?.id
+    if (!fetchId || activeChat.value?.isAI) return
+
+    // Fast memory/storage cache lookup first
+    const cached = messageService.messagesCache?.get(String(fetchId))
+    if (cached && Array.isArray(cached) && cached.length > 0) {
+        chatMessages.value = cached
         scrollToBottom()
+        messagesLoading.value = false
+    } else {
+        messagesLoading.value = true
+    }
+
+    try {
+        const response = await messageService.getMessages(fetchId)
+        // Strict guard: verify user hasn't switched chat while request was pending
+        if (activeChat.value?.id === fetchId) {
+            const list = Array.isArray(response.data) ? response.data : (Array.isArray(response) ? response : [])
+            chatMessages.value = list
+            scrollToBottom()
+        }
     } catch (e) {
         console.error('Error loading messages:', e)
-        chatMessages.value = []
+    } finally {
+        messagesLoading.value = false
     }
 }
 
-const parsePlaceLinks = (content) => {
-    // Convert [LIEU:Nom|ID] format to clickable colored text (no background)
-    if (!content || typeof content !== 'string') return content
-    
-    // Basic HTML sanitization - only allow specific tags and attributes
-    const sanitizedContent = content
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-        .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
-        .replace(/on\w+="[^"]*"/gi, '')
-        .replace(/on\w+='[^']*'/gi, '')
-    
-    // Then parse place links
-    return sanitizedContent.replace(/\[LIEU:([^\|]+)\|([^\]]+)\]/g, (match, name, id) => {
-        return `<a href="/map?place=${id}&route=true" class="text-blue-600 dark:text-blue-400 font-bold hover:underline cursor-pointer no-underline decoration-none transition-colors" onclick="event.preventDefault(); window.location.href='/map?place=${id}&route=true'">
-          ${name}
-        </a>`
-    })
-}
 
 const handleSendMessage = async () => {
-    // BUG FIX: isTyping tracks the OTHER person's typing indicator — it must NOT block our send
-    if (!messageInput.value.trim()) return
+    if (!messageInput.value.trim() || !activeChat.value) return
     const content = messageInput.value.trim()
     messageInput.value = ''
 
@@ -722,12 +1044,14 @@ const handleSendMessage = async () => {
         }
     } else {
         const me = authService.getCurrentUser()
-        // Optimistic update: add message immediately in UI for instant feedback
+        const targetReceiverId = activeChat.value.id
+
+        // Optimistic update: add message immediately in UI
         const optimisticMsg = {
             id: `temp-${Date.now()}`,
             content,
             sender_id: me?.id,
-            receiver_id: activeChat.value.id,
+            receiver_id: targetReceiverId,
             created_at: new Date().toISOString(),
             is_read: false,
             _optimistic: true,
@@ -736,7 +1060,7 @@ const handleSendMessage = async () => {
         scrollToBottom()
 
         try {
-            const newMsg = await messageService.sendMessage(activeChat.value.id, content)
+            const newMsg = await messageService.sendMessage(targetReceiverId, content)
 
             // Replace optimistic message with real one from server
             const idx = chatMessages.value.findIndex(m => m._optimistic && m.id === optimisticMsg.id)
@@ -744,10 +1068,9 @@ const handleSendMessage = async () => {
                 chatMessages.value.splice(idx, 1, newMsg)
             }
 
-            // Update conversation sidebar locally (no extra API call needed)
+            // Update conversation sidebar locally
             _updateConversationSidebar(newMsg)
         } catch (e) {
-            // On error: remove optimistic message and show error
             chatMessages.value = chatMessages.value.filter(m => m.id !== optimisticMsg.id)
             errorHandler.error(e.message || 'Erreur lors de l\'envoi du message.')
         }
@@ -767,7 +1090,7 @@ const startNewConversation = (user) => {
 const isMyMessage = (msg) => {
     if (activeChat.value?.isAI) return msg.role === 'user'
     const me = authService.getCurrentUser()
-    return msg.sender_id === me.id
+    return msg.sender_id === me?.id
 }
 
 const sendQuickStarter = (text) => {
@@ -796,9 +1119,6 @@ const formatTimeAgo = (dateStr) => {
     }
 }
 
-/**
- * Format a date as HH:MM for message bubbles.
- */
 const formatMessageTime = (dateStr) => {
     if (!dateStr) return ''
     const d = new Date(dateStr)
@@ -806,16 +1126,7 @@ const formatMessageTime = (dateStr) => {
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
-const getExpirationText = (createdAt) => {
-    const created = new Date(createdAt)
-    const now = new Date()
-    const diff = 7 - Math.floor((now - created) / (1000 * 60 * 60 * 24))
-    if (diff <= 0) return "S'autodétruit sous peu"
-    return `Expire dans ${diff}j`
-}
-
 const scrollToBottom = () => {
-    // Double nextTick ensures DOM is fully painted before measuring scrollHeight
     nextTick(() => {
         nextTick(() => {
             const container = document.getElementById('chat-messages')
@@ -826,22 +1137,17 @@ const scrollToBottom = () => {
     })
 }
 
-/**
- * Update the conversation sidebar locally without an API call.
- * @param {Object} msg - Message object with sender_id, receiver_id, content, created_at
- */
 const _updateConversationSidebar = (msg) => {
     const me = authService.getCurrentUser()
-    if (!me) return
+    if (!me || !msg) return
 
-    // Determine the other party's id
     const otherId = msg.sender_id === me.id ? msg.receiver_id : msg.sender_id
     const lastMsgPayload = {
         id: msg.id,
         content: msg.content,
         created_at: msg.created_at,
         sender_id: msg.sender_id,
-        is_read: msg.sender_id === me.id, // our own messages are read; incoming may not be
+        is_read: msg.sender_id === me.id,
     }
 
     const existingIdx = Array.isArray(conversations.value)
@@ -854,14 +1160,12 @@ const _updateConversationSidebar = (msg) => {
             last_message: lastMsgPayload,
             last_message_at: msg.created_at,
         }
-        // Move to top
         const rest = conversations.value.filter((_, i) => i !== existingIdx)
         conversations.value = [updated, ...rest]
     } else {
-        // New conversation — add to top
+        const buddy = students.value.find(s => s.id === otherId)
         conversations.value = [{
-            ...activeChat.value,
-            id: otherId,
+            ...(buddy || { id: otherId, name: `Étudiant #${otherId}` }),
             last_message: lastMsgPayload,
             last_message_at: msg.created_at,
             unread_count: msg.sender_id !== me.id ? 1 : 0,
@@ -870,7 +1174,7 @@ const _updateConversationSidebar = (msg) => {
 }
 
 const submitReport = async () => {
-    if (reporting.value) return
+    if (reporting.value || !activeChat.value) return
     reporting.value = true
     const finalReason = reportReason.value === 'Autre motif' 
         ? `Autre: ${customReason.value}` 
@@ -888,7 +1192,7 @@ const submitReport = async () => {
         })
 
         if (response.ok) {
-            errorHandler.success('L\'utilisateur a bien été signalé aux administrateurs. Merci de veiller à la sécurité de l\'UAC.')
+            errorHandler.success('L\'utilisateur a bien été signalé aux administrateurs.')
             showReportModal.value = false
             customReason.value = ''
         } else {

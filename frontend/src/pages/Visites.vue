@@ -133,6 +133,10 @@ import { useVisitedStore } from '../stores/visited'
 import { useBadgeStore } from '../stores/badges'
 import { useMeta } from '../composables/useMeta'
 
+defineOptions({
+  name: 'Visites'
+})
+
 useMeta('Mes Visites & Badges', "Suivez votre exploration du campus UAC : lieux visités, badges d'exploration débloqués et progression.", { canonicalPath: '/visites' })
 
 const router = useRouter()
@@ -157,9 +161,10 @@ onMounted(async () => {
 const visitedPlacesList = computed(() => {
   if (!allPlaces.value) return []
   return allPlaces.value
-    .filter(p => visitedStore.isVisited(p.properties.id))
-    .map(p => ({ ...p.properties }))
+    .filter(p => visitedStore.isVisited(p.properties?.id || p.id))
+    .map(p => ({ ...(p.properties || p) }))
 })
+
 
 // Liste filtrée pour la modale de recherche
 const filteredPlaces = computed(() => {

@@ -101,5 +101,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/study-buddies', [StudentController::class, 'studyBuddies']);
 
     // Authentication route for private channels
-    \Illuminate\Support\Facades\Broadcast::routes();
+    Broadcast::routes();
 });

@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import SearchBar from '../components/SearchBar.vue'
@@ -66,6 +66,10 @@ import { useVisitedStore } from '../stores/visited'
 import { useMeta } from '../composables/useMeta'
 import { useStructuredData, getBreadcrumbSchema } from '../composables/useStructuredData'
 import { preprocessPlaces, searchPlaces } from '../utils/searchUtils'
+
+defineOptions({
+  name: 'Lieux'
+})
 
 useMeta('Lieux du Campus UAC', "Explorez tous les bâtiments, amphithéâtres, bibliothèques, laboratoires, restaurants et services du campus de l'Université d'Abomey-Calavi.", { canonicalPath: '/lieux' })
 
@@ -82,14 +86,19 @@ const selectedFilter = ref('all')
 const allPlaces = ref([])
 const preprocessedPlaces = ref([])
 
+import { matchFilter } from '../utils/classifyPlaces'
+
 const filters = [
   { id: 'all', label: 'Tous', icon: 'ph:squares-four' },
   { id: 'amphi', label: 'Amphithéâtres', icon: 'ph:chalkboard-teacher' },
-  { id: 'studies', label: 'Études', icon: 'ph:graduation-cap' },
+  { id: 'studies', label: 'Facultés & Écoles', icon: 'ph:graduation-cap' },
   { id: 'library', label: 'Bibliothèques', icon: 'ph:books' },
-  { id: 'building', label: 'Bâtiments', icon: 'ph:buildings' },
   { id: 'food', label: 'Restauration', icon: 'ph:coffee' },
-  { id: 'fuel', label: 'Stations-service', icon: 'ph:gas-pump' },
+  { id: 'housing', label: 'Logements', icon: 'ph:house' },
+  { id: 'admin', label: 'Administration', icon: 'ph:bank' },
+  { id: 'services', label: 'Services & Banques', icon: 'ph:storefront' },
+  { id: 'health', label: 'Santé & Sécurité', icon: 'ph:first-aid' },
+  { id: 'sport', label: 'Sport & Loisirs', icon: 'ph:football' },
   { id: 'visited', label: 'Visités', icon: 'ph:star' },
 ]
 
@@ -107,6 +116,15 @@ onMounted(async () => {
   }
 })
 
+// Watch route query for KeepAlive navigation
+watch(() => route.query.filter, (newFilter) => {
+  if (newFilter && filters.some(f => f.id === newFilter)) {
+    selectedFilter.value = newFilter
+  } else if (!newFilter) {
+    selectedFilter.value = 'all'
+  }
+})
+
 const filteredPlaces = computed(() => {
   if (!preprocessedPlaces.value) return []
 
@@ -114,38 +132,7 @@ const filteredPlaces = computed(() => {
 
   // Apply category filter
   if (selectedFilter.value !== 'all') {
-    if (selectedFilter.value === 'visited') {
-      // Filter by visited places
-      places = places.filter(p => visitedStore.isVisited(p.properties.id))
-    } else if (selectedFilter.value === 'amphi') {
-      // Filter by amphithéâtres
-      places = places.filter(p => {
-        const name = (p.properties?.name || '').toLowerCase()
-        const category = (p.properties?.category || '').toLowerCase()
-        return name.includes('amphi') || category === 'amphitheatre'
-      })
-    } else if (selectedFilter.value === 'studies') {
-      // Filter by study-related categories (faculty, department, library, institute, school, research_center, etc.)
-      const studyCategories = ['faculty', 'department', 'library', 'institute', 'school', 'research_center', 'academic_area', 'university', 'college']
-      places = places.filter(p => {
-        const category = (p.properties.category || '').toLowerCase()
-        return studyCategories.includes(category)
-      })
-    } else if (selectedFilter.value === 'food') {
-      // Filter by food-related categories (fast_food, restaurant, cafe, etc.)
-      const foodCategories = ['fast_food', 'restaurant', 'cafe', 'bar']
-      places = places.filter(p => {
-        const category = (p.properties.category || '').toLowerCase()
-        return foodCategories.includes(category)
-      })
-    } else {
-      // Filter by category (legacy filter for single category)
-      places = places.filter(p => {
-        const category = (p.properties?.category || '').toLowerCase()
-        const filter = selectedFilter.value.toLowerCase()
-        return category.includes(filter)
-      })
-    }
+    places = places.filter(p => matchFilter(p, selectedFilter.value, visitedStore.isVisited(p.properties?.id || p.id)))
   }
 
   // Apply advanced search filter with normalization and scoring
@@ -158,6 +145,7 @@ const filteredPlaces = computed(() => {
 
 const goToPlace = (place) => {
   const identifier = place.properties?.slug || place.properties?.id
+
   router.push(`/lieu/${identifier}`)
 }
 

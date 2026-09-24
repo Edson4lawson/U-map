@@ -13,7 +13,7 @@ class UserDeviceController extends Controller
         return response()->json($devices);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, string $id)
     {
         $device = $request->user()->devices()->find($id);
 

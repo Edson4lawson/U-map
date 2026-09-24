@@ -9,6 +9,10 @@ import MapView from '../components/MapView.vue'
 import { useMeta } from '../composables/useMeta'
 import { useStructuredData, getBreadcrumbSchema } from '../composables/useStructuredData'
 
+defineOptions({
+  name: 'Map'
+})
+
 useMeta('Carte Interactive du Campus', "Naviguez sur le campus de l'Université d'Abomey-Calavi avec la carte interactive U-map. GPS, itinéraires, et localisation en temps réel.", { canonicalPath: '/map' })
 
 useStructuredData(getBreadcrumbSchema([

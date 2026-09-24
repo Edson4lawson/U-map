@@ -55,7 +55,9 @@
     <main class="flex-1 w-full relative z-0 scroll-smooth" :class="[route.path === '/chat' ? 'overflow-hidden' : 'overflow-y-auto', {'pb-24': !hideNavigation}]">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
-          <component :is="Component" />
+          <keep-alive :include="['Home', 'Lieux', 'Visites', 'Chat', 'Map']">
+            <component :is="Component" />
+          </keep-alive>
         </transition>
       </router-view>
     </main>

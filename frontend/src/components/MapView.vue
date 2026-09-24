@@ -535,6 +535,7 @@ const startRoute = (destLat, destLng) => {
 
     // 🚀 OBTENIR IMMÉDIATEMENT LA POSITION (Réactivité instantanée au clic)
     navigator.geolocation.getCurrentPosition((pos) => {
+        if (!map.value) return // Guard: map may have been unmounted
         const { latitude, longitude } = pos.coords
         
         if (userMarker.value) map.value.removeLayer(userMarker.value)
@@ -550,16 +551,14 @@ const startRoute = (destLat, destLng) => {
         drawRoute(latitude, longitude, destLat, destLng)
         
         // Centrer immédiatement la carte
-        if (map.value) {
-            try {
-                const bounds = L.latLngBounds([
-                    [latitude, longitude],
-                    [destLat, destLng]
-                ])
-                map.value.fitBounds(bounds, { padding: [50, 50] })
-            } catch (e) {
-                console.error('Error fitting bounds:', e)
-            }
+        try {
+            const bounds = L.latLngBounds([
+                [latitude, longitude],
+                [destLat, destLng]
+            ])
+            map.value.fitBounds(bounds, { padding: [50, 50] })
+        } catch (e) {
+            console.error('Error fitting bounds:', e)
         }
         isFirstPoint = false
     }, (err) => {
@@ -572,6 +571,7 @@ const startRoute = (destLat, destLng) => {
 
     // 🚶 SUIVI CONTINU ET DYNAMIQUE EN TEMPS RÉEL (Au fur et à mesure des pas)
     routeWatchId = navigator.geolocation.watchPosition((pos) => {
+        if (!map.value) return // Guard: map may have been unmounted
         const { latitude, longitude } = pos.coords
         
         if (userMarker.value) map.value.removeLayer(userMarker.value)
@@ -587,16 +587,14 @@ const startRoute = (destLat, destLng) => {
         if (isFirstPoint) {
             drawRoute(latitude, longitude, destLat, destLng)
             
-            if (map.value) {
-                try {
-                    const bounds = L.latLngBounds([
-                        [latitude, longitude],
-                        [destLat, destLng]
-                    ])
-                    map.value.fitBounds(bounds, { padding: [50, 50] })
-                } catch (e) {
-                    console.error('Error fitting bounds:', e)
-                }
+            try {
+                const bounds = L.latLngBounds([
+                    [latitude, longitude],
+                    [destLat, destLng]
+                ])
+                map.value.fitBounds(bounds, { padding: [50, 50] })
+            } catch (e) {
+                console.error('Error fitting bounds:', e)
             }
             isFirstPoint = false
         } else {
@@ -653,6 +651,25 @@ onMounted(async () => {
                       marker.openPopup()
                   }
               })
+          }
+      }
+  }
+
+  if (route.query.lat && route.query.lng) {
+      const lat = parseFloat(route.query.lat)
+      const lng = parseFloat(route.query.lng)
+      if (!isNaN(lat) && !isNaN(lng)) {
+          if (route.query.route === 'true') {
+              startRoute(lat, lng)
+          } else {
+              focusOn(lat, lng, 18)
+              if (map.value) {
+                  const label = route.query.label ? decodeURIComponent(route.query.label) : 'Position partagée'
+                  L.popup()
+                      .setLatLng([lat, lng])
+                      .setContent(`<div class="p-2 text-center font-bold text-blue-600">📍 ${label}</div>`)
+                      .openOn(map.value)
+              }
           }
       }
   }

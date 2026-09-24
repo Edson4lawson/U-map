@@ -16,11 +16,15 @@ class ForceJsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->is('api/*')) {
+            $request->headers->set('Accept', 'application/json');
+        }
+
         $response = $next($request);
 
-        // Force JSON response for API routes
+        // Force JSON header on API responses if missing
         if ($request->is('api/*') && $response->headers->get('content-type') === 'text/html; charset=utf-8') {
-            $response->header('Content-Type', 'application/json');
+            $response->headers->set('Content-Type', 'application/json');
         }
 
         return $response;

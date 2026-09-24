@@ -10,7 +10,11 @@ class AuthService {
      * Gère uniformément les erreurs JSON/HTML et les statuts d'erreur.
      */
     async #apiCall(url, options = {}) {
-        const response = await fetch(url, options);
+        const headers = {
+            'Accept': 'application/json',
+            ...(options.headers || {}),
+        };
+        const response = await fetch(url, { ...options, headers });
 
         if (!response.ok) {
             // Token expiré → nettoyer la session

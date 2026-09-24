@@ -99,11 +99,15 @@ class AntiSpam
      */
     protected function isSpamming(?int $userId, string $ipAddress, Request $request): bool
     {
+        if (app()->environment('local')) {
+            return false;
+        }
+
         // Check IP spam score
         $ipSpamKey = "spam_score:ip:{$ipAddress}";
         $ipSpamScore = Cache::get($ipSpamKey, 0);
 
-        if ($ipSpamScore > 10) {
+        if ($ipSpamScore > 30) {
             return true;
         }
 
@@ -112,7 +116,7 @@ class AntiSpam
             $userSpamKey = "spam_score:user:{$userId}";
             $userSpamScore = Cache::get($userSpamKey, 0);
 
-            if ($userSpamScore > 5) {
+            if ($userSpamScore > 20) {
                 return true;
             }
         }
@@ -125,12 +129,16 @@ class AntiSpam
      */
     protected function isSendingTooFast(?int $userId, string $ipAddress): bool
     {
+        if (app()->environment('local')) {
+            return false;
+        }
+
         // Check recent message count (last minute)
         if ($userId) {
             $recentKey = "message_count:user:{$userId}:" . now()->format('YmdHi');
             $recentCount = Cache::get($recentKey, 0);
 
-            if ($recentCount >= 10) { // Max 10 messages per minute
+            if ($recentCount >= 60) { // Max 60 messages per minute
                 return true;
             }
             Cache::put($recentKey, $recentCount + 1, 60);
@@ -140,7 +148,7 @@ class AntiSpam
         $ipRecentKey = "message_count:ip:{$ipAddress}:" . now()->format('YmdHi');
         $ipRecentCount = Cache::get($ipRecentKey, 0);
 
-        if ($ipRecentCount >= 20) { // Max 20 messages per minute per IP
+        if ($ipRecentCount >= 120) { // Max 120 messages per minute per IP
             return true;
         }
         Cache::put($ipRecentKey, $ipRecentCount + 1, 60);

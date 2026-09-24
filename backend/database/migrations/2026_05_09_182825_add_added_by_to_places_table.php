@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('places', function (Blueprint $table) {
-            $table->string('added_by')->nullable()->after('tags');
-        });
+        if (!Schema::hasColumn('places', 'added_by')) {
+            Schema::table('places', function (Blueprint $table) {
+                $table->string('added_by')->nullable()->after('tags');
+            });
+        }
     }
 
     /**

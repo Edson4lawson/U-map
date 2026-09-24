@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -400,7 +401,7 @@ class AuthController extends Controller
         }
     }
 
-    private function parseDeviceName($userAgent): string
+    private function parseDeviceName(?string $userAgent): string
     {
         if (preg_match('/(android|iphone|ipad|windows|macintosh|linux)/i', $userAgent, $matches)) {
             return ucfirst(strtolower($matches[1]));

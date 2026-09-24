@@ -14,7 +14,9 @@ return new class extends Migration
     {
         // Force change added_by from bigint to varchar if it exists
         if (Schema::hasColumn('places', 'added_by')) {
-            DB::statement('ALTER TABLE places ALTER COLUMN added_by TYPE VARCHAR(255)');
+            if (DB::connection()->getDriverName() !== 'sqlite') {
+                DB::statement('ALTER TABLE places ALTER COLUMN added_by TYPE VARCHAR(255)');
+            }
         } else {
             Schema::table('places', function (Blueprint $table) {
                 $table->string('added_by')->nullable()->after('longitude');
