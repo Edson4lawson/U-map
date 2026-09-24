@@ -2,7 +2,7 @@
   <div class="min-h-screen relative">
     <div class="pt-4 pb-24 px-4 max-w-xl md:max-w-full mx-auto relative z-10">
       <div class="sticky top-0 w-full z-30 bg-transparent rounded-lg backdrop-blur-md py-4">
-        <h1 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4 px-2">Lieux</h1>
+        <h1 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4 px-2">{{ $t('lieux.title') }}</h1>
         <SearchBar v-model="search" />
 
         <!-- Filter Chips Row -->
@@ -49,7 +49,7 @@
 
         <div v-if="filteredPlaces.length === 0" class="text-center py-20 text-gray-500 dark:text-gray-300">
           <Icon icon="ph:warning-circle" class="w-12 h-12 mx-auto mb-2 opacity-50" />
-          <p>Aucun lieu trouvé.</p>
+          <p>{{ $t('lieux.no_results') }}</p>
         </div>
       </div>
     </div>
@@ -59,6 +59,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import SearchBar from '../components/SearchBar.vue'
 import { campusService } from '../services/campusService'
@@ -80,6 +81,7 @@ useStructuredData(getBreadcrumbSchema([
 
 const router = useRouter()
 const route = useRoute()
+const { t } = useI18n()
 const visitedStore = useVisitedStore()
 const search = ref('')
 const selectedFilter = ref('all')
@@ -88,19 +90,19 @@ const preprocessedPlaces = ref([])
 
 import { matchFilter } from '../utils/classifyPlaces'
 
-const filters = [
-  { id: 'all', label: 'Tous', icon: 'ph:squares-four' },
-  { id: 'amphi', label: 'Amphithéâtres', icon: 'ph:chalkboard-teacher' },
-  { id: 'studies', label: 'Facultés & Écoles', icon: 'ph:graduation-cap' },
-  { id: 'library', label: 'Bibliothèques', icon: 'ph:books' },
-  { id: 'food', label: 'Restauration', icon: 'ph:coffee' },
-  { id: 'housing', label: 'Logements', icon: 'ph:house' },
-  { id: 'admin', label: 'Administration', icon: 'ph:bank' },
-  { id: 'services', label: 'Services & Banques', icon: 'ph:storefront' },
-  { id: 'health', label: 'Santé & Sécurité', icon: 'ph:first-aid' },
-  { id: 'sport', label: 'Sport & Loisirs', icon: 'ph:football' },
-  { id: 'visited', label: 'Visités', icon: 'ph:star' },
-]
+const filters = computed(() => [
+  { id: 'all', label: t('lieux.filters.all'), icon: 'ph:squares-four' },
+  { id: 'amphi', label: t('lieux.filters.amphi'), icon: 'ph:chalkboard-teacher' },
+  { id: 'studies', label: t('lieux.filters.studies'), icon: 'ph:graduation-cap' },
+  { id: 'library', label: t('lieux.filters.library'), icon: 'ph:books' },
+  { id: 'food', label: t('lieux.filters.food'), icon: 'ph:coffee' },
+  { id: 'housing', label: t('lieux.filters.housing'), icon: 'ph:house' },
+  { id: 'admin', label: t('lieux.filters.admin'), icon: 'ph:bank' },
+  { id: 'services', label: t('lieux.filters.services'), icon: 'ph:storefront' },
+  { id: 'health', label: t('lieux.filters.health'), icon: 'ph:first-aid' },
+  { id: 'sport', label: t('lieux.filters.sport'), icon: 'ph:football' },
+  { id: 'visited', label: t('lieux.filters.visited'), icon: 'ph:star' },
+])
 
 onMounted(async () => {
   allPlaces.value = await campusService.getAllPlaces()

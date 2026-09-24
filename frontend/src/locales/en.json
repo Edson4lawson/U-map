@@ -1,50 +1,192 @@
 {
   "common": {
-    "welcome": "Welcome",
+    "welcome": "Home",
     "explore": "Explore",
-    "search": "Search...",
+    "search": "Search",
     "loading": "Loading...",
-    "error": "An error occurred",
-    "back": "Back",
+    "error": "Error",
+    "cancel": "Cancel",
     "save": "Save",
-    "cancel": "Cancel"
+    "confirm": "Confirm",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "or": "or"
   },
   "home": {
     "hero_title": "Welcome to {brand}",
-    "hero_subtitle": "Your interactive guide to the Abomey-Calavi campus.",
+    "hero_subtitle": "Your interactive campus guide for UAC",
     "popular_places": "Popular Places",
     "view_all": "View all",
     "quick_access": "Quick Access",
-    "actions": {
-        "studies": "Studies",
-        "food": "Food",
-        "favorites": "Favorites"
-    },
+    "events_section": "Upcoming Events",
+    "no_events": "No upcoming events.",
+    "footer_credit": "Developed by Edson Lawson",
+    "footer_rights": "© 2025 U-map App. All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
     "stats": {
       "places": "Places",
       "visited": "Visited"
+    },
+    "actions": {
+      "amphitheatres": "Lecture Halls",
+      "studies": "Faculties & Schools",
+      "food": "Dining",
+      "favorites": "My Visits"
     }
   },
-  "map": {
-    "locate": "Locate me",
-    "layers": "Toggle layers",
-    "route": "Route",
-    "share": "Share",
-    "details": "View details",
-    "clear_route": "Clear route"
+  "lieux": {
+    "title": "Places",
+    "search_placeholder": "Search a place...",
+    "no_results": "No places found.",
+    "filters": {
+      "all": "All",
+      "amphi": "Lecture Halls",
+      "studies": "Faculties & Schools",
+      "library": "Libraries",
+      "food": "Dining",
+      "housing": "Housing",
+      "admin": "Administration",
+      "services": "Services & Banks",
+      "health": "Health & Safety",
+      "sport": "Sport & Leisure",
+      "visited": "Visited"
+    }
   },
   "chat": {
     "title": "Messages",
-    "new_message": "New",
-    "search_placeholder": "Search conversation...",
-    "no_conversations": "No conversations yet.",
-    "smart_suggestions": "Smart suggestions",
-    "login": "Login",
-    "register": "Register"
+    "new_conversation": "New conversation",
+    "search_users": "Search users...",
+    "no_conversations": "No conversations",
+    "start_chat": "Start chatting with other campus students.",
+    "type_message": "Write a message...",
+    "send": "Send",
+    "translate": "Translate",
+    "translating": "Translating...",
+    "translation_error": "Translation error. Please try again.",
+    "online": "Online",
+    "today": "Today"
   },
-  "notifications": {
-    "title": "Notifications",
-    "mark_all_read": "Mark all as read",
-    "empty": "No notifications"
+  "visites": {
+    "title": "My Visits",
+    "subtitle": "Your explored places on campus",
+    "empty": "You haven't visited any places yet.",
+    "explore_hint": "Explore the map to mark places as visited!"
+  },
+  "map": {
+    "title": "Campus Map",
+    "search_placeholder": "Search on the map...",
+    "my_location": "My location",
+    "layer_toggle": "Toggle map layer",
+    "indoor": "Indoor map",
+    "live_reports": "Live reports"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Sign up",
+    "email": "Email address",
+    "email_or_username": "Email or username",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "name": "Username",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "no_account": "Don't have an account?",
+    "already_account": "Already have an account?",
+    "magic_link": "Magic link",
+    "magic_link_sent": "An email with your magic link has been sent.",
+    "send_magic_link": "Receive a magic link",
+    "magic_link_prompt": "Login with password",
+    "password_prompt": "Login with a magic link",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "social_login": "Continue with Google",
+    "register_submit": "Create my account",
+    "registering": "Creating account..."
+  },
+  "profile": {
+    "title": "Profile & Security",
+    "subtitle": "Manage your profile, security settings and active sessions.",
+    "info_title": "Profile Information",
+    "info_subtitle": "Manage your personal and academic information.",
+    "photo": "Profile photo",
+    "name": "Name",
+    "email_readonly": "Email (Read only)",
+    "faculty": "Faculty / Field of study (Optional)",
+    "faculty_placeholder": "e.g. Computer Science, Law...",
+    "level": "Study level (Optional)",
+    "level_none": "Not specified",
+    "student_id": "Student ID (Optional)",
+    "student_id_placeholder": "e.g. 20260001",
+    "save_profile": "Save profile",
+    "saving": "Saving...",
+    "password_title": "Password",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_new_password": "Confirm new password",
+    "change_password": "Change password",
+    "changing": "Changing...",
+    "logout": "Logout",
+    "logout_subtitle": "Logout from your account on this device.",
+    "logout_btn": "Logout",
+    "logout_confirm": "Are you sure you want to logout?"
+  },
+  "settings": {
+    "title": "Settings",
+    "security": "Account Security",
+    "theme": "Theme",
+    "language": "Language",
+    "back_home": "Back to home",
+    "two_fa": {
+      "title": "Two-Factor Authentication (2FA)",
+      "subtitle": "Protect your account with an additional verification step at login.",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "setup_step1": "Step 1: Configure your TOTP app",
+      "setup_desc": "Scan the QR code with your authentication app.",
+      "secret_key": "Secret key:",
+      "setup_step2": "Step 2: Confirm the code",
+      "setup_confirm_desc": "Enter the 6-digit code shown in your app.",
+      "activate": "Activate",
+      "configure": "Set up two-factor authentication",
+      "disable": "Disable two-factor authentication",
+      "disable_confirm": "Are you sure you want to disable two-factor authentication?",
+      "recovery_codes": "Backup recovery codes",
+      "recovery_desc": "Store these codes in a safe place.",
+      "copy_codes": "Copy codes",
+      "codes_copied": "Recovery codes copied to clipboard."
+    },
+    "devices": {
+      "title": "Sessions & Connected Devices",
+      "subtitle": "List of devices that have recently connected to your U-Map account.",
+      "no_sessions": "No sessions recorded.",
+      "this_device": "This device",
+      "active_on": "Active on:",
+      "disconnect": "Disconnect",
+      "disconnect_confirm": "Are you sure you want to disconnect this session?"
+    }
+  },
+  "fab": {
+    "label": "Quick actions menu",
+    "language": "Language",
+    "theme": "Theme",
+    "profile": "My Profile",
+    "login": "Login"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "subtitle": "The page you are looking for doesn't exist or has been moved.",
+    "go_home": "Go to home"
+  },
+  "forgot_password": {
+    "title": "Forgot password",
+    "subtitle": "Enter your email to receive a reset link.",
+    "submit": "Send link",
+    "submitting": "Sending...",
+    "success": "If this email exists, a reset link has been sent.",
+    "back_to_login": "Back to login"
   }
 }

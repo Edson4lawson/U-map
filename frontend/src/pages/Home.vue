@@ -93,9 +93,9 @@
 
       <!-- Events Section -->
       <section class="mt-8 px-2">
-        <h2 class="text-xl font-bold dark:text-white mb-4 flex items-center gap-2">
+           <h2 class="text-xl font-bold dark:text-white mb-4 flex items-center gap-2">
            <Icon icon="ph:calendar-star-bold" class="text-secondary" />
-           Événements à venir
+           {{ $t('home.events_section') }}
         </h2>
         <div class="space-y-3">
            <div v-for="event in dynamicEvents" :key="event.id" class="card-glass p-4 border-l-4 border-secondary">
@@ -128,7 +128,7 @@
               class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center">
               <Icon icon="ph:chalkboard-teacher" class="w-5 h-5 md:w-7 md:h-7" />
             </div>
-            <span class="text-xs font-medium dark:text-gray-300">Amphithéâtres</span>
+            <span class="text-xs font-medium dark:text-gray-300">{{ $t('home.actions.amphitheatres') }}</span>
           </button>
           <button
             class="card-glass p-4 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -181,13 +181,13 @@
         </div>
         <div class="flex justify-center gap-6 mt-4 text-xs">
           <router-link to="/privacy-policy" class="text-gray-500 hover:text-primary transition-colors">
-            Politique de confidentialité
+            {{ $t('home.privacy_policy') }}
           </router-link>
           <router-link to="/terms-of-service" class="text-gray-500 hover:text-primary transition-colors">
-            Conditions d'utilisation
+            {{ $t('home.terms_of_service') }}
           </router-link>
         </div>
-        <p class="text-[10px] text-gray-500 mt-4">&copy; 2025 U-map App. Tous droits réservés.</p>
+        <p class="text-[10px] text-gray-500 mt-4">{{ $t('home.footer_rights') }}</p>
       </footer>
     </div>
   </div>

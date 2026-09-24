@@ -6,9 +6,9 @@
         <div>
           <h1 class="text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
             <Icon icon="ph:shield-check-fill" class="text-blue-500 text-4xl" />
-            Sécurité du Compte
+            Profil & Sécurité
           </h1>
-          <p class="text-slate-400 mt-1">Gérez vos options de sécurité, la double authentification et vos sessions actives.</p>
+          <p class="text-slate-400 mt-1">Gérez votre profil, vos options de sécurité et vos sessions actives.</p>
         </div>
         <router-link to="/" class="back-btn flex items-center gap-2 text-sm bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition">
           <Icon icon="ph:arrow-left-bold" />
@@ -18,6 +18,101 @@
 
       <!-- Main Grid -->
       <div class="grid grid-cols-1 gap-8">
+        <!-- Profile Box -->
+        <div class="bg-slate-900/60 backdrop-blur border border-slate-800 rounded-2xl p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <Icon icon="ph:user-circle-bold" class="text-blue-400" />
+                Informations du Profil
+              </h2>
+              <p class="text-sm text-slate-400 mt-1">Gérez vos informations personnelles et académiques.</p>
+            </div>
+          </div>
+
+          <form @submit.prevent="handleUpdateProfile" class="space-y-4">
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="w-full">
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Photo de profil</label>
+                <input type="file" @change="handleAvatarChange" accept="image/*" class="w-full text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 bg-slate-900 border border-slate-800 rounded-lg focus:outline-none" />
+              </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="w-full">
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Nom</label>
+                <input v-model="profileForm.name" type="text" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+              </div>
+              <div class="w-full">
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Email (Lecture seule)</label>
+                <input v-model="user.email" type="email" disabled class="w-full bg-slate-900/50 border border-slate-800 text-slate-500 rounded-lg px-4 py-2.5 cursor-not-allowed" />
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="w-full">
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Faculté / Filière (Optionnel)</label>
+                <input v-model="profileForm.faculty" type="text" placeholder="Ex: Informatique, Droit..." class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+              </div>
+              <div class="w-full">
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Niveau d'étude (Optionnel)</label>
+                <select v-model="profileForm.study_level" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none">
+                  <option value="">Non spécifié</option>
+                  <option value="L1">Licence 1</option>
+                  <option value="L2">Licence 2</option>
+                  <option value="L3">Licence 3</option>
+                  <option value="M1">Master 1</option>
+                  <option value="M2">Master 2</option>
+                  <option value="D">Doctorat</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="w-full sm:w-1/2 pr-2">
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Matricule étudiant (Optionnel)</label>
+              <input v-model="profileForm.student_id" type="text" placeholder="Ex: 20260001" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" :disabled="loadingProfile" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition">
+                {{ loadingProfile ? 'Enregistrement...' : 'Enregistrer le profil' }}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Password Change Box -->
+        <div class="bg-slate-900/60 backdrop-blur border border-slate-800 rounded-2xl p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <Icon icon="ph:key-bold" class="text-blue-400" />
+                Mot de passe
+              </h2>
+            </div>
+          </div>
+          
+          <form @submit.prevent="handleUpdatePassword" class="space-y-4 max-w-md">
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Mot de passe actuel</label>
+              <input v-model="passwordForm.current_password" type="password" required class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Nouveau mot de passe</label>
+              <input v-model="passwordForm.password" type="password" required minlength="8" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Confirmer le nouveau mot de passe</label>
+              <input v-model="passwordForm.password_confirmation" type="password" required minlength="8" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg px-4 py-2.5 focus:border-blue-500 focus:outline-none" />
+            </div>
+            <div class="pt-2">
+              <button type="submit" :disabled="loadingPassword" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition">
+                {{ loadingPassword ? 'Modification...' : 'Modifier le mot de passe' }}
+              </button>
+            </div>
+          </form>
+        </div>
+
         <!-- 2FA Box -->
         <div class="bg-slate-900/60 backdrop-blur border border-slate-800 rounded-2xl p-6 md:p-8">
           <div class="flex items-start justify-between mb-6">
@@ -168,6 +263,16 @@
             </div>
           </div>
         </div>
+        <!-- Logout Box -->
+        <div class="bg-red-900/20 border border-red-900/50 rounded-2xl p-6 md:p-8 flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-red-400">Déconnexion</h2>
+            <p class="text-sm text-red-400/70 mt-1">Se déconnecter de votre compte sur cet appareil.</p>
+          </div>
+          <button @click="handleLogout" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition">
+            Se déconnecter
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -175,6 +280,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { authService } from '../services/authService'
 import { useMeta } from '../composables/useMeta'
@@ -182,7 +289,28 @@ import errorHandler from '../services/errorHandler'
 
 useMeta('Paramètres de Sécurité', 'Gérez la sécurité de votre compte U-map : authentification 2FA, appareils connectés et codes de récupération.', { canonicalPath: '/settings/security' })
 
+const { t } = useI18n()
+const router = useRouter()
+
 const user = ref(authService.getCurrentUser() || {})
+
+const profileForm = ref({
+  name: user.value.name || '',
+  faculty: user.value.faculty || '',
+  study_level: user.value.study_level || '',
+  student_id: user.value.student_id || '',
+  avatar: null
+})
+
+const passwordForm = ref({
+  current_password: '',
+  password: '',
+  password_confirmation: ''
+})
+
+const loadingProfile = ref(false)
+const loadingPassword = ref(false)
+
 const devices = ref([])
 const setupData = ref(null)
 const verificationCode = ref('')
@@ -199,6 +327,57 @@ const fetchDevices = async () => {
     devices.value = await authService.getDevices()
   } catch (e) {
     console.error("Error fetching devices:", e)
+  }
+}
+
+const handleAvatarChange = (e) => {
+  const file = e.target.files[0]
+  if (file) {
+    profileForm.value.avatar = file
+  }
+}
+
+const handleUpdateProfile = async () => {
+  loadingProfile.value = true
+  try {
+    const formData = new FormData()
+    formData.append('name', profileForm.value.name)
+    if (profileForm.value.faculty) formData.append('faculty', profileForm.value.faculty)
+    if (profileForm.value.study_level) formData.append('study_level', profileForm.value.study_level)
+    if (profileForm.value.student_id) formData.append('student_id', profileForm.value.student_id)
+    if (profileForm.value.avatar) formData.append('avatar', profileForm.value.avatar)
+
+    await authService.updateProfile(formData)
+    errorHandler.success('Profil mis à jour avec succès')
+    user.value = authService.getCurrentUser()
+  } catch (e) {
+    errorHandler.handle(e, 'Erreur lors de la mise à jour du profil')
+  } finally {
+    loadingProfile.value = false
+  }
+}
+
+const handleUpdatePassword = async () => {
+  loadingPassword.value = true
+  try {
+    await authService.changePassword(
+      passwordForm.value.current_password,
+      passwordForm.value.password,
+      passwordForm.value.password_confirmation
+    )
+    errorHandler.success('Mot de passe modifié avec succès')
+    passwordForm.value = { current_password: '', password: '', password_confirmation: '' }
+  } catch (e) {
+    errorHandler.handle(e, 'Erreur lors de la modification du mot de passe')
+  } finally {
+    loadingPassword.value = false
+  }
+}
+
+const handleLogout = () => {
+  if (confirm(t('profile.logout_confirm'))) {
+    authService.logout()
+    router.push('/')
   }
 }
 
@@ -235,7 +414,7 @@ const handleConfirm2fa = async () => {
 }
 
 const handleDisable2fa = async () => {
-  if (!confirm("Voulez-vous vraiment désactiver l'authentification double facteur ?")) return
+  if (!confirm(t('settings.two_fa.disable_confirm'))) return
   
   loading.value = true
   try {
@@ -253,7 +432,7 @@ const handleDisable2fa = async () => {
 }
 
 const handleRevokeDevice = async (id) => {
-  if (!confirm("Voulez-vous vraiment déconnecter cette session ?")) return
+  if (!confirm(t('settings.devices.disconnect_confirm'))) return
   
   loading.value = true
   try {
@@ -268,7 +447,7 @@ const handleRevokeDevice = async (id) => {
 
 const copyRecoveryCodes = () => {
   navigator.clipboard.writeText(recoveryCodes.value.join('\n'))
-  errorHandler.success('Codes de secours copiés dans le presse-papiers.')
+  errorHandler.success(t('settings.two_fa.codes_copied'))
 }
 
 const getDeviceIcon = (deviceName) => {

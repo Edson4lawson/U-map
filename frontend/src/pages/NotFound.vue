@@ -33,7 +33,7 @@
         
         <router-link to="/" class="py-3 px-6 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-2xl font-semibold text-sm active:scale-95 transition-all flex items-center justify-center gap-2">
           <Icon icon="ph:house-bold" class="w-5 h-5" />
-          <span>Retour à l'accueil</span>
+          <span>{{ $t('not_found.go_home') }}</span>
         </router-link>
       </div>
     </div>

@@ -1,50 +1,192 @@
 {
   "common": {
-    "welcome": "Bienvenue",
+    "welcome": "Accueil",
     "explore": "Explorer",
-    "search": "Rechercher...",
+    "search": "Rechercher",
     "loading": "Chargement...",
-    "error": "Une erreur est survenue",
+    "error": "Erreur",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "confirm": "Confirmer",
     "back": "Retour",
-    "save": "Enregister",
-    "cancel": "Annuler"
+    "yes": "Oui",
+    "no": "Non",
+    "close": "Fermer",
+    "or": "ou"
   },
   "home": {
     "hero_title": "Bienvenue sur {brand}",
-    "hero_subtitle": "Votre guide interactif du campus d'Abomey-Calavi.",
-    "popular_places": "Lieux Populaires",
+    "hero_subtitle": "Votre guide interactif du campus UAC",
+    "popular_places": "Lieux populaires",
     "view_all": "Voir tout",
-    "quick_access": "Accès Rapide",
-    "actions": {
-        "studies": "Études",
-        "food": "Resto",
-        "favorites": "Favoris"
-    },
+    "quick_access": "Accès rapide",
+    "events_section": "Événements à venir",
+    "no_events": "Aucun événement prévu prochainement.",
+    "footer_credit": "Développé par Edson Lawson",
+    "footer_rights": "© 2025 U-map App. Tous droits réservés.",
+    "privacy_policy": "Politique de confidentialité",
+    "terms_of_service": "Conditions d'utilisation",
     "stats": {
       "places": "Lieux",
       "visited": "Visités"
+    },
+    "actions": {
+      "amphitheatres": "Amphithéâtres",
+      "studies": "Facultés & Écoles",
+      "food": "Restauration",
+      "favorites": "Mes Visites"
     }
   },
-  "map": {
-    "locate": "Me localiser",
-    "layers": "Changer de fond",
-    "route": "Itinéraire",
-    "share": "Partager",
-    "details": "Voir détails",
-    "clear_route": "Effacer l'itinéraire"
+  "lieux": {
+    "title": "Lieux",
+    "search_placeholder": "Rechercher un lieu...",
+    "no_results": "Aucun lieu trouvé.",
+    "filters": {
+      "all": "Tous",
+      "amphi": "Amphithéâtres",
+      "studies": "Facultés & Écoles",
+      "library": "Bibliothèques",
+      "food": "Restauration",
+      "housing": "Logements",
+      "admin": "Administration",
+      "services": "Services & Banques",
+      "health": "Santé & Sécurité",
+      "sport": "Sport & Loisirs",
+      "visited": "Visités"
+    }
   },
   "chat": {
-    "title": "Messagerie",
-    "new_message": "Nouveau",
-    "search_placeholder": "Rechercher une conversation...",
-    "no_conversations": "Aucune conversation pour le moment.",
-    "smart_suggestions": "Suggestions intelligentes",
-    "login": "Connexion",
-    "register": "Inscription"
+    "title": "Messages",
+    "new_conversation": "Nouvelle conversation",
+    "search_users": "Rechercher des utilisateurs...",
+    "no_conversations": "Aucune conversation",
+    "start_chat": "Commencez à discuter avec d'autres étudiants du campus.",
+    "type_message": "Écrire un message...",
+    "send": "Envoyer",
+    "translate": "Traduire",
+    "translating": "Traduction...",
+    "translation_error": "Erreur de traduction. Réessayez.",
+    "online": "En ligne",
+    "today": "Aujourd'hui"
   },
-  "notifications": {
-    "title": "Notifications",
-    "mark_all_read": "Tout marquer comme lu",
-    "empty": "Aucune notification"
+  "visites": {
+    "title": "Mes Visites",
+    "subtitle": "Vos lieux explorés sur le campus",
+    "empty": "Vous n'avez pas encore visité de lieux.",
+    "explore_hint": "Explorez la carte pour marquer des lieux comme visités !"
+  },
+  "map": {
+    "title": "Carte du Campus",
+    "search_placeholder": "Rechercher sur la carte...",
+    "my_location": "Ma position",
+    "layer_toggle": "Changer de fond de carte",
+    "indoor": "Plan intérieur",
+    "live_reports": "Signalements en direct"
+  },
+  "auth": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "register": "S'inscrire",
+    "email": "Adresse e-mail",
+    "email_or_username": "E-mail ou nom d'utilisateur",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "name": "Nom d'utilisateur",
+    "remember_me": "Se souvenir de moi",
+    "forgot_password": "Mot de passe oublié ?",
+    "no_account": "Pas encore de compte ?",
+    "already_account": "Déjà un compte ?",
+    "magic_link": "Lien magique",
+    "magic_link_sent": "Un e-mail contenant votre lien de connexion magique a été envoyé.",
+    "send_magic_link": "Recevoir un lien magique",
+    "magic_link_prompt": "Se connecter avec mot de passe",
+    "password_prompt": "Se connecter avec un lien magique",
+    "submit": "Se connecter",
+    "submitting": "Connexion...",
+    "social_login": "Continuer avec Google",
+    "register_submit": "Créer mon compte",
+    "registering": "Création du compte..."
+  },
+  "profile": {
+    "title": "Profil & Sécurité",
+    "subtitle": "Gérez votre profil, vos options de sécurité et vos sessions actives.",
+    "info_title": "Informations du Profil",
+    "info_subtitle": "Gérez vos informations personnelles et académiques.",
+    "photo": "Photo de profil",
+    "name": "Nom",
+    "email_readonly": "Email (Lecture seule)",
+    "faculty": "Faculté / Filière (Optionnel)",
+    "faculty_placeholder": "Ex: Informatique, Droit...",
+    "level": "Niveau d'étude (Optionnel)",
+    "level_none": "Non spécifié",
+    "student_id": "Matricule étudiant (Optionnel)",
+    "student_id_placeholder": "Ex: 20260001",
+    "save_profile": "Enregistrer le profil",
+    "saving": "Enregistrement...",
+    "password_title": "Mot de passe",
+    "current_password": "Mot de passe actuel",
+    "new_password": "Nouveau mot de passe",
+    "confirm_new_password": "Confirmer le nouveau mot de passe",
+    "change_password": "Modifier le mot de passe",
+    "changing": "Modification...",
+    "logout": "Déconnexion",
+    "logout_subtitle": "Se déconnecter de votre compte sur cet appareil.",
+    "logout_btn": "Se déconnecter",
+    "logout_confirm": "Voulez-vous vraiment vous déconnecter ?"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "security": "Sécurité du Compte",
+    "theme": "Thème",
+    "language": "Langue",
+    "back_home": "Retour à l'accueil",
+    "two_fa": {
+      "title": "Authentification Double Facteur (2FA)",
+      "subtitle": "Protégez votre compte avec une étape de vérification supplémentaire lors de la connexion.",
+      "enabled": "Activé",
+      "disabled": "Désactivé",
+      "setup_step1": "Étape 1 : Configurez votre application TOTP",
+      "setup_desc": "Scannez le code QR ci-contre avec votre application d'authentification.",
+      "secret_key": "Clé secrète :",
+      "setup_step2": "Étape 2 : Confirmez le code",
+      "setup_confirm_desc": "Saisissez le code à 6 chiffres affiché sur votre application.",
+      "activate": "Activer",
+      "configure": "Configurer la double authentification",
+      "disable": "Désactiver la double authentification",
+      "disable_confirm": "Voulez-vous vraiment désactiver l'authentification double facteur ?",
+      "recovery_codes": "Codes de récupération de secours",
+      "recovery_desc": "Stockez ces codes en lieu sûr.",
+      "copy_codes": "Copier les codes",
+      "codes_copied": "Codes de secours copiés dans le presse-papiers."
+    },
+    "devices": {
+      "title": "Sessions & Appareils Connectés",
+      "subtitle": "Liste des appareils qui se sont connectés à votre compte U-Map récemment.",
+      "no_sessions": "Aucune session enregistrée.",
+      "this_device": "Cet appareil",
+      "active_on": "Actif le :",
+      "disconnect": "Déconnecter",
+      "disconnect_confirm": "Voulez-vous vraiment déconnecter cette session ?"
+    }
+  },
+  "fab": {
+    "label": "Menu d'actions rapides",
+    "language": "Langue",
+    "theme": "Thème",
+    "profile": "Mon Profil",
+    "login": "Se connecter"
+  },
+  "not_found": {
+    "title": "Page introuvable",
+    "subtitle": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "go_home": "Retour à l'accueil"
+  },
+  "forgot_password": {
+    "title": "Mot de passe oublié",
+    "subtitle": "Entrez votre e-mail pour recevoir un lien de réinitialisation.",
+    "submit": "Envoyer le lien",
+    "submitting": "Envoi...",
+    "success": "Si cette adresse e-mail existe, un lien de réinitialisation a été envoyé.",
+    "back_to_login": "Retour à la connexion"
   }
 }

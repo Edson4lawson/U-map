@@ -10,9 +10,11 @@ import 'leaflet/dist/leaflet.css'
 import 'aos/dist/aos.css'
 import AOS from 'aos'
 
+const savedLocale = localStorage.getItem('u_map_lang') || 'fr'
+
 const i18n = createI18n({
   legacy: false,
-  locale: 'fr',
+  locale: savedLocale,
   fallbackLocale: 'en',
   messages: { fr, en }
 })
