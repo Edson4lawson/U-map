@@ -1,23 +1,12 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import router from './router'
-import fr from './locales/fr.json'
-import en from './locales/en.json'
+import i18n from './i18n'
 import './style.css'
 import 'leaflet/dist/leaflet.css'
 import 'aos/dist/aos.css'
 import AOS from 'aos'
-
-const savedLocale = localStorage.getItem('u_map_lang') || 'fr'
-
-const i18n = createI18n({
-  legacy: false,
-  locale: savedLocale,
-  fallbackLocale: 'en',
-  messages: { fr, en }
-})
 
 const app = createApp(App)
 

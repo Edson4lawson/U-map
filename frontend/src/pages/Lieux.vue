@@ -67,6 +67,7 @@ import { useVisitedStore } from '../stores/visited'
 import { useMeta } from '../composables/useMeta'
 import { useStructuredData, getBreadcrumbSchema } from '../composables/useStructuredData'
 import { preprocessPlaces, searchPlaces } from '../utils/searchUtils'
+import { matchFilter } from '../utils/classifyPlaces'
 
 defineOptions({
   name: 'Lieux'
@@ -87,8 +88,6 @@ const search = ref('')
 const selectedFilter = ref('all')
 const allPlaces = ref([])
 const preprocessedPlaces = ref([])
-
-import { matchFilter } from '../utils/classifyPlaces'
 
 const filters = computed(() => [
   { id: 'all', label: t('lieux.filters.all'), icon: 'ph:squares-four' },
@@ -111,7 +110,7 @@ onMounted(async () => {
 
   // Check for filter in URL query
   if (route.query.filter) {
-    const filterExists = filters.find(f => f.id === route.query.filter)
+    const filterExists = filters.value.find(f => f.id === route.query.filter)
     if (filterExists) {
       selectedFilter.value = route.query.filter
     }
@@ -120,7 +119,7 @@ onMounted(async () => {
 
 // Watch route query for KeepAlive navigation
 watch(() => route.query.filter, (newFilter) => {
-  if (newFilter && filters.some(f => f.id === newFilter)) {
+  if (newFilter && filters.value.some(f => f.id === newFilter)) {
     selectedFilter.value = newFilter
   } else if (!newFilter) {
     selectedFilter.value = 'all'

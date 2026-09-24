@@ -196,28 +196,25 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { Icon } from '@iconify/vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
 import { useMeta } from '../composables/useMeta'
 import { useStructuredData, getHomeSchema } from '../composables/useStructuredData'
+import { campusService } from '../services/campusService'
+import { eventService } from '../services/eventService'
+import { useVisitedStore } from '../stores/visited'
+import { useNotificationStore } from '../stores/notifications'
+import NotificationsModal from '../components/NotificationsModal.vue'
 
 defineOptions({
   name: 'Home'
 })
 
 useMeta('Accueil', "Votre guide interactif et communautaire du campus de l'UAC (Abomey-Calavi). Carte interactive, navigation GPS, lieux et badges d'exploration.", { canonicalPath: '/' })
-
 useStructuredData(getHomeSchema())
-
-import { Icon } from '@iconify/vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/pagination'
-
-import { campusService } from '../services/campusService'
-import { eventService } from '../services/eventService'
-import { useVisitedStore } from '../stores/visited'
-import { useNotificationStore } from '../stores/notifications'
-import NotificationsModal from '../components/NotificationsModal.vue'
 
 const router = useRouter()
 const visitedStore = useVisitedStore()

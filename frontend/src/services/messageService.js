@@ -239,6 +239,20 @@ class MessageService {
             } catch {}
         } catch {}
     }
+
+    /**
+     * Traduit un message via le backend (DeepL/MyMemory avec cache BDD).
+     * @param {number} messageId - ID du message
+     * @param {string} targetLang - 'fr' ou 'en'
+     * @returns {Promise<string>} - Texte traduit
+     */
+    async translateMessage(messageId, targetLang = 'fr') {
+        const data = await this.#apiCall(`${API_URL}/messages/${messageId}/translate`, {
+            method: 'POST',
+            body: JSON.stringify({ target_lang: targetLang }),
+        });
+        return data.translated_text;
+    }
 }
 
 export const messageService = new MessageService();

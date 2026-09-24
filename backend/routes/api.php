@@ -94,6 +94,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages/{receiverId}', [MessageController::class, 'getMessages']);
     Route::post('/messages', [MessageController::class, 'sendMessage'])
         ->middleware(['throttle:60,1', 'anti.spam']);
+    Route::post('/messages/{messageId}/translate', [MessageController::class, 'translateMessage'])
+        ->middleware('throttle:30,1');
 
     Route::post('/places', [PlaceController::class, 'store']);
 

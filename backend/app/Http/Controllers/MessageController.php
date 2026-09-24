@@ -6,6 +6,7 @@ use App\Events\MessageSent;
 use App\Http\Requests\SendMessageRequest;
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\MessageTranslation;
 use App\Models\User;
 use App\Services\MessageEncryptionService;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class MessageController extends Controller
@@ -196,6 +198,112 @@ class MessageController extends Controller
         });
 
         return response()->json(['count' => $count]);
+    }
+
+    /**
+     * Traduit un message via DeepL ou MyMemory (fallback) avec mise en cache en BDD.
+     */
+    public function translateMessage(Request $request, int $messageId)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'target_lang' => 'required|string|size:2',
+        ]);
+
+        $targetLang = strtolower($request->target_lang);
+
+        // Vérifier que le message existe et appartient à une conversation de l'utilisateur
+        $message = Message::where('id', $messageId)
+            ->where(function ($q) use ($user) {
+                $q->where('sender_id', $user->id)
+                  ->orWhere('receiver_id', $user->id);
+            })
+            ->first();
+
+        if (!$message) {
+            return response()->json(['error' => 'Message introuvable ou accès non autorisé.'], 404);
+        }
+
+        // Vérifier le cache BDD (évite un appel API redondant)
+        $cached = MessageTranslation::where('message_id', $messageId)
+            ->where('target_language', $targetLang)
+            ->first();
+
+        if ($cached) {
+            return response()->json(['translated_text' => $cached->translated_text]);
+        }
+
+        // Décrypter le message pour le traduire
+        $plainText = $message->content;
+
+        if (empty(trim($plainText))) {
+            return response()->json(['error' => 'Le message est vide ou ne peut pas être traduit.'], 422);
+        }
+
+        // Appel DeepL (si clé API configurée) ou MyMemory en fallback gratuit
+        $translatedText = $this->callTranslationAPI($plainText, $targetLang);
+
+        if ($translatedText === null) {
+            return response()->json(['error' => 'Le service de traduction est temporairement indisponible. Réessayez dans quelques instants.'], 503);
+        }
+
+        // Persister en cache BDD
+        MessageTranslation::create([
+            'message_id'      => $messageId,
+            'target_language' => $targetLang,
+            'translated_text' => $translatedText,
+        ]);
+
+        return response()->json(['translated_text' => $translatedText]);
+    }
+
+    /**
+     * Appelle DeepL (si DEEPL_API_KEY configurée) ou MyMemory en fallback.
+     */
+    private function callTranslationAPI(string $text, string $targetLang): ?string
+    {
+        $deeplKey = env('DEEPL_API_KEY');
+
+        // ── Option A : DeepL ──────────────────────────────────────
+        if ($deeplKey) {
+            try {
+                $response = Http::timeout(8)
+                    ->withHeaders(['Authorization' => "DeepL-Auth-Key {$deeplKey}"])
+                    ->post('https://api-free.deepl.com/v2/translate', [
+                        'text'        => [$text],
+                        'target_lang' => strtoupper($targetLang),
+                    ]);
+
+                if ($response->successful()) {
+                    return $response->json('translations.0.text');
+                }
+
+                Log::warning('DeepL translation failed', ['status' => $response->status()]);
+            } catch (\Throwable $e) {
+                Log::warning('DeepL request error: ' . $e->getMessage());
+            }
+        }
+
+        // ── Option B : MyMemory (gratuit, 5000 mots/jour) ─────────
+        try {
+            $langPair = ($targetLang === 'en') ? 'fr|en' : 'en|fr';
+            $response = Http::timeout(8)->get('https://api.mymemory.translated.net/get', [
+                'q'        => $text,
+                'langpair' => $langPair,
+            ]);
+
+            if ($response->successful()) {
+                $translated = $response->json('responseData.translatedText');
+                if ($translated && $translated !== $text) {
+                    return $translated;
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning('MyMemory request error: ' . $e->getMessage());
+        }
+
+        return null;
     }
 
     // ──────────────────────────────────────────────────────────────────────────

@@ -5,13 +5,15 @@ import en from './locales/en.json'
 const savedLocale = localStorage.getItem('u_map_lang') || 'fr'
 
 const i18n = createI18n({
-  legacy: false, // You must use Composition API for Vue 3
+  legacy: false,
   locale: savedLocale,
   fallbackLocale: 'fr',
   messages: {
     fr,
     en
-  }
+  },
+  missingWarn: false,
+  fallbackWarn: false
 })
 
 export default i18n

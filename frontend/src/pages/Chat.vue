@@ -284,6 +284,53 @@
                   <!-- Read indicator for sent messages -->
                   <Icon v-else-if="isMyMessage(msg)" :icon="msg.is_read ? 'ph:checks-bold' : 'ph:check-bold'" :class="msg.is_read ? 'text-blue-400' : 'text-gray-400 dark:text-slate-500'" class="w-3.5 h-3.5" />
                 </div>
+
+                <!-- Translate button & result (received messages only, not AI, not optimistic) -->
+                <div
+                  v-if="!isMyMessage(msg) && !activeChat?.isAI && !msg._optimistic && msg.id && !msg.content?.startsWith('[POSITION:') && !msg.content?.startsWith('[LIEU:')"
+                  class="mt-1 px-1"
+                >
+                  <!-- Translation error -->
+                  <p v-if="translationState[msg.id]?.error" class="text-[10px] text-red-400 font-medium mb-0.5">
+                    {{ translationState[msg.id].error }}
+                  </p>
+
+                  <!-- Translated text bubble -->
+                  <div
+                    v-if="translationState[msg.id]?.text"
+                    class="text-[11px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/60 rounded-lg px-2.5 py-1.5 mb-1 max-w-xs border border-slate-200 dark:border-white/10"
+                  >
+                    <span class="block text-[9px] font-bold text-blue-500 dark:text-blue-400 mb-0.5 uppercase tracking-wide">Traduction</span>
+                    {{ translationState[msg.id].text }}
+                  </div>
+
+                  <!-- Translate / loading button -->
+                  <button
+                    v-if="!translationState[msg.id]?.text"
+                    type="button"
+                    @click="handleTranslate(msg)"
+                    :disabled="translationState[msg.id]?.loading"
+                    class="text-[10px] text-blue-500 dark:text-blue-400 hover:underline disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 transition-opacity"
+                  >
+                    <Icon
+                      :icon="translationState[msg.id]?.loading ? 'ph:spinner-gap-bold' : 'ph:translate-bold'"
+                      :class="translationState[msg.id]?.loading ? 'animate-spin' : ''"
+                      class="w-3 h-3"
+                    />
+                    <span>{{ translationState[msg.id]?.loading ? $t('chat.translating') : $t('chat.translate') }}</span>
+                  </button>
+
+                  <!-- Hide translation button -->
+                  <button
+                    v-else
+                    type="button"
+                    @click="clearTranslation(msg.id)"
+                    class="text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center gap-1 transition-colors"
+                  >
+                    <Icon icon="ph:x-bold" class="w-2.5 h-2.5" />
+                    <span>Masquer</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -518,8 +565,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import { authService } from '../services/authService'
 import { aiService } from '../services/aiService'
@@ -539,6 +587,7 @@ useMeta('Messagerie', "Échangez avec la communauté étudiante de l'UAC. Messag
 
 const router = useRouter()
 const route = useRoute()
+const { locale } = useI18n()
 
 const isLoggedIn = ref(authService.isAuthenticated())
 const activeChat = ref(null)
@@ -554,6 +603,41 @@ const searchQuery = ref('')
 const students = ref([])
 const conversations = ref([])
 const showEmojiPicker = ref(false)
+
+// Translation state: { [messageId]: { loading: bool, text: string|null, error: string|null } }
+const translationState = ref({})
+
+const handleTranslate = async (msg) => {
+  if (!msg?.id || translationState.value[msg.id]?.loading) return
+
+  // Determine target language: opposite of current UI locale
+  const targetLang = locale.value === 'fr' ? 'en' : 'fr'
+
+  translationState.value = {
+    ...translationState.value,
+    [msg.id]: { loading: true, text: null, error: null }
+  }
+
+  try {
+    const translated = await messageService.translateMessage(msg.id, targetLang)
+    translationState.value = {
+      ...translationState.value,
+      [msg.id]: { loading: false, text: translated, error: null }
+    }
+  } catch (e) {
+    const errMsg = e.message || 'Erreur de traduction. Vérifiez votre connexion.'
+    translationState.value = {
+      ...translationState.value,
+      [msg.id]: { loading: false, text: null, error: errMsg }
+    }
+  }
+}
+
+const clearTranslation = (messageId) => {
+  const next = { ...translationState.value }
+  delete next[messageId]
+  translationState.value = next
+}
 
 // Location & Place Sharing state
 const showLocationModal = ref(false)
