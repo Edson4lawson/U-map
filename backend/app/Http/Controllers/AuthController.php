@@ -512,4 +512,61 @@ class AuthController extends Controller
             'message' => 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.'
         ]);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'faculty' => 'nullable|string|max:255',
+            'study_level' => 'nullable|string|max:255',
+            'student_id' => 'nullable|string|max:255',
+            'avatar' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('faculty')) {
+            $user->faculty = $request->faculty;
+        }
+        if ($request->has('study_level')) {
+            $user->study_level = $request->study_level;
+        }
+        if ($request->has('student_id')) {
+            $user->student_id = $request->student_id;
+        }
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'Profil mis à jour avec succès',
+            'user' => $user
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Mot de passe actuel incorrect.'], 422);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Mot de passe modifié avec succès']);
+    }
 }

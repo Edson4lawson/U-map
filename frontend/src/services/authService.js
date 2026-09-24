@@ -219,11 +219,18 @@ class AuthService {
     // ── Profile ──────────────────────────────────────────────────
 
     async updateProfile(data) {
+        const isFormData = data instanceof FormData;
+        const headers = this.#authHeaders();
+        if (isFormData) {
+            delete headers['Content-Type'];
+        }
+        
         const result = await this.#apiCall(`${API_URL}/profile`, {
-            method: 'PUT',
-            headers: this.#authHeaders(),
-            body: JSON.stringify(data),
+            method: 'POST',
+            headers,
+            body: isFormData ? data : JSON.stringify(data),
         });
+        
         if (result.user) {
             this.updateCurrentUser(result.user);
         }
@@ -231,7 +238,7 @@ class AuthService {
     }
 
     async changePassword(currentPassword, password, passwordConfirmation) {
-        return this.#apiCall(`${API_URL}/profile/password`, {
+        return this.#apiCall(`${API_URL}/password`, {
             method: 'PUT',
             headers: this.#authHeaders(),
             body: JSON.stringify({

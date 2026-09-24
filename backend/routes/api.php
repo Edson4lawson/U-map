@@ -83,6 +83,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/2fa/confirm', [AuthController::class, 'confirm2fa']);
     Route::post('/2fa/disable', [AuthController::class, 'disable2fa']);
     
+    Route::post('/profile', [AuthController::class, 'updateProfile']);
+    Route::put('/password', [AuthController::class, 'updatePassword']);
+    
     Route::get('/devices', [\App\Http\Controllers\UserDeviceController::class, 'index']);
     Route::delete('/devices/{id}', [\App\Http\Controllers\UserDeviceController::class, 'destroy']);
 

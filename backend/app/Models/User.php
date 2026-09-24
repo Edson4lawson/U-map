@@ -24,6 +24,10 @@ class User extends Authenticatable
         'two_factor_confirmed_at',
         'social_provider',
         'social_id',
+        'avatar',
+        'faculty',
+        'study_level',
+        'student_id',
     ];
 
     protected $hidden = [
