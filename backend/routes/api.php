@@ -105,6 +105,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/study-status', [StudentController::class, 'updateStudyStatus']);
     Route::get('/study-buddies', [StudentController::class, 'studyBuddies']);
 
+    // WebPush subscription management
+    Route::post('/push-subscriptions', [\App\Http\Controllers\PushSubscriptionController::class, 'store']);
+    Route::delete('/push-subscriptions', [\App\Http\Controllers\PushSubscriptionController::class, 'destroy']);
+
     // Authentication route for private channels
     Broadcast::routes();
 });
+
+// VAPID Public Key endpoint (public so client can check capabilities)
+Route::get('/vapid-public-key', [\App\Http\Controllers\PushSubscriptionController::class, 'getPublicKey']);
+

@@ -28,7 +28,8 @@ class MessageController extends Controller
     {
         $userId = Auth::id();
 
-        if (!User::where('id', $receiverId)->exists()) {
+        // Utiliser find() au lieu de where()->exists() pour profiter du PK index
+        if (!User::find($receiverId)) {
             return response()->json(['error' => 'Utilisateur introuvable'], 404);
         }
 
@@ -42,8 +43,10 @@ class MessageController extends Controller
 
         $sevenDaysAgo = Carbon::now()->subDays(7);
         $perPage = min($request->input('per_page', 50), 100);
-        $page = $request->input('page', 1);
 
+        // Requête optimisée : chaque branche du OR utilise son propre index composite
+        // idx_sender_receiver_created couvre (sender=A, receiver=B, created_at)
+        // idx_receiver_sender_read_created couvre (receiver=A, sender=B, ...)
         $messages = Message::where(function ($query) use ($userId, $receiverId) {
             $query->where(function ($q) use ($userId, $receiverId) {
                 $q->where('sender_id', $userId)->where('receiver_id', $receiverId);
@@ -54,13 +57,14 @@ class MessageController extends Controller
             ->where('created_at', '>=', $sevenDaysAgo)
             ->with(['sender:id,name', 'receiver:id,name'])
             ->orderBy('created_at', 'asc')
-            ->paginate($perPage, ['*'], 'page', $page);
+            ->simplePaginate($perPage); // simplePaginate évite le COUNT(*) séparé
 
-        // Marquer comme lu en arrière-plan (non bloquant)
+        // Marquer comme lu — scoped au 7 jours pour ne pas scanner les vieux messages
         if ($messages->isNotEmpty()) {
             Message::where('sender_id', $receiverId)
                 ->where('receiver_id', $userId)
                 ->where('is_read', false)
+                ->where('created_at', '>=', $sevenDaysAgo)
                 ->update(['is_read' => true]);
 
             Cache::forget("user:{$userId}:unread_count");
@@ -71,8 +75,7 @@ class MessageController extends Controller
             'meta' => [
                 'current_page' => $messages->currentPage(),
                 'per_page' => $messages->perPage(),
-                'total' => $messages->total(),
-                'last_page' => $messages->lastPage(),
+                'has_more' => $messages->hasMorePages(),
             ],
         ]);
     }
@@ -100,11 +103,21 @@ class MessageController extends Controller
         // Charger les relations pour le broadcast
         $message->load(['sender:id,name', 'receiver:id,name']);
 
-        // Broadcast l'événement via WebSocket
+        // Broadcast l'événement via WebSocket (pour app ouverte)
         try {
             broadcast(new MessageSent($message));
         } catch (\Throwable $e) {
             Log::warning('WebSocket broadcast failed: ' . $e->getMessage());
+        }
+
+        // Envoyer la notification Web Push au destinataire (pour app en arrière-plan ou fermée)
+        try {
+            $receiver = User::find($receiverId);
+            if ($receiver) {
+                $receiver->notify(new \App\Notifications\NewMessagePushNotification($message));
+            }
+        } catch (\Throwable $e) {
+            Log::warning('WebPush notification dispatch failed: ' . $e->getMessage());
         }
 
         Cache::forget("user:{$receiverId}:unread_count");
@@ -125,8 +138,12 @@ class MessageController extends Controller
 
         $this->syncLegacyConversations($userId);
 
-        $conversations = Conversation::where('user_one_id', $userId)
-            ->orWhere('user_two_id', $userId)
+        // Requête optimisée : UNION de 2 requêtes indexées au lieu d'un OR
+        // Chaque branche utilise son propre index composite (user_X_id, last_message_at)
+        $convAsOne = Conversation::where('user_one_id', $userId)->select('*');
+        $conversations = Conversation::where('user_two_id', $userId)
+            ->select('*')
+            ->union($convAsOne)
             ->orderByDesc('last_message_at')
             ->orderByDesc('updated_at')
             ->get();
@@ -317,8 +334,18 @@ class MessageController extends Controller
      */
     private function syncLegacyConversations(int $userId): void
     {
-        $partners = Message::where('sender_id', $userId)
-            ->orWhere('receiver_id', $userId)
+        // Only sync once per hour to avoid expensive GROUP BY on every request
+        $cacheKey = "user:{$userId}:legacy_sync_done";
+        if (Cache::has($cacheKey)) {
+            return;
+        }
+
+        // Requête optimisée : le WHERE est scopé correctement avec une closure
+        // pour que le OR ne provoque pas un full table scan
+        $partners = Message::where(function ($q) use ($userId) {
+                $q->where('sender_id', $userId)
+                  ->orWhere('receiver_id', $userId);
+            })
             ->selectRaw('CASE WHEN sender_id = ? THEN receiver_id ELSE sender_id END as partner_id', [$userId])
             ->selectRaw('MAX(created_at) as max_created')
             ->groupBy('partner_id')
@@ -334,6 +361,8 @@ class MessageController extends Controller
                 $conv->save();
             }
         }
+
+        Cache::put($cacheKey, true, 3600); // Cache for 1 hour
     }
 
     /**
@@ -358,17 +387,41 @@ class MessageController extends Controller
      */
     private function fetchLatestMessages(int $userId, array $otherUserIds): \Illuminate\Support\Collection
     {
+        if (empty($otherUserIds)) {
+            return collect();
+        }
+
         $sevenDaysAgo = Carbon::now()->subDays(7);
 
-        return Message::where('created_at', '>=', $sevenDaysAgo)
+        // Optimisation : récupérer uniquement le dernier message par partenaire
+        // via une sous-requête ROW_NUMBER au lieu de charger TOUS les messages en mémoire
+        $partnerExpr = DB::raw(
+            'CASE WHEN sender_id = ' . (int) $userId .
+            ' THEN receiver_id ELSE sender_id END'
+        );
+
+        // Requête optimisée : prend le MAX(id) par partenaire (id est monotone croissant = dernier message)
+        $latestIds = DB::table('messages')
+            ->select(DB::raw('MAX(id) as latest_id'))
+            ->where('created_at', '>=', $sevenDaysAgo)
             ->where(function ($q) use ($userId, $otherUserIds) {
-                $q->where(fn ($q2) => $q2->where('sender_id', $userId)->whereIn('receiver_id', $otherUserIds))
-                  ->orWhere(fn ($q2) => $q2->whereIn('sender_id', $otherUserIds)->where('receiver_id', $userId));
+                $q->where(function ($q2) use ($userId, $otherUserIds) {
+                    $q2->where('sender_id', $userId)->whereIn('receiver_id', $otherUserIds);
+                })->orWhere(function ($q2) use ($userId, $otherUserIds) {
+                    $q2->whereIn('sender_id', $otherUserIds)->where('receiver_id', $userId);
+                });
             })
-            ->orderBy('created_at', 'desc')
+            ->groupBy($partnerExpr)
+            ->pluck('latest_id');
+
+        if ($latestIds->isEmpty()) {
+            return collect();
+        }
+
+        // Charge uniquement les N messages nécessaires (1 par partenaire) au lieu de tous
+        return Message::whereIn('id', $latestIds)
             ->get()
-            ->groupBy(fn ($msg) => $msg->sender_id === $userId ? $msg->receiver_id : $msg->sender_id)
-            ->map(fn ($group) => $group->first());
+            ->keyBy(fn ($msg) => $msg->sender_id === $userId ? $msg->receiver_id : $msg->sender_id);
     }
 
     /**
