@@ -1,7 +1,5 @@
-/**
- * Service pour la gestion de l'authentification.
- * Utilise localStorage pour stocker le token et Laravel Sanctum pour le backend.
- */
+import { chatDatabase } from '../db/chatDatabase';
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 class AuthService {
@@ -48,6 +46,7 @@ class AuthService {
     #clearSession() {
         localStorage.removeItem('u_map_token');
         localStorage.removeItem('u_map_user');
+        chatDatabase.clearAllChatData().catch(() => {});
     }
 
     #authHeaders() {
@@ -77,6 +76,9 @@ class AuthService {
 
         localStorage.setItem('u_map_token', data.token);
         localStorage.setItem('u_map_user', JSON.stringify(data.user));
+        if (data.user?.id) {
+            await chatDatabase.ensureUserIsolation(data.user.id);
+        }
         return data.user;
     }
 
@@ -89,6 +91,9 @@ class AuthService {
         });
         localStorage.setItem('u_map_token', data.token);
         localStorage.setItem('u_map_user', JSON.stringify(data.user));
+        if (data.user?.id) {
+            await chatDatabase.ensureUserIsolation(data.user.id);
+        }
         return data.user;
     }
 
@@ -139,6 +144,9 @@ class AuthService {
         });
         localStorage.setItem('u_map_token', data.token);
         localStorage.setItem('u_map_user', JSON.stringify(data.user));
+        if (data.user?.id) {
+            await chatDatabase.ensureUserIsolation(data.user.id);
+        }
         return data.user;
     }
 
@@ -184,6 +192,9 @@ class AuthService {
         });
         localStorage.setItem('u_map_token', data.token);
         localStorage.setItem('u_map_user', JSON.stringify(data.user));
+        if (data.user?.id) {
+            await chatDatabase.ensureUserIsolation(data.user.id);
+        }
         return data.user;
     }
 
@@ -198,6 +209,9 @@ class AuthService {
         });
         localStorage.setItem('u_map_token', data.token);
         localStorage.setItem('u_map_user', JSON.stringify(data.user));
+        if (data.user?.id) {
+            await chatDatabase.ensureUserIsolation(data.user.id);
+        }
         return data.user;
     }
 

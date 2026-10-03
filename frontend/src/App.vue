@@ -87,6 +87,7 @@ import { useToast } from './composables/useToast'
 import { messageService } from './services/messageService'
 import { authService } from './services/authService'
 import echo from './services/echo'
+import { chatDatabase } from './db/chatDatabase'
 
 const route = useRoute()
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
@@ -141,6 +142,11 @@ const subscribeToUserChannel = () => {
   echoUserChannel = user.id
   echo.private(`user.${user.id}`)
     .listen('.message.sent', (data) => {
+      // Save real-time message immediately in local IndexedDB
+      if (data?.sender_id) {
+        chatDatabase.saveSingleMessage(data.sender_id, data).catch(() => {})
+      }
+
       // Show a toast notification for incoming messages
       toastState.info(`💬 ${data.sender?.name || 'Quelqu\'un'} vous a envoyé un message`)
       
@@ -160,6 +166,12 @@ onErrorCaptured((err) => {
 })
 
 onMounted(() => {
+  // Enforce Dexie database user isolation on mount
+  const user = authService.getCurrentUser()
+  if (user?.id) {
+    chatDatabase.ensureUserIsolation(user.id).catch(() => {})
+  }
+
   // Capture unhandled promise rejections — except silent network errors
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason

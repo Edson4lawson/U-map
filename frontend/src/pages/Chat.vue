@@ -259,7 +259,17 @@
             </div>
 
             <!-- Messages Loop -->
-            <div v-for="(msg, index) in chatMessages" :key="msg.id || index" :class="[isMyMessage(msg) ? 'flex justify-end' : 'flex justify-start']" class="w-full">
+            <template v-for="(msg, index) in chatMessages" :key="msg.id || index">
+              <!-- Date Separator -->
+              <div v-if="shouldShowDateSeparator(index)" class="flex items-center justify-center my-4">
+                <div class="px-4 py-1.5 bg-gray-100 dark:bg-white/5 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-full shadow-sm">
+                  <span class="text-[10px] sm:text-[11px] font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+                    {{ formatDateSeparator(msg.created_at) }}
+                  </span>
+                </div>
+              </div>
+
+              <div :class="[isMyMessage(msg) ? 'flex justify-end' : 'flex justify-start']" class="w-full">
               <div class="max-w-[88%] sm:max-w-[75%] flex flex-col" :class="[isMyMessage(msg) ? 'items-end' : 'items-start']">
 
                 <!-- Bubble Wrapper -->
@@ -332,7 +342,8 @@
                   </button>
                 </div>
               </div>
-            </div>
+              </div>
+            </template>
 
             <!-- AI / User Typing Indicator -->
             <div v-if="isTyping" class="flex justify-start">
@@ -577,6 +588,8 @@ import { campusService } from '../services/campusService'
 import { useMeta } from '../composables/useMeta'
 import echo from '../services/echo'
 import errorHandler from '../services/errorHandler'
+import { pushService } from '../services/pushService'
+import { chatDatabase } from '../db/chatDatabase'
 
 defineOptions({
   name: 'Chat'
@@ -840,6 +853,9 @@ const subscribeToChatChannel = () => {
     try {
         echo.private(channelName)
             .listen('.message.sent', (data) => {
+                // Save immediately into IndexedDB (Dexie) so it persists even if user leaves chat immediately
+                chatDatabase.saveSingleMessage(partnerId, data).catch(() => {})
+
                 // Strict isolation: only append if this message belongs to the current open chat
                 if (activeChat.value && !activeChat.value.isAI && activeChat.value.id === partnerId) {
                     if (data.sender_id === partnerId && data.receiver_id === me.id) {
@@ -882,7 +898,8 @@ const startPollingMessages = (partnerId) => {
             return
         }
         try {
-            const response = await messageService.getMessages(partnerId)
+            // forceRefresh=true bypasses stale cache to get real-time data
+            const response = await messageService.getMessages(partnerId, 1, 50, true)
             const msgs = Array.isArray(response.data) ? response.data : (Array.isArray(response) ? response : [])
             if (activeChat.value?.id === partnerId && msgs.length > 0) {
                 // Merge cleanly preserving optimistic messages
@@ -890,8 +907,12 @@ const startPollingMessages = (partnerId) => {
                 const realIds = new Set(msgs.map(m => m.id))
                 const pendingOptimistic = optimistic.filter(o => !realIds.has(o.id))
                 
-                // If message count or latest ID changed, update smoothly
-                if (msgs.length !== (chatMessages.value.length - optimistic.length)) {
+                // Detect changes: compare last real message ID
+                const currentRealMsgs = chatMessages.value.filter(m => !m._optimistic)
+                const lastCurrentId = currentRealMsgs.length > 0 ? currentRealMsgs[currentRealMsgs.length - 1]?.id : null
+                const lastNewId = msgs.length > 0 ? msgs[msgs.length - 1]?.id : null
+                
+                if (lastNewId !== lastCurrentId || msgs.length !== currentRealMsgs.length) {
                     chatMessages.value = [...msgs, ...pendingOptimistic]
                     scrollToBottom()
                 }
@@ -899,7 +920,7 @@ const startPollingMessages = (partnerId) => {
         } catch (e) {
             // silent poll failure
         }
-    }, 3500)
+    }, 2000)
 }
 
 const stopPollingMessages = () => {
@@ -1011,14 +1032,25 @@ const syncChatFromQuery = async () => {
 }
 
 const loadConversations = async () => {
+    // 1. Instant 0ms load from Dexie if local conversations are present
     if (conversations.value.length === 0) {
-        conversationsLoading.value = true
+        const local = await messageService.getLocalCachedConversations()
+        if (local && local.length > 0) {
+            conversations.value = local
+            conversationsLoading.value = false
+        } else {
+            conversationsLoading.value = true
+        }
     }
+
     try {
-        const res = await messageService.getConversations()
+        const res = await messageService.getConversations(true)
         conversations.value = res.data || res || []
     } catch (e) {
         console.error('Error loading conversations:', e)
+        if (!navigator.onLine || e.message?.includes('connexion') || e.message?.includes('réseau')) {
+            errorHandler.warning('Pas de connexion internet. Impossible de charger les conversations en direct.')
+        }
         if (conversations.value.length === 0) {
             conversations.value = []
         }
@@ -1038,7 +1070,9 @@ const filteredStudents = computed(() => {
     return students.value.filter(s => s.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
 })
 
-const logout = () => {
+const logout = async () => {
+    pushService.unsubscribeUser().catch(() => {})
+    await messageService.clearLocalCache()
     authService.logout()
     isLoggedIn.value = false
     activeChat.value = null
@@ -1069,6 +1103,9 @@ const selectChat = async (student) => {
     }
     await loadMessages(student.id)
     subscribeToChatChannel()
+
+    // Meaningful action: prompt for push notifications non-intrusively
+    pushService.promptOnMeaningfulAction().catch(() => {})
 }
 
 const closeChat = () => {
@@ -1082,26 +1119,37 @@ const loadMessages = async (targetId) => {
     const fetchId = targetId || activeChat.value?.id
     if (!fetchId || activeChat.value?.isAI) return
 
-    // Fast memory/storage cache lookup first
-    const cached = messageService.messagesCache?.get(String(fetchId))
+    // 1. Instant 0ms load from Dexie IndexedDB cache
+    const cached = await messageService.getLocalCachedMessages(fetchId, 100)
     if (cached && Array.isArray(cached) && cached.length > 0) {
-        chatMessages.value = cached
-        scrollToBottom()
+        if (activeChat.value?.id === fetchId) {
+            chatMessages.value = cached
+            scrollToBottom()
+        }
         messagesLoading.value = false
     } else {
         messagesLoading.value = true
     }
 
+    // 2. Parallel network sync
     try {
-        const response = await messageService.getMessages(fetchId)
+        const response = await messageService.getMessages(fetchId, 1, 50, true)
         // Strict guard: verify user hasn't switched chat while request was pending
         if (activeChat.value?.id === fetchId) {
             const list = Array.isArray(response.data) ? response.data : (Array.isArray(response) ? response : [])
-            chatMessages.value = list
-            scrollToBottom()
+            if (list.length > 0) {
+                const optimistic = chatMessages.value.filter(m => m._optimistic)
+                const realIds = new Set(list.map(m => m.id))
+                const pendingOptimistic = optimistic.filter(o => !realIds.has(o.id))
+                chatMessages.value = [...list, ...pendingOptimistic]
+                scrollToBottom()
+            }
         }
     } catch (e) {
         console.error('Error loading messages:', e)
+        if (!navigator.onLine || e.message?.includes('connexion') || e.message?.includes('réseau')) {
+            errorHandler.warning('Pas de connexion internet. Impossible de récupérer les messages récents.')
+        }
     } finally {
         messagesLoading.value = false
     }
@@ -1154,6 +1202,9 @@ const handleSendMessage = async () => {
 
             // Update conversation sidebar locally
             _updateConversationSidebar(newMsg)
+
+            // Meaningful action: prompt for push notifications if not yet granted
+            pushService.promptOnMeaningfulAction().catch(() => {})
         } catch (e) {
             chatMessages.value = chatMessages.value.filter(m => m.id !== optimisticMsg.id)
             errorHandler.error(e.message || 'Erreur lors de l\'envoi du message.')
@@ -1210,6 +1261,38 @@ const formatMessageTime = (dateStr) => {
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
+// Date separator helpers — Facebook/Instagram style
+const shouldShowDateSeparator = (index) => {
+    if (index === 0) return true // Always show for the first message
+    const currentMsg = chatMessages.value[index]
+    const prevMsg = chatMessages.value[index - 1]
+    if (!currentMsg?.created_at || !prevMsg?.created_at) return false
+    
+    const currentDate = new Date(currentMsg.created_at)
+    const prevDate = new Date(prevMsg.created_at)
+    if (isNaN(currentDate.getTime()) || isNaN(prevDate.getTime())) return false
+    
+    return currentDate.toDateString() !== prevDate.toDateString()
+}
+
+const formatDateSeparator = (dateStr) => {
+    if (!dateStr) return ''
+    const d = new Date(dateStr)
+    if (isNaN(d.getTime())) return ''
+    
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const msgDate = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+    const diffDays = Math.round((today - msgDate) / (1000 * 60 * 60 * 24))
+    
+    if (diffDays === 0) return "Aujourd'hui"
+    if (diffDays === 1) return 'Hier'
+    if (diffDays < 7) {
+        return d.toLocaleDateString('fr-FR', { weekday: 'long' })
+    }
+    return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+}
+
 const scrollToBottom = () => {
     nextTick(() => {
         nextTick(() => {
@@ -1255,6 +1338,9 @@ const _updateConversationSidebar = (msg) => {
             unread_count: msg.sender_id !== me.id ? 1 : 0,
         }, ...(conversations.value || [])]
     }
+
+    // Persist conversation state into Dexie
+    chatDatabase.saveConversations(conversations.value).catch(() => {})
 }
 
 const submitReport = async () => {

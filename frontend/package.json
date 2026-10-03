@@ -13,6 +13,7 @@
     "@lucide/vue": "^1.2.0",
     "aos": "^2.3.4",
     "date-fns": "^4.1.0",
+    "dexie": "^4.4.6",
     "dompurify": "^3.4.12",
     "laravel-echo": "^2.3.7",
     "leaflet": "^1.9.4",
