@@ -25,7 +25,24 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        importScripts: ['/sw-push.js'],
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
+          {
+            // Time-sensitive messaging and conversation routes: NEVER cache HTTP responses
+            urlPattern: /.*\/api\/(messages|conversations|study-buddies|students|users).*/i,
+            handler: 'NetworkOnly',
+            options: {
+              backgroundSync: {
+                name: 'messages-network-only',
+                options: {
+                  maxRetentionTime: 24 * 60 // Retry for max 24 Hours if needed
+                }
+              }
+            }
+          },
           {
             urlPattern: /^https:\/\/tile\.openstreetmap\.org\/.*/i,
             handler: 'CacheFirst',

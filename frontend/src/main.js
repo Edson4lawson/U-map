@@ -25,3 +25,14 @@ AOS.init({
   once: true,
   offset: 50,
 })
+
+// Listen for Service Worker controllerchange to cleanly refresh clients on update
+if ('serviceWorker' in navigator) {
+  let refreshing = false
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true
+      window.location.reload()
+    }
+  })
+}

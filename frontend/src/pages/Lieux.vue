@@ -2,7 +2,8 @@
   <div class="min-h-screen relative">
     <div class="pt-4 pb-24 px-4 max-w-xl md:max-w-full mx-auto relative z-10">
       <div class="sticky top-0 w-full z-30 bg-transparent rounded-lg backdrop-blur-md py-4">
-        <h1 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4 px-2">{{ $t('lieux.title') }}</h1>
+        <h1 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4 px-2">{{
+          $t('lieux.title') }}</h1>
         <SearchBar v-model="search" />
 
         <!-- Filter Chips Row -->
@@ -194,14 +195,14 @@ const getImage = (place) => {
 
 const getDisplayTags = (tags, category) => {
   if (!category) return []
-  
+
   const displayTags = []
-  
+
   // Utiliser uniquement la catégorie principale
   if (category && category !== 'yes' && category !== 'other') {
     displayTags.push(category)
   }
-  
+
   // Ne plus utiliser les tags OSM techniques - seulement la catégorie
   return displayTags.slice(0, 2) // Maximum 2 tags
 }
