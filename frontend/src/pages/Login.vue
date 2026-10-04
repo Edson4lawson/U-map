@@ -365,32 +365,8 @@ const handleSocialLogin = async (provider) => {
     }
 
     loading.value = true
-    try {
-      // Initialize Google Identity Services only once
-      if (!googleScriptLoaded.value && !window.google?.accounts?.id) {
-        const googleScript = document.createElement('script')
-        googleScript.src = 'https://accounts.google.com/gsi/client'
-        googleScript.async = true
-        googleScript.defer = true
-        document.head.appendChild(googleScript)
-
-        googleScript.onload = () => {
-          googleScriptLoaded.value = true
-          initializeGoogleSignIn(googleClientId)
-        }
-
-        googleScript.onerror = () => {
-          error.value = 'Erreur lors du chargement de Google Sign-In'
-          loading.value = false
-        }
-      } else if (window.google?.accounts?.id) {
-        // Script already loaded, just prompt
-        initializeGoogleSignIn(googleClientId)
-      }
-    } catch (e) {
-      error.value = e.message
-      loading.value = false
-    }
+    // Direct OAuth popup — no GIS script needed, no FedCM warnings
+    openGoogleOAuthPopup(googleClientId, '/login')
   } else if (provider === 'github') {
     errorHandler.info("La connexion via GitHub n'est pas encore disponible sur cette version. Veuillez utiliser votre adresse e-mail ou le Magic Link.")
   } else if (provider === 'apple') {
@@ -399,32 +375,14 @@ const handleSocialLogin = async (provider) => {
 }
 
 const initializeGoogleSignIn = (clientId) => {
-  window.google.accounts.id.initialize({
-    client_id: clientId,
-    callback: handleGoogleCredentialResponse,
-    auto_select: false,
-    cancel_on_tap_outside: true,
-    use_fedcm_for_prompt: true,
-  })
-
-  window.google.accounts.id.prompt((notification) => {
-    // Use optional chaining — newer GIS/FedCM versions may not have these methods
-    const notDisplayed = notification.isNotDisplayed?.() ?? false
-    const skipped = notification.isSkipped?.() ?? false
-    const dismissed = notification.isDismissedMoment?.() ?? false
-
-    if (notDisplayed || skipped || dismissed) {
-      // Fallback: open a traditional OAuth popup instead of One Tap
-      fallbackGoogleOAuth(clientId)
-    }
-  })
+  // Skip One Tap entirely — go straight to OAuth popup (no FedCM warnings)
+  openGoogleOAuthPopup(clientId, '/login')
 }
 
-const fallbackGoogleOAuth = (clientId) => {
-  // Use Google's OAuth2 code flow as a fallback
-  const redirectUri = window.location.origin + '/login'
+const openGoogleOAuthPopup = (clientId, redirectPath) => {
+  const redirectUri = window.location.origin + redirectPath
   const scope = 'openid email profile'
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token+id_token&scope=${encodeURIComponent(scope)}&nonce=${Date.now()}`
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=id_token&scope=${encodeURIComponent(scope)}&nonce=${Date.now()}&prompt=select_account`
 
   // Open a centered popup
   const w = 500, h = 600
@@ -438,7 +396,7 @@ const fallbackGoogleOAuth = (clientId) => {
     return
   }
 
-  // Poll the popup for the redirect with the token
+  // Poll the popup for the redirect with the id_token
   const pollTimer = setInterval(() => {
     try {
       if (popup.closed) {
@@ -450,7 +408,6 @@ const fallbackGoogleOAuth = (clientId) => {
       const popupUrl = popup.location.href
       if (popupUrl.includes(window.location.origin)) {
         clearInterval(pollTimer)
-        // Extract id_token from hash fragment
         const hash = popup.location.hash.substring(1)
         const params = new URLSearchParams(hash)
         const idToken = params.get('id_token')
@@ -471,7 +428,6 @@ const fallbackGoogleOAuth = (clientId) => {
 
 const handleGoogleCredentialResponse = async (response) => {
   try {
-    // Decode the JWT token to get user info
     const base64Url = response.credential.split('.')[1]
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
@@ -479,8 +435,6 @@ const handleGoogleCredentialResponse = async (response) => {
     }).join(''))
 
     const userInfo = JSON.parse(jsonPayload)
-
-    // Send to backend
     await authService.socialLogin('google', response.credential, userInfo.email, userInfo.name)
     router.push('/')
   } catch (e) {

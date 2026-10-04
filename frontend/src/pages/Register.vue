@@ -436,99 +436,73 @@ const handleSocialRegister = async (provider) => {
       errorHandler.info("L'inscription via Google nécessite la configuration du Google Client ID. Veuillez utiliser le formulaire ci-dessus.")
       return
     }
-    
+
     loading.value = true
-    try {
-      if (!window.google?.accounts?.id) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script')
-          script.src = 'https://accounts.google.com/gsi/client'
-          script.onload = resolve
-          script.onerror = reject
-          document.head.appendChild(script)
-        })
-      }
-
-      const handleGoogleCallback = async (response) => {
-        try {
-          const payload = JSON.parse(atob(response.credential.split('.')[1]))
-          await authService.socialLogin(
-            'google',
-            response.credential,
-            payload.email,
-            payload.name || payload.email.split('@')[0]
-          )
-          router.push('/')
-        } catch (err) {
-          error.value = err.message || "Erreur lors de l'inscription via Google"
-        } finally {
-          loading.value = false
-        }
-      }
-
-      window.google.accounts.id.initialize({
-        client_id: googleClientId,
-        callback: handleGoogleCallback,
-        use_fedcm_for_prompt: true,
-      })
-
-      window.google.accounts.id.prompt((notification) => {
-        // Use optional chaining — newer GIS/FedCM versions may not have these methods
-        const notDisplayed = notification.isNotDisplayed?.() ?? false
-        const skipped = notification.isSkipped?.() ?? false
-        const dismissed = notification.isDismissedMoment?.() ?? false
-
-        if (notDisplayed || skipped || dismissed) {
-          // Fallback: open a traditional OAuth popup
-          const redirectUri = window.location.origin + '/register'
-          const scope = 'openid email profile'
-          const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token+id_token&scope=${encodeURIComponent(scope)}&nonce=${Date.now()}`
-
-          const w = 500, h = 600
-          const left = (screen.width - w) / 2
-          const top = (screen.height - h) / 2
-          const popup = window.open(authUrl, 'google_oauth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no`)
-
-          if (!popup) {
-            error.value = "Le popup a été bloqué. Veuillez autoriser les popups pour ce site."
-            loading.value = false
-            return
-          }
-
-          const pollTimer = setInterval(() => {
-            try {
-              if (popup.closed) {
-                clearInterval(pollTimer)
-                loading.value = false
-                return
-              }
-              const popupUrl = popup.location.href
-              if (popupUrl.includes(window.location.origin)) {
-                clearInterval(pollTimer)
-                const hash = popup.location.hash.substring(1)
-                const params = new URLSearchParams(hash)
-                const idToken = params.get('id_token')
-                popup.close()
-                if (idToken) {
-                  handleGoogleCallback({ credential: idToken })
-                } else {
-                  error.value = "Impossible de récupérer le jeton Google."
-                  loading.value = false
-                }
-              }
-            } catch (e) {
-              // Cross-origin — keep polling
-            }
-          }, 500)
-        }
-      })
-    } catch (e) {
-      error.value = "Impossible de charger l'authentification Google"
-      loading.value = false
-    }
+    openGoogleOAuthPopup(googleClientId, '/register')
   } else {
     const name = provider === 'github' ? 'GitHub' : 'Apple'
     errorHandler.info(`L'inscription via ${name} n'est pas encore disponible. Veuillez utiliser le formulaire e-mail ci-dessus.`)
+  }
+}
+
+const openGoogleOAuthPopup = (clientId, redirectPath) => {
+  const redirectUri = window.location.origin + redirectPath
+  const scope = 'openid email profile'
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=id_token&scope=${encodeURIComponent(scope)}&nonce=${Date.now()}&prompt=select_account`
+
+  const w = 500, h = 600
+  const left = (screen.width - w) / 2
+  const top = (screen.height - h) / 2
+  const popup = window.open(authUrl, 'google_oauth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no`)
+
+  if (!popup) {
+    error.value = "Le popup a été bloqué par votre navigateur. Veuillez autoriser les popups pour ce site."
+    loading.value = false
+    return
+  }
+
+  const pollTimer = setInterval(() => {
+    try {
+      if (popup.closed) {
+        clearInterval(pollTimer)
+        loading.value = false
+        return
+      }
+      const popupUrl = popup.location.href
+      if (popupUrl.includes(window.location.origin)) {
+        clearInterval(pollTimer)
+        const hash = popup.location.hash.substring(1)
+        const params = new URLSearchParams(hash)
+        const idToken = params.get('id_token')
+        popup.close()
+        if (idToken) {
+          handleGoogleCredentialResponse({ credential: idToken })
+        } else {
+          error.value = "Impossible de récupérer le jeton Google."
+          loading.value = false
+        }
+      }
+    } catch (e) {
+      // Cross-origin during OAuth navigation — keep polling
+    }
+  }, 500)
+}
+
+const handleGoogleCredentialResponse = async (response) => {
+  try {
+    const base64Url = response.credential.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }).join(''))
+
+    const userInfo = JSON.parse(jsonPayload)
+    await authService.socialLogin('google', response.credential, userInfo.email, userInfo.name || userInfo.email.split('@')[0])
+    router.push('/')
+  } catch (e) {
+    error.value = e.message || "Erreur lors de l'inscription avec Google"
+  } finally {
+    loading.value = false
   }
 }
 
