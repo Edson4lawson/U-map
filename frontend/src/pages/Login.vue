@@ -404,16 +404,69 @@ const initializeGoogleSignIn = (clientId) => {
     callback: handleGoogleCredentialResponse,
     auto_select: false,
     cancel_on_tap_outside: true,
+    use_fedcm_for_prompt: true,
   })
 
   window.google.accounts.id.prompt((notification) => {
-    if (notification.isNotDisplayed()) {
-      error.value = 'Impossible d\'afficher Google Sign-In'
-      loading.value = false
-    } else if (notification.isSkipped()) {
-      loading.value = false
+    // Use optional chaining — newer GIS/FedCM versions may not have these methods
+    const notDisplayed = notification.isNotDisplayed?.() ?? false
+    const skipped = notification.isSkipped?.() ?? false
+    const dismissed = notification.isDismissedMoment?.() ?? false
+
+    if (notDisplayed || skipped || dismissed) {
+      // Fallback: open a traditional OAuth popup instead of One Tap
+      fallbackGoogleOAuth(clientId)
     }
   })
+}
+
+const fallbackGoogleOAuth = (clientId) => {
+  // Use Google's OAuth2 code flow as a fallback
+  const redirectUri = window.location.origin + '/login'
+  const scope = 'openid email profile'
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token+id_token&scope=${encodeURIComponent(scope)}&nonce=${Date.now()}`
+
+  // Open a centered popup
+  const w = 500, h = 600
+  const left = (screen.width - w) / 2
+  const top = (screen.height - h) / 2
+  const popup = window.open(authUrl, 'google_oauth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no`)
+
+  if (!popup) {
+    error.value = "Le popup a été bloqué. Veuillez autoriser les popups pour ce site."
+    loading.value = false
+    return
+  }
+
+  // Poll the popup for the redirect with the token
+  const pollTimer = setInterval(() => {
+    try {
+      if (popup.closed) {
+        clearInterval(pollTimer)
+        loading.value = false
+        return
+      }
+
+      const popupUrl = popup.location.href
+      if (popupUrl.includes(window.location.origin)) {
+        clearInterval(pollTimer)
+        // Extract id_token from hash fragment
+        const hash = popup.location.hash.substring(1)
+        const params = new URLSearchParams(hash)
+        const idToken = params.get('id_token')
+        popup.close()
+
+        if (idToken) {
+          handleGoogleCredentialResponse({ credential: idToken })
+        } else {
+          error.value = "Impossible de récupérer le jeton Google."
+          loading.value = false
+        }
+      }
+    } catch (e) {
+      // Cross-origin — popup hasn't redirected back yet, keep polling
+    }
+  }, 500)
 }
 
 const handleGoogleCredentialResponse = async (response) => {
@@ -435,6 +488,7 @@ const handleGoogleCredentialResponse = async (response) => {
     loading.value = false
   }
 }
+
 </script>
 
 <style scoped>
