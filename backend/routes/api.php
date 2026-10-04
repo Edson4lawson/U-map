@@ -19,15 +19,54 @@ Route::post('/admin/login', [AdminController::class, 'login'])
 Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group(function () {
     Route::get('/verify', [AdminController::class, 'verify']);
     Route::get('/stats', [AdminController::class, 'stats']);
+    Route::get('/analytics', [AdminController::class, 'analytics']);
     Route::get('/users', [AdminController::class, 'users']);
+    Route::get('/users/{id}/sanctions', [AdminController::class, 'getUserSanctions']);
+    Route::get('/users/{id}/dossier', [AdminController::class, 'getUserSanctions']);
+    Route::post('/users/{id}/note', [AdminController::class, 'updateUserNote']);
+    Route::put('/users/{id}/role', [AdminController::class, 'updateUserRole']);
+    Route::post('/users/{id}/force-logout', [AdminController::class, 'forceLogoutUser']);
+    Route::post('/users/{id}/reset-password', [AdminController::class, 'resetUserPassword']);
     Route::put('/users/{id}/restrict', [AdminController::class, 'toggleRestrictUser']);
+    Route::post('/users/{id}/unban', [AdminController::class, 'unbanUser']);
     Route::delete('/users/{id}', [AdminController::class, 'deleteUser']);
+    
+    // Signalements & Modération
     Route::get('/reports', [AdminController::class, 'reports']);
-    Route::put('/reports/{id}/resolve', [AdminController::class, 'resolveReport']);
+    Route::get('/reports/{id}/context', [AdminController::class, 'getReportContext']);
+    Route::put('/reports/{id}/status', [AdminController::class, 'updateReportStatus']);
+    Route::put('/reports/{id}/resolve', [AdminController::class, 'updateReportStatus']); // Alias rétrocompatible
+
+    // Actions graduées
+    Route::post('/moderation/warn', [AdminController::class, 'warnUser']);
+    Route::post('/moderation/mute', [AdminController::class, 'muteUser']);
+    Route::post('/moderation/suspend', [AdminController::class, 'suspendUser']);
+    Route::post('/moderation/ban', [AdminController::class, 'banUser']);
+    Route::delete('/messages/{id}', [AdminController::class, 'deleteMessage']);
+
+    // Journal d'audit
+    Route::get('/audit-logs', [AdminController::class, 'auditLogs']);
+
+    // Lieux & Cartographie (Phase 2)
     Route::get('/places', [AdminController::class, 'places']);
+    Route::put('/places/{id}', [AdminController::class, 'updatePlace']);
+    Route::put('/places/{id}/visibility', [AdminController::class, 'updatePlaceVisibility']);
+    Route::get('/places/duplicates', [AdminController::class, 'getDuplicatePlaces']);
+    Route::post('/places/{id}/regenerate-ai', [AdminController::class, 'regeneratePlaceDescription']);
     Route::put('/places/{id}/approve', [AdminController::class, 'approvePlace']);
     Route::delete('/places/{id}', [AdminController::class, 'deletePlace']);
     Route::get('/messages', [AdminController::class, 'messages']);
+
+    // Supervision & Système (Phase 5)
+    Route::get('/system/health', [AdminController::class, 'systemHealth']);
+    Route::get('/system/logs', [AdminController::class, 'systemLogs']);
+    Route::delete('/system/logs', [AdminController::class, 'clearSystemLogs']);
+    Route::post('/system/cache-clear', [AdminController::class, 'clearSystemCache']);
+    Route::post('/system/optimize', [AdminController::class, 'optimizeSystem']);
+
+    // Outils IA & Suggestions Campus (Phase 6)
+    Route::post('/ai/campus-digest', [AdminController::class, 'generateCampusDigest']);
+    Route::get('/ai/campus-audit', [AdminController::class, 'auditCampusPlaces']);
 });
 
 // ── Public ────────────────────────────────────────────────────

@@ -86,6 +86,29 @@ class MessageController extends Controller
     public function sendMessage(SendMessageRequest $request)
     {
         $senderId = (int) Auth::id();
+        /** @var \App\Models\User $sender */
+        $sender = Auth::user();
+
+        if ($sender->isBanned()) {
+            return response()->json(['error' => 'Votre compte est banni.'], 403);
+        }
+
+        if ($sender->isSuspended()) {
+            return response()->json(['error' => 'Votre compte est temporairement suspendu.'], 403);
+        }
+
+        if ($sender->isMuted()) {
+            $formattedDate = $sender->muted_until->translatedFormat('d/m/Y à H:i');
+            return response()->json([
+                'error' => "Vous avez été rendu muet par la modération jusqu'au {$formattedDate}.",
+                'muted_until' => $sender->muted_until->toIso8601String(),
+            ], 403);
+        }
+
+        if ($sender->is_restricted) {
+            return response()->json(['error' => 'Votre compte est restreint.'], 403);
+        }
+
         $receiverId = (int) $request->input('receiver_id');
         $content = (string) $request->input('content');
 
@@ -140,9 +163,10 @@ class MessageController extends Controller
 
         // Requête optimisée : UNION de 2 requêtes indexées au lieu d'un OR
         // Chaque branche utilise son propre index composite (user_X_id, last_message_at)
-        $convAsOne = Conversation::where('user_one_id', $userId)->select('*');
-        $conversations = Conversation::where('user_two_id', $userId)
-            ->select('*')
+        $convAsOne = Conversation::query()->where('user_one_id', $userId);
+        /** @var \Illuminate\Database\Eloquent\Collection<int, \App\Models\Conversation> $conversations */
+        $conversations = Conversation::query()
+            ->where('user_two_id', $userId)
             ->union($convAsOne)
             ->orderByDesc('last_message_at')
             ->orderByDesc('updated_at')
@@ -155,7 +179,7 @@ class MessageController extends Controller
             ]);
         }
 
-        $otherUserIds   = $conversations->map(fn ($c) => $c->getOtherUserId($userId))->unique()->values()->all();
+        $otherUserIds   = $conversations->map(fn (\App\Models\Conversation $c) => $c->getOtherUserId($userId))->unique()->values()->all();
         $users          = $this->fetchPartnerUsers($otherUserIds);
         $latestMessages = $this->fetchLatestMessages($userId, $otherUserIds);
         $unreadCounts   = $this->fetchUnreadCounts($userId, $otherUserIds);
@@ -163,6 +187,7 @@ class MessageController extends Controller
 
         $result = collect();
         foreach ($conversations as $conv) {
+            /** @var \App\Models\Conversation $conv */
             $otherId = $conv->getOtherUserId($userId);
             $user    = $users->get($otherId);
             if (!$user) {

@@ -79,6 +79,19 @@ class AuthController extends Controller
             ], 401);
         }
 
+        if ($user->isBanned()) {
+            return response()->json([
+                'message' => 'Ce compte a été définitivement banni en raison de non-respect des règles.',
+            ], 403);
+        }
+
+        if ($user->isSuspended()) {
+            $formattedDate = $user->suspended_until->translatedFormat('d/m/Y à H:i');
+            return response()->json([
+                'message' => "Votre compte est temporairement suspendu jusqu'au {$formattedDate}.",
+            ], 403);
+        }
+
         if ($user->is_restricted) {
             return response()->json([
                 'message' => 'Votre compte a été restreint suite à des signalements.',
@@ -453,7 +466,7 @@ class AuthController extends Controller
 
         // Utiliser la table password_reset_tokens native de Laravel avec TTL 60 minutes
         $token = Str::random(60);
-        \DB::table('password_reset_tokens')->updateOrInsert(
+        DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
             [
                 'token' => Hash::make($token),
@@ -482,7 +495,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed'
         ]);
 
-        $resetToken = \DB::table('password_reset_tokens')
+        $resetToken = DB::table('password_reset_tokens')
             ->where('email', $request->email)
             ->first();
 
@@ -492,7 +505,7 @@ class AuthController extends Controller
 
         // Vérifier expiration (60 minutes)
         if ($resetToken->created_at < now()->subMinutes(60)) {
-            \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
             return response()->json(['message' => 'Token expiré. Veuillez demander un nouveau lien.'], 400);
         }
 
@@ -506,7 +519,7 @@ class AuthController extends Controller
         $user->save();
 
         // Supprimer le token utilisé
-        \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return response()->json([
             'message' => 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.'

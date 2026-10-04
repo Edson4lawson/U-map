@@ -10,9 +10,9 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        Admin::create([
-            'username' => 'admin',
-            'password' => 'umapAdmin2026!', // Sera hashé automatiquement par le mutator
-        ]);
+        Admin::updateOrCreate(
+            ['username' => 'admin'],
+            ['password' => 'umapAdmin2026!'] // Sera hashé automatiquement par le mutator
+        );
     }
 }

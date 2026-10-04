@@ -29,6 +29,12 @@ class User extends Authenticatable
         'faculty',
         'study_level',
         'student_id',
+        'is_restricted',
+        'muted_until',
+        'suspended_until',
+        'is_banned',
+        'admin_note',
+        'role',
     ];
 
     protected $hidden = [
@@ -43,8 +49,11 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'two_factor_confirmed_at' => 'datetime',
+            'muted_until' => 'datetime',
+            'suspended_until' => 'datetime',
             'password' => 'hashed',
             'is_restricted' => 'boolean',
+            'is_banned' => 'boolean',
             'role' => UserRole::class,
         ];
     }
@@ -52,6 +61,36 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role?->isAdmin() ?? false;
+    }
+
+    public function isMuted(): bool
+    {
+        return $this->muted_until && $this->muted_until->isFuture();
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->suspended_until && $this->suspended_until->isFuture();
+    }
+
+    public function isBanned(): bool
+    {
+        return (bool) $this->is_banned;
+    }
+
+    public function sanctions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserSanction::class)->orderByDesc('created_at');
+    }
+
+    public function reportsReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Report::class, 'reported_user_id');
+    }
+
+    public function reportsSent(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Report::class, 'reporter_id');
     }
 
     public function devices(): \Illuminate\Database\Eloquent\Relations\HasMany
