@@ -46,7 +46,7 @@ services:
       - key: LOG_LEVEL
         value: warning
       - key: ALLOWED_ORIGINS
-        value: https://umap-ten.vercel.app,https://u-map.vercel.app
+        value: https://umap-bj.vercel.app,https://umap-ten.vercel.app,https://u-map.vercel.app
       - key: MAIL_MAILER
         value: log
       - key: GROQ_API_KEY

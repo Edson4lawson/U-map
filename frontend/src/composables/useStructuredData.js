@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted } from 'vue'
 
-const BASE_URL = 'https://umap-ten.vercel.app'
+const BASE_URL = 'https://umap-bj.vercel.app'
 
 /**
  * Composable pour injecter des données structurées JSON-LD dans le <head>.

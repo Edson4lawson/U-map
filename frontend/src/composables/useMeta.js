@@ -1,7 +1,7 @@
 import { watchEffect, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const BASE_URL = 'https://umap-ten.vercel.app'
+const BASE_URL = 'https://umap-bj.vercel.app'
 const SITE_NAME = 'U-map UAC'
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`
 const DEFAULT_GEO = { lat: '6.4180', lng: '2.3450', placename: 'Abomey-Calavi, Bénin' }

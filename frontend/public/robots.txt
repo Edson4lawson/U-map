@@ -34,4 +34,4 @@ User-agent: WhatsApp
 Allow: /
 
 # Sitemap
-Sitemap: https://umap-ten.vercel.app/sitemap.xml
+Sitemap: https://umap-bj.vercel.app/sitemap.xml

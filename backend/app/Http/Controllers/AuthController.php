@@ -297,9 +297,8 @@ class AuthController extends Controller
         Cache::put("magic_token:{$magicToken}", $user->id, now()->addMinutes(15));
 
         // Send email using Resend
-        $magicLinkUrl = app()->environment('local') 
-            ? "http://localhost:5173/magic-link-login?token={$magicToken}"
-            : "https://umap-ten.vercel.app/magic-link-login?token={$magicToken}";
+        $frontendUrl = env('FRONTEND_URL', app()->environment('local') ? 'http://localhost:5173' : 'https://umap-bj.vercel.app');
+        $magicLinkUrl = "{$frontendUrl}/magic-link-login?token={$magicToken}";
         
         $this->resendService->sendMagicLink($user->email, $magicLinkUrl);
 
@@ -475,9 +474,8 @@ class AuthController extends Controller
         );
 
         // Send email using Resend
-        $resetUrl = app()->environment('local') 
-            ? "http://localhost:5173/reset-password?token={$token}&email=" . urlencode($user->email)
-            : "https://umap-ten.vercel.app/reset-password?token={$token}&email=" . urlencode($user->email);
+        $frontendUrl = env('FRONTEND_URL', app()->environment('local') ? 'http://localhost:5173' : 'https://umap-bj.vercel.app');
+        $resetUrl = "{$frontendUrl}/reset-password?token={$token}&email=" . urlencode($user->email);
         
         $this->resendService->sendPasswordReset($user->email, $resetUrl);
 
