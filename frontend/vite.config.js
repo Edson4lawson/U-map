@@ -24,8 +24,9 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,xml,txt}'],
         importScripts: ['/sw-push.js'],
+        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/api\/.*/],
         skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
